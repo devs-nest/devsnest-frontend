@@ -9,8 +9,10 @@ import axios from '../config/axios.config';
 import Box from '@material-ui/core/Box';
 import { useForm } from 'react-hook-form';
 import { CircularProgress } from '@material-ui/core';
+
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { types } from 'util';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -120,7 +122,7 @@ function SettingPage() {
   // Setting profile
   const handleUpload = async (file: any) => {
     let token: string = localStorage.getItem('Token') || '';
-    if (token != '') {
+    if (token !== '') {
       const formData = new FormData();
       formData.append('profileImage', file);
 
@@ -173,7 +175,9 @@ function SettingPage() {
   const submit = async (e: any) => {
     let token: string = localStorage.getItem('Token') || '';
     setLoading(true);
+
     if (token != '') {
+
       await axios
         .post('/api/users', userUpdate, {
           headers: {
@@ -182,7 +186,9 @@ function SettingPage() {
         })
         .then((res) => {
           setLoading(false);
+
           console.log(res, 'abeeeeee ');
+
         })
         .catch((e) => {});
     }

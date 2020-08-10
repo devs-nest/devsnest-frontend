@@ -34,9 +34,14 @@ Card {
   fill: #44a340;
 }
 .react-calendar-heatmap .color-scale-4 {
-  fill: #1e6823;
+  fill: hsl(124, 55%, 26%);
 }
+
 
 .textHover:hover {
   color: blue !important;
 }
+/* .ck.ck-editor__main > .ck-editor__editable:not(.ck-focused) {
+  height: 200px;
+} */
+

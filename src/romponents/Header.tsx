@@ -128,10 +128,12 @@ export default function PersistentDrawerLeft() {
         <Toolbar>
           <IconButton
             color="inherit"
+
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             edge="start"
             className={clsx(classes.menuButton, open && classes.hide)}
+
           >
             <MenuIcon />
           </IconButton>
@@ -140,6 +142,7 @@ export default function PersistentDrawerLeft() {
               Devnest
             </Link>
           </Typography>
+
         </Toolbar>
       </AppBar>
       <Drawer
@@ -171,6 +174,7 @@ export default function PersistentDrawerLeft() {
               <Link
                 to="/profile"
                 style={{ color: '#000', textDecoration: 'none' }}
+
               >
                 Profile
               </Link>
@@ -208,6 +212,7 @@ export default function PersistentDrawerLeft() {
                   textDecoration: 'none',
                 }}
               >
+
                 GBU
               </Link>
             </MenuItem>
@@ -233,6 +238,46 @@ export default function PersistentDrawerLeft() {
 
         <Divider />
       </Drawer>
+
+                <MenuItem onClick={handleClose} style={{ color: '#000' }}>
+                  <Link
+                    to="/profile"
+                    style={{ color: '#000', textDecoration: 'none' }}
+                  >
+                    Profile
+                  </Link>
+                </MenuItem>
+
+                <MenuItem onClick={handleClose} style={{ color: '#000' }}>
+                  <Link
+                    to="/settings"
+                    style={{ color: '#000', textDecoration: 'none' }}
+                  >
+                    Settings
+                  </Link>
+                </MenuItem>
+                <MenuItem onClick={handleClose} style={{ color: '#000' }}>
+                  <Link
+                    to="/gbu"
+                    style={{ color: '#000', textDecoration: 'none' }}
+                  >
+                    Gbu
+                  </Link>
+                </MenuItem>
+                <MenuItem onClick={handleClick}>
+                  <Link
+                    to="/login"
+                    style={{ color: '#000', textDecoration: 'none' }}
+                  >
+                    Logout
+                  </Link>
+                </MenuItem>
+              </Menu>
+            </div>
+          )}
+        </Toolbar>
+      </AppBar>
+
     </div>
   );
 }
