@@ -5,7 +5,6 @@ import Header from './Header';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
 import image from '../images/dummy.png';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import axios from '../config/axios.config';
