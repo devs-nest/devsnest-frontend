@@ -1162,6 +1162,16 @@
   dependencies:
     "@hapi/hoek" "^8.3.0"
 
+"@iconify/icons-mdi@^1.0.129":
+  version "1.0.129"
+  resolved "https://registry.yarnpkg.com/@iconify/icons-mdi/-/icons-mdi-1.0.129.tgz#e277ae6bc1e634783c3312359ab3bca2fc4cbe73"
+  integrity sha512-V6N7q1nfNTEHz5wo/J9OCL+IFZxfNhJNw2LTJ+geWLLZYxn6g0sjdK+7wJfsWrzJJGx6kUWS4ERqVsEdcJAALg==
+
+"@iconify/react@^1.1.3":
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/@iconify/react/-/react-1.1.3.tgz#ebe4d3e5f5dea23cd6a9634acd7a0a25c7414a59"
+  integrity sha512-ReZNJyr89AfED6XZIXkhsJiNv2taT3j1cTo1HVPHMsrKOz6gAYdXtD2kDWF6+GVoFUxpmnO0fMcA6yCyTf6Tow==
+
 "@jest/console@^24.7.1", "@jest/console@^24.9.0":
   version "24.9.0"
   resolved "https://registry.yarnpkg.com/@jest/console/-/console-24.9.0.tgz#79b1bc06fb74a8cfb01cbdedf945584b1b9707f0"
@@ -9257,7 +9267,6 @@ react-fast-compare@^2.0.1:
   resolved "https://registry.yarnpkg.com/react-fast-compare/-/react-fast-compare-2.0.4.tgz#e84b4d455b0fec113e0402c329352715196f81f9"
   integrity sha512-suNP+J1VU1MWFKcyt7RtjiSWUjvidmQSlqu+eHslq+342xCbGTYmC0mEhPCOHxlW0CywylOC1u2DFAT+bv4dBw==
 
-
 react-ga@^3.1.2:
   version "3.1.2"
   resolved "https://registry.yarnpkg.com/react-ga/-/react-ga-3.1.2.tgz#e13f211c51a2e5c401ea69cf094b9501fe3c51ce"
@@ -9267,7 +9276,6 @@ react-hook-form@^6.0.8:
   version "6.1.0"
   resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-6.1.0.tgz#ef2d4d7ad4805b3f33d027448d8a0f2944ec8ca5"
   integrity sha512-sPOTCaWQUOPaf+U8hJEXD3ZqBiBxnvCBNm/VLAOh6MUMxRz0Yl0PtsWHAXIqxz5yGLGPe7prgghlfEUJ+sb5Dg==
-
 
 react-is@^16.12.0, react-is@^16.6.0, react-is@^16.7.0, react-is@^16.8.0, react-is@^16.8.1, react-is@^16.8.4:
   version "16.13.1"
