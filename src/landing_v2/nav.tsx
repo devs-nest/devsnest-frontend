@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import classNames from 'classnames';
 import { NavHashLink } from 'react-router-hash-link';
+import GoogleLoginDiv from '../romponents//GoogleLogin';
 
 function Nav(props) {
   const { faqs } = props;
@@ -54,6 +55,8 @@ function Nav(props) {
             <NavHashLink to="/#curriculum" className="nav-item">
               Curriculum
             </NavHashLink>
+
+            <GoogleLoginDiv />
           </div>
           <div className="nav-bar__bar-container">
             <img
