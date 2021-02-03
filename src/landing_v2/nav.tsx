@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import classNames from 'classnames';
 import { NavHashLink } from 'react-router-hash-link';
-import GoogleLoginDiv from '../romponents//GoogleLogin';
+import GoogleLoginDiv from '@components/GoogleLogin';
 
 function Nav(props) {
   const { faqs } = props;

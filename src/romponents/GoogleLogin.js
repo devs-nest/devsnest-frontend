@@ -1,15 +1,16 @@
 import GoogleLogin from 'react-google-login';
 import React, { Component } from 'react';
-require('dotenv').config();
+import { HOST } from '../config/constants';
 
-class GoogleLoginDiv extends Component {
-  responseGoogle = (resp) => {
+function GoogleLoginDiv() {
+  const responseGoogle = (resp) => {
+    console.log(resp);
     // console.log(resp);
     // console.log(resp.accessToken);
     // console.log(resp.googleId);
     // console.log(resp.profileObj.email, resp.profileObj.name);
 
-    const url = 'http://localhost:4000/customers/login';
+    const url = HOST + '/customers/login';
     const data = {
       name: resp.profileObj.name,
       email: resp.profileObj.email,
@@ -26,20 +27,15 @@ class GoogleLoginDiv extends Component {
       .then((res) => console.log(res));
     // .then(res => setFetchedData({ data: res.data, error: res.error}))
   };
-
-  render() {
-    return (
-      <div>
-        <GoogleLogin
-          clientId="378443496505-1hdvch7vk5do0fru4curohirkiv9h5t0.apps.googleusercontent.com"
-          buttonText="Login"
-          onSuccess={this.responseGoogle}
-          onFailure={this.responseGoogle}
-          cookiePolicy={'single_host_origin'}
-        />
-      </div>
-    );
-  }
+  return (
+    <GoogleLogin
+      clientId={process.env.REACT_APP_CLIENT_ID}
+      buttonText="Login"
+      onSuccess={responseGoogle}
+      onFailure={responseGoogle}
+      cookiePolicy={'single_host_origin'}
+    />
+  );
 }
 
 export default GoogleLoginDiv;
