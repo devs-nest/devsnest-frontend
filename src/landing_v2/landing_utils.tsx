@@ -1,3 +1,5 @@
+import React from 'react';
+
 const responsiveMultipleItem = {
   superLargeDesktop: {
     // the naming can be any, depends on you.

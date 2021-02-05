@@ -18,6 +18,7 @@ import {
   mentorsData,
   webinarData,
 } from './landing_data';
+
 import { responsiveMultipleItem, responsiveSingleItem } from './landing_utils';
 
 function Landing() {
@@ -54,7 +55,7 @@ function Landing() {
               PRE<span>REQUISITES </span>
             </div>
 
-            <ol className="prerequisites__list">
+            <ul className="prerequisites__list">
               {prerequisite_data.map((item) => {
                 const { name, descp } = item;
                 return (
@@ -68,7 +69,7 @@ function Landing() {
                   </li>
                 );
               })}
-            </ol>
+            </ul>
           </section>
 
           <section className="who_can_join" id="who_can_join">
@@ -77,7 +78,7 @@ function Landing() {
               Who all can <span>JOIN </span>{' '}
             </div>
 
-            <ol className="who_can_join__list">
+            <ul className="who_can_join__list">
               {who_can_join_data.map((item) => {
                 const { name } = item;
                 return (
@@ -86,7 +87,7 @@ function Landing() {
                   </li>
                 );
               })}
-            </ol>
+            </ul>
           </section>
         </div>
 
@@ -294,7 +295,11 @@ function Landing() {
 
       <div id="mentors">
         <div className="headingx mentors__heading">Meet your mentors</div>
-        <Carousel responsive={responsiveSingleItem}>
+        <Carousel
+          responsive={responsiveSingleItem}
+          showDots={true}
+          infinite={true}
+        >
           {mentorsData.map((mentor) => {
             const { name, company, descp, img, linkedin } = mentor;
             return (
