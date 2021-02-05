@@ -171,20 +171,39 @@ a.nav-item {
 
       &__left {
         display: flex;
+
+        img {
+          width: 25vw;
+        }
       }
 
       &__right {
         display: flex;
         text-align: right;
         align-items: center;
-        padding-left: 15px;
+        padding-left: 5vw;
+        line-height: 30px;
+      }
+    }
+  }
+
+  .container {
+    display: flex;
+    &__left {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    &__right {
+      display: flex;
+      img {
+        width: 25vw;
       }
     }
   }
 
   .prerequisites {
-    padding: 0px;
-
     &__heading {
       span {
         color: $color-purple;
@@ -194,7 +213,7 @@ a.nav-item {
     &__list {
       padding: 15px 0px;
       &__item {
-        padding: 7px 0px;
+        padding: 6px 0px;
 
         &__descp {
           padding-left: 15px;
@@ -205,8 +224,6 @@ a.nav-item {
   }
 
   .who_can_join {
-    padding: 0px;
-
     &__heading {
       span {
         color: $color-purple;
@@ -216,7 +233,7 @@ a.nav-item {
     &__list {
       padding: 15px 0px;
       &__item {
-        padding: 7px 0px;
+        padding: 6px 0px;
       }
     }
   }
@@ -396,10 +413,6 @@ a.nav-item {
 
     &__active {
       border: 1px solid $color-purple;
-    }
-
-    &__heading {
-      //padding: 60px 0;
     }
 
     &__container {
@@ -819,6 +832,48 @@ a.nav-item {
 
     .show-with-style {
       display: flex;
+    }
+
+    .our-vision {
+      &__heading {
+        text-align: left;
+      }
+
+      &__container {
+        &__left {
+          justify-content: center;
+          margin: 20px 0px;
+          img {
+            width: 50vw;
+          }
+        }
+
+        &__right {
+          padding-left: 0vw;
+        }
+      }
+    }
+
+    .container {
+      &__right {
+        justify-content: center;
+        margin-bottom: 60px;
+        img {
+          width: 60vw;
+        }
+      }
+    }
+
+    .prerequisites {
+      &__list {
+        margin-left: 20px;
+      }
+    }
+
+    .who_can_join {
+      &__list {
+        margin-left: 20px;
+      }
     }
 
     .hero {

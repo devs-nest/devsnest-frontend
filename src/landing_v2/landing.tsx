@@ -9,168 +9,16 @@ import './landing.scss';
 import achieve from '../images/achieve.png';
 import whatsappIcon from '../images/whatsappIcon.png';
 import WA_illustratration from '../images/WA_illustratration.png';
+import Group_15 from '../images/Group_15.svg';
+import Group_2479 from '../images/Group_2479.svg';
 
-const prerequisite_data = [
-  {
-    name: 'Basic Understanding of English and Maths',
-    descp: null,
-  },
-  {
-    name: 'Basic Understanding of Python Language',
-    descp:
-      'If not Please do this course and learn the basics, should not take more than 10 days, Feel free to ask your doubts in the python-beginner challenge.',
-  },
-  {
-    name:
-      'Be a part of community, be ready to spend 2-3 hours a week with your peers learning together',
-    descp: null,
-  },
-  {
-    name: 'Motivation to learn',
-    descp: null,
-  },
-];
-
-const who_can_join_data = [
-  {
-    name: 'If you looking to explore a career in coding(Complete beginner)',
-  },
-  {
-    name: 'You are passionate about coding and building stuff',
-  },
-  {
-    name:
-      'You want to revise a few concepts and you love interacting with the community',
-  },
-];
-
-const mentorsData = [
-  {
-    name: 'Vedansh Garg',
-    company: 'Ex - HackerRank',
-    img: './mentor_ved.jpg',
-    linkedin: 'https://www.linkedin.com/in/vedanshgarg/',
-    descp: `Vedansh was a Senior Engineer at Hackerrank. In the last 5 years, he scaled the HackerRank community from 500k to 10M Developers.
-
-      He was also part of Navgurukul a Non Profit where he has worked on curriculum, jobs pipeline, and mentoring 100+ underprivileged students on software engineering.`,
-  },
-  // {
-  //   name: 'Naman Malhotra',
-  //   company: 'Co-founded Alconomy',
-  //   img: './mentor_nam_f.jpg',
-  //   linkedin: 'https://www.linkedin.com/in/naman03malhotra/',
-  //   descp: `Hi, I am Naman Malhotra. I still remember the first line of code I wrote when I was 13. Since then, I have worked with many startup founders across the continents.
-
-  //   I co-founded two startups; one of them was in the Ed-Tech space, and the other was in blockchain fintech. In both of them, I lead the entire tech end to end and product to some extent.
-
-  //   I strongly believe that if you have the right set of skills, your background, traditional education, etc hardly matters. Given that you are ready to work your ass off.`,
-  // },
-  {
-    name: 'Sai Ahladni Tripathy',
-    company: 'Ex - Amazon',
-    img: './mentor_sai.jpg',
-    linkedin: 'https://www.linkedin.com/in/ahladini/',
-    descp: `Sai was a software developer at Amazon. She is an Alumni of BITS Pilani.
-
-      She has previously worked as a placement co-ordinator at BITS and understands the recruitment market really well.
-
-      Apart from this Sai enjoys playing with her paw-friend.`,
-  },
-];
-
-const responsiveMultipleItem = {
-  superLargeDesktop: {
-    // the naming can be any, depends on you.
-    breakpoint: { max: 4000, min: 3000 },
-    items: 3,
-  },
-  desktop: {
-    breakpoint: { max: 3000, min: 1024 },
-    items: 3,
-  },
-  tablet: {
-    breakpoint: { max: 1024, min: 464 },
-    items: 2,
-  },
-  mobile: {
-    breakpoint: { max: 464, min: 0 },
-    items: 1,
-  },
-};
-
-const responsiveSingleItem = {
-  ...responsiveMultipleItem,
-  superLargeDesktop: {
-    ...responsiveMultipleItem.superLargeDesktop,
-    items: 1,
-  },
-  desktop: {
-    ...responsiveMultipleItem.desktop,
-    items: 1,
-  },
-  tablet: {
-    ...responsiveMultipleItem.tablet,
-    items: 1,
-  },
-};
-
-const webinarData = [
-  /* {
-    name: 'Ankit Goyal',
-    title: 'Google',
-    descp: 'Graphs Minimum Spanning Trees and Interviewing at Google',
-    img: './mentors/Ankit_goyal_google.jpeg',
-  }, */
-
-  {
-    name: 'Rohit Aggarwal',
-    title: 'Lead Engineer Hackerrank',
-    descp: 'Building scalable backends and writing Microservices',
-    img: './mentors/rohit_hackerrank.jpeg',
-  },
-
-  {
-    name: 'Abhishek Gahlot',
-    title: 'Entrepreneur, EM at EduFlow',
-    descp: 'How browsers work, V8 engine and Networking in browsers',
-    img: './mentors/Abhishek_eduflow.jpeg',
-  },
-
-  {
-    name: 'Naman Malhotra',
-    title: 'Software Engineer at HackerRank',
-    descp: `Cracking Frontend Interviews and contributing to open source`,
-    img: './mentors/naman_hackerrank.jpg',
-  },
-
-  {
-    name: 'Vaibhav Gupta',
-    title: 'Nutanix Ex- Paypal',
-    descp: `System Designing and Creating a Highly Scalable URL Shortening service`,
-    img: './mentors/vaibhav_nutanix.jpeg',
-  },
-
-  {
-    name: 'Kritarth Anand',
-    title: 'Ex-Facebook',
-    descp: 'Importance of building a brand and having the right tribe',
-    img: './mentors/kritarth_facebook.jpg',
-  },
-
-  {
-    name: 'Kumar Akshay',
-    title: 'Atlassian',
-    descp: 'Starting with Opensource, GSOC and Interning at top-tech companies',
-    img: './mentors/akshay_atlassian.jpeg',
-  },
-
-  {
-    name: ' Sudhanshu Yadav',
-    title: 'Architect at HackerRank',
-    descp: 'Projects Review, JS V8 Engine and Contributing to Brahmos',
-    img: './mentors/sudhanshu_hackerrank.jpg',
-  },
-];
+import {
+  prerequisite_data,
+  who_can_join_data,
+  mentorsData,
+  webinarData,
+} from './landing_data';
+import { responsiveMultipleItem, responsiveSingleItem } from './landing_utils';
 
 function Landing() {
   return (
@@ -179,13 +27,12 @@ function Landing() {
 
       <section className="our-vision" id="our-vision">
         <div className="headingx our-vision__heading">
-          {' '}
-          Our <span> VISION </span>{' '}
+          Our <span> VISION </span>
         </div>
 
-        <div className="our-vision__container">
+        <div className="our-vision__container rowx">
           <div className="our-vision__container__left">
-            <img src={WA_illustratration} />
+            <img src={Group_15} />
           </div>
 
           <div className="our-vision__container__right">
@@ -200,47 +47,54 @@ function Landing() {
         </div>
       </section>
 
-      <section className="prerequisites" id="prerequisites">
-        <div className="headingx prerequisites__heading">
-          {' '}
-          PRE<span>REQUISITES </span>{' '}
+      <div className="container rowx">
+        <div className="container__left">
+          <section className="prerequisites" id="prerequisites">
+            <div className="headingx prerequisites__heading">
+              PRE<span>REQUISITES </span>
+            </div>
+
+            <ol className="prerequisites__list">
+              {prerequisite_data.map((item) => {
+                const { name, descp } = item;
+                return (
+                  <li className="prerequisites__list__item">
+                    <div>
+                      {name}
+                      <div className="prerequisites__list__item__descp">
+                        {descp ? descp : ''}
+                      </div>
+                    </div>
+                  </li>
+                );
+              })}
+            </ol>
+          </section>
+
+          <section className="who_can_join" id="who_can_join">
+            <div className="headingx who_can_join__heading">
+              {' '}
+              Who all can <span>JOIN </span>{' '}
+            </div>
+
+            <ol className="who_can_join__list">
+              {who_can_join_data.map((item) => {
+                const { name } = item;
+                return (
+                  <li className="who_can_join__list__item">
+                    <div> {name} </div>
+                  </li>
+                );
+              })}
+            </ol>
+          </section>
         </div>
 
-        <ol className="prerequisites__list">
-          {prerequisite_data.map((item) => {
-            const { name, descp } = item;
-            return (
-              <li className="prerequisites__list__item">
-                <div>
-                  {name}{' '}
-                  <div className="prerequisites__list__item__descp">
-                    {' '}
-                    {descp ? descp : ''}{' '}
-                  </div>
-                </div>
-              </li>
-            );
-          })}
-        </ol>
-      </section>
-
-      <section className="who_can_join" id="who_can_join">
-        <div className="headingx who_can_join__heading">
+        <div className="container__right">
           {' '}
-          Who all can <span>JOIN </span>{' '}
+          <img src={Group_2479} />{' '}
         </div>
-
-        <ol className="who_can_join__list">
-          {who_can_join_data.map((item) => {
-            const { name } = item;
-            return (
-              <li className="who_can_join__list__item">
-                <div> {name} </div>
-              </li>
-            );
-          })}
-        </ol>
-      </section>
+      </div>
 
       <section className="unique" id="unique">
         <div className="headingx unique__heading">What makes us unique</div>
@@ -316,12 +170,10 @@ function Landing() {
                 <img src="./unique4.svg" alt="" />
               </div>
               <div className="unique__right-side">
-                <div className="unique__right-side__heading">
-                  Enhancement Classes
-                </div>
+                <div className="unique__right-side__heading">Peer Learning</div>
                 <div className="unique__right-side__descp">
-                  We understand that you learn at your own pace. Our program
-                  gives you that extra boost when you are down.
+                  Discussions and debates are the best way to learn, We
+                  encourage group collaboration and pair programming.
                 </div>
               </div>
             </div>
@@ -488,7 +340,7 @@ function Landing() {
             <img src={achieve} />
           </div>
         </div>
-        <div className="plan__desc descpx">
+        {/* <div className="plan__desc descpx">
           Interested? Registration for the 2nd batch closes on 15th November.
         </div>
 
@@ -501,7 +353,7 @@ function Landing() {
           <button className="plan__register-button btnx btnx-primary">
             Register Now
           </button>
-        </a>
+        </a> */}
       </section>
 
       <section className="community">
