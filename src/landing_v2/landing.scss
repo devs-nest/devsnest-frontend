@@ -7,6 +7,7 @@ $color-text-light: rgba(#000000, 0.7);
 $color-white: #ffffff;
 $color-black: #101116;
 $color-orange: #f0aa4f;
+$color-grey: #707070;
 
 :root {
   --color-page-background: #{$color-white};
@@ -113,6 +114,9 @@ a.nav-item {
     background-color: $color-text-light;
   }
 
+  .our-vision,
+  .prerequisites,
+  .who_can_join,
   .unique,
   .curriculum,
   .stories__container,
@@ -148,6 +152,72 @@ a.nav-item {
     &__logo {
       font-weight: 900;
       font-size: 32px;
+    }
+  }
+
+  .our-vision {
+    &__heading {
+      text-align: right;
+
+      span {
+        color: $color-purple;
+      }
+    }
+
+    &__container {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+
+      &__left {
+        display: flex;
+      }
+
+      &__right {
+        display: flex;
+        text-align: right;
+        align-items: center;
+        padding-left: 15px;
+      }
+    }
+  }
+
+  .prerequisites {
+    padding: 0px;
+
+    &__heading {
+      span {
+        color: $color-purple;
+      }
+    }
+
+    &__list {
+      padding: 15px 0px;
+      &__item {
+        padding: 7px 0px;
+
+        &__descp {
+          padding-left: 15px;
+          color: $color-grey;
+        }
+      }
+    }
+  }
+
+  .who_can_join {
+    padding: 0px;
+
+    &__heading {
+      span {
+        color: $color-purple;
+      }
+    }
+
+    &__list {
+      padding: 15px 0px;
+      &__item {
+        padding: 7px 0px;
+      }
     }
   }
 

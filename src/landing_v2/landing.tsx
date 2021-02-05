@@ -10,6 +10,40 @@ import achieve from '../images/achieve.png';
 import whatsappIcon from '../images/whatsappIcon.png';
 import WA_illustratration from '../images/WA_illustratration.png';
 
+const prerequisite_data = [
+  {
+    name: 'Basic Understanding of English and Maths',
+    descp: null,
+  },
+  {
+    name: 'Basic Understanding of Python Language',
+    descp:
+      'If not Please do this course and learn the basics, should not take more than 10 days, Feel free to ask your doubts in the python-beginner challenge.',
+  },
+  {
+    name:
+      'Be a part of community, be ready to spend 2-3 hours a week with your peers learning together',
+    descp: null,
+  },
+  {
+    name: 'Motivation to learn',
+    descp: null,
+  },
+];
+
+const who_can_join_data = [
+  {
+    name: 'If you looking to explore a career in coding(Complete beginner)',
+  },
+  {
+    name: 'You are passionate about coding and building stuff',
+  },
+  {
+    name:
+      'You want to revise a few concepts and you love interacting with the community',
+  },
+];
+
 const mentorsData = [
   {
     name: 'Vedansh Garg',
@@ -142,6 +176,72 @@ function Landing() {
   return (
     <div className="landing-v2">
       <Nav />
+
+      <section className="our-vision" id="our-vision">
+        <div className="headingx our-vision__heading">
+          {' '}
+          Our <span> VISION </span>{' '}
+        </div>
+
+        <div className="our-vision__container">
+          <div className="our-vision__container__left">
+            <img src={WA_illustratration} />
+          </div>
+
+          <div className="our-vision__container__right">
+            We aim to create a complete eco systems with a tech - culture where
+            we will guide and teach students with a road map to become a
+            proficient developer in 6 months from scratch. <br /> <br />
+            Most students are unable to acquire the correct skillset and be job
+            ready for interviews just because they don't find the correct
+            guidance and atmosphere to learn. Devnest aims to revolutionise the
+            education industry by aiding this process.
+          </div>
+        </div>
+      </section>
+
+      <section className="prerequisites" id="prerequisites">
+        <div className="headingx prerequisites__heading">
+          {' '}
+          PRE<span>REQUISITES </span>{' '}
+        </div>
+
+        <ol className="prerequisites__list">
+          {prerequisite_data.map((item) => {
+            const { name, descp } = item;
+            return (
+              <li className="prerequisites__list__item">
+                <div>
+                  {name}{' '}
+                  <div className="prerequisites__list__item__descp">
+                    {' '}
+                    {descp ? descp : ''}{' '}
+                  </div>
+                </div>
+              </li>
+            );
+          })}
+        </ol>
+      </section>
+
+      <section className="who_can_join" id="who_can_join">
+        <div className="headingx who_can_join__heading">
+          {' '}
+          Who all can <span>JOIN </span>{' '}
+        </div>
+
+        <ol className="who_can_join__list">
+          {who_can_join_data.map((item) => {
+            const { name } = item;
+            return (
+              <li className="who_can_join__list__item">
+                <div> {name} </div>
+              </li>
+            );
+          })}
+        </ol>
+      </section>
+
       <section className="unique" id="unique">
         <div className="headingx unique__heading">What makes us unique</div>
         <div className="unique__container">
