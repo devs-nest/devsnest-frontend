@@ -48,9 +48,9 @@ function Landing() {
         </div>
       </section>
 
-      <div className="container rowx">
+      <section className="container rowx">
         <div className="container__left">
-          <section className="prerequisites" id="prerequisites">
+          <div className="prerequisites" id="prerequisites">
             <div className="headingx prerequisites__heading">
               PRE<span>REQUISITES </span>
             </div>
@@ -70,9 +70,9 @@ function Landing() {
                 );
               })}
             </ul>
-          </section>
+          </div>
 
-          <section className="who_can_join" id="who_can_join">
+          <div className="who_can_join" id="who_can_join">
             <div className="headingx who_can_join__heading">
               {' '}
               Who all can <span>JOIN </span>{' '}
@@ -88,14 +88,14 @@ function Landing() {
                 );
               })}
             </ul>
-          </section>
+          </div>
         </div>
 
         <div className="container__right">
           {' '}
           <img src={Group_2479} />{' '}
         </div>
-      </div>
+      </section>
 
       <section className="unique" id="unique">
         <div className="headingx unique__heading">What makes us unique</div>

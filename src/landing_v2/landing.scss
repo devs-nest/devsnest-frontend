@@ -115,8 +115,7 @@ a.nav-item {
   }
 
   .our-vision,
-  .prerequisites,
-  .who_can_join,
+  .container,
   .unique,
   .curriculum,
   .stories__container,
@@ -173,7 +172,7 @@ a.nav-item {
         display: flex;
 
         img {
-          width: 25vw;
+          width: 24vw;
         }
       }
 
@@ -183,6 +182,7 @@ a.nav-item {
         align-items: center;
         padding-left: 5vw;
         line-height: 30px;
+        font-size: 18px;
       }
     }
   }
@@ -211,7 +211,7 @@ a.nav-item {
     }
 
     &__list {
-      padding: 15px 0px;
+      padding: 15px 23px;
       &__item {
         padding: 6px 0px;
 
@@ -231,7 +231,7 @@ a.nav-item {
     }
 
     &__list {
-      padding: 15px 0px;
+      padding: 15px 23px;
       &__item {
         padding: 6px 0px;
       }
@@ -347,6 +347,11 @@ a.nav-item {
     &__container {
       display: flex;
       justify-content: space-between;
+      box-shadow: 0px 0px 20px #00000029;
+      border-radius: 20px;
+      margin-top: 50px;
+      margin-bottom: 50px;
+      padding: 25px;
     }
 
     img {
@@ -870,12 +875,14 @@ a.nav-item {
     .prerequisites {
       &__list {
         margin-left: 20px;
+        padding: 15px 0px;
       }
     }
 
     .who_can_join {
       &__list {
         margin-left: 20px;
+        padding: 15px 0px;
       }
     }
 
@@ -919,7 +926,7 @@ a.nav-item {
 
       &__container {
         flex-direction: column;
-        padding: 0 16px;
+        padding: 40px;
       }
 
       &__left-side {
