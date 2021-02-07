@@ -124,4 +124,23 @@ const webinarData = [
   },
 ];
 
-export { prerequisite_data, who_can_join_data, mentorsData, webinarData };
+const discord_server_data = [
+  {
+    name: 'Batch starting on 10th March.',
+  },
+  {
+    name: 'Python primer starting on 20th February.',
+  },
+  {
+    name:
+      'Collaborative community with members from Google, Facebook, Amazon and other top tech companies.',
+  },
+];
+
+export {
+  prerequisite_data,
+  who_can_join_data,
+  mentorsData,
+  webinarData,
+  discord_server_data,
+};

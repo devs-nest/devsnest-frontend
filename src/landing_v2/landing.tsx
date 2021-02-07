@@ -7,16 +7,18 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './landing.scss';
 
 import achieve from '../images/achieve.png';
-import whatsappIcon from '../images/whatsappIcon.png';
-import WA_illustratration from '../images/WA_illustratration.png';
+import whatsapp_logo from '../images/WA-icon.png';
+import discord_logo from '../images/Discord-icon.png';
 import Group_15 from '../images/Group_15.svg';
 import Group_2479 from '../images/Group_2479.svg';
+import Group_2672 from '../images/Group_2672.svg';
 
 import {
   prerequisite_data,
   who_can_join_data,
   mentorsData,
   webinarData,
+  discord_server_data,
 } from './landing_data';
 
 import { responsiveMultipleItem, responsiveSingleItem } from './landing_utils';
@@ -363,51 +365,53 @@ function Landing() {
 
       <section className="community">
         <div className="community__top">
-          <div className="community__top__left-side">
-            <div className="headingx community__heading">
-              Join our Whatsapp Community
-            </div>
-
-            <div className="community__headingDesc">
-              No spam only admins send messages
-            </div>
+          <div className="headingx community__top__left-side">
+            Join us on DISCORD SERVER
           </div>
 
           <div className="community__top__right-side">
-            <img src={whatsappIcon} />
+            <img src={discord_logo} />
           </div>
         </div>
 
         <div className="community__main rowx">
           <div className="community__main__left-side">
-            <div className="community__main__left-side__heading">
-              What <span>YOU</span> will get
-            </div>
-
-            <ol className="community__main__left-side__points">
-              <li> A weekly webinar. AMAs by Industry experts. </li>
-              <li> A weekly free class on Algorithms. </li>
-              <li> A new practice problem on Algorithms daily. </li>
-            </ol>
-
-            <div className="community__main__left-side__txt1">
-              We believe in peer learning
-            </div>
-
-            <div className="community__main__left-side__txt2">
-              To discuss code, careers and cookies and find partners for
-              projects join this group.
-            </div>
+            <ul className="community__main__left-side__points">
+              {discord_server_data.map((item) => {
+                const { name } = item;
+                return (
+                  <li className="community__main__left-side__points__list__item">
+                    {name}
+                  </li>
+                );
+              })}
+            </ul>
 
             <a href="http://bit.ly/devsnest_community" target="_blank">
               <button className="community__main__left-side__btn btnx btnx-primary">
-                Join Now
+                JOIN NOW
               </button>
             </a>
+
+            <div className="community__main__left-side__whatsapp">
+              <div className="community__main__left-side__whatsapp__left">
+                <div className="community__main__left-side__whatsapp__left__txt1">
+                  Get Notified on Whatsapp
+                </div>
+
+                <div className="community__main__left-side__whatsapp__left__txt2">
+                  No spam only admins send messages
+                </div>
+              </div>
+
+              <div className="community__main__left-side__whatsapp__right">
+                <img src={whatsapp_logo} />
+              </div>
+            </div>
           </div>
 
           <div className="community__main__right-side">
-            <img src={WA_illustratration} />
+            <img src={Group_2672} />
           </div>
         </div>
 
@@ -654,22 +658,46 @@ function Landing() {
           <div className="footer__left-side">
             <div className="footer__logo"></div>
             <div className="footer__descp">
-              We aim to make young India financially self-sustainable by
-              providing equal opportunity for all.
               <div>
-                <a
-                  href="https://drive.google.com/file/d/17TKzId-5qlRjKVLX30W1Brn_L70rcMN1/view"
-                  target="_blank"
-                  className="footer__privacy-policy"
-                >
-                  {' '}
-                  Privacy Policy{' '}
-                </a>
+                We aim to make young India financially self-sustainable by
+                providing equal opportunity for all.
               </div>
+
+              <a
+                href="https://drive.google.com/file/d/17TKzId-5qlRjKVLX30W1Brn_L70rcMN1/view"
+                target="_blank"
+                className="footer__privacy-policy"
+              >
+                Privacy Policy
+              </a>
             </div>
           </div>
           <div className="footer__right-side">
-            Contact us <span className="footer__email">admin@devsnest.in</span>
+            <div>
+              {' '}
+              Contact us{' '}
+              <span className="footer__email">admin@devsnest.in</span>{' '}
+            </div>
+            <div className="footer__right-side__social">
+              <a href="">
+                {' '}
+                <i
+                  className="fa fa-linkedin-square"
+                  aria-hidden="true"
+                ></i>{' '}
+              </a>
+              <a href="">
+                {' '}
+                <i
+                  className="fa fa-facebook-square"
+                  aria-hidden="true"
+                ></i>{' '}
+              </a>
+              <a href="">
+                {' '}
+                <i className="fa fa-instagram" aria-hidden="true"></i>{' '}
+              </a>
+            </div>
           </div>
         </div>
       </footer>
