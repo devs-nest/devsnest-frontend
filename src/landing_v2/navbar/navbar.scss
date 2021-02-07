@@ -1,0 +1,15 @@
+.nav-logo {
+  height: 72px;
+  width: 72px;
+  @media only screen and (max-width: 480px) {
+    height: 40px;
+    width: 40px;
+  }
+  img {
+    height: 100%;
+    width: 100%;
+  }
+}
+.navbar-component {
+  background-color: white;
+}

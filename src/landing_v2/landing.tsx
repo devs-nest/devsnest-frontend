@@ -25,9 +25,8 @@ import { responsiveMultipleItem, responsiveSingleItem } from './landing_utils';
 
 function Landing() {
   return (
-    <div className="landing-v2">
+    <div className="landing-v2" id="top-header">
       <Nav />
-
       <section className="our-vision" id="our-vision">
         <div className="headingx our-vision__heading">
           Our <span> VISION </span>
@@ -49,7 +48,6 @@ function Landing() {
           </div>
         </div>
       </section>
-
       <section className="container rowx">
         <div className="container__left">
           <div className="prerequisites" id="prerequisites">
@@ -76,8 +74,7 @@ function Landing() {
 
           <div className="who_can_join" id="who_can_join">
             <div className="headingx who_can_join__heading">
-              {' '}
-              Who all can <span>JOIN </span>{' '}
+              Who all can <span>JOIN </span>
             </div>
 
             <ul className="who_can_join__list">
@@ -94,8 +91,7 @@ function Landing() {
         </div>
 
         <div className="container__right">
-          {' '}
-          <img src={Group_2479} />{' '}
+          <img src={Group_2479} />
         </div>
       </section>
 
@@ -330,43 +326,28 @@ function Landing() {
           })}
         </Carousel>
       </div>
-
       <section className="plan" id="plan">
         <div className="headingx plan__heading">Be a part of this journey</div>
         <div className="plan__container">
           <div className="plan__left-side">
-            <div className="plan__left-side__heading">No Tution Fee</div>
+            <div className="plan__left-side__heading">₹0 Fee</div>
             <div className="plan__left-side__heading">
-              Pay ₹0 until you get a job of minimum 5 LPA
+              Contribute to drive this initiative.
             </div>
             <div className="plan__left-side__heading">
-              Pay only 15% of your salary for 2 years
+              Collaborate in open source projects
             </div>
           </div>
           <div className="plan__right-side">
             <img src={achieve} />
           </div>
         </div>
-        {/* <div className="plan__desc descpx">
-          Interested? Registration for the 2nd batch closes on 15th November.
-        </div>
-
-        <a
-          href="https://docs.google.com/forms/d/1FDUajSVjIgG-7hBBl5ekOpHxurVi-DvqQ1AcbwiJpuI/edit?ts=5f4a681a"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="plan__register"
-        >
-          <button className="plan__register-button btnx btnx-primary">
-            Register Now
-          </button>
-        </a> */}
       </section>
 
-      <section className="community">
+      <section id="community" className="community">
         <div className="community__top">
           <div className="headingx community__top__left-side">
-            Join us on DISCORD SERVER
+            Join us on DISCORD
           </div>
 
           <div className="community__top__right-side">
@@ -376,7 +357,7 @@ function Landing() {
 
         <div className="community__main rowx">
           <div className="community__main__left-side">
-            <ul className="community__main__left-side__points">
+            <ul className="community__main__left-side__points mb-0">
               {discord_server_data.map((item) => {
                 const { name } = item;
                 return (
@@ -393,7 +374,7 @@ function Landing() {
               </button>
             </a>
 
-            <div className="community__main__left-side__whatsapp">
+            <div className="community__main__left-side__whatsapp mt-3">
               <div className="community__main__left-side__whatsapp__left">
                 <div className="community__main__left-side__whatsapp__left__txt1">
                   Get Notified on Whatsapp
@@ -413,6 +394,30 @@ function Landing() {
           <div className="community__main__right-side">
             <img src={Group_2672} />
           </div>
+        </div>
+
+        <div className="community__join-us">
+          <div className="community__join-us__desc descpx">
+            <div className="community__join-us__desc__txt1">
+              {' '}
+              Join us as a mentor{' '}
+            </div>
+            <div className="community__join-us__desc__txt2">
+              {' '}
+              Are you interested in being guided by professionals?{' '}
+            </div>
+          </div>
+
+          <a
+            href="https://docs.google.com/forms/d/1FDUajSVjIgG-7hBBl5ekOpHxurVi-DvqQ1AcbwiJpuI/edit?ts=5f4a681a"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="plan__register"
+          >
+            <button className="community__join-us__register-button btnx btnx-primary">
+              Join us
+            </button>
+          </a>
         </div>
 
         <div className="community__carousel-div">
@@ -658,7 +663,7 @@ function Landing() {
           <div className="footer__left-side">
             <div className="footer__logo"></div>
             <div className="footer__descp">
-              <div>
+              <div className="mb-2">
                 We aim to make young India financially self-sustainable by
                 providing equal opportunity for all.
               </div>
@@ -674,28 +679,27 @@ function Landing() {
           </div>
           <div className="footer__right-side">
             <div>
-              {' '}
-              Contact us{' '}
-              <span className="footer__email">admin@devsnest.in</span>{' '}
+              Contact us:{' '}
+              <a
+                href="mailto: admin@devsnest.in"
+                target="__blank"
+                className="footer__email text-dark text-decoration-none"
+              >
+                admin@devsnest.in
+              </a>
             </div>
-            <div className="footer__right-side__social">
-              <a href="">
-                {' '}
-                <i
-                  className="fa fa-linkedin-square"
-                  aria-hidden="true"
-                ></i>{' '}
+            <div className="footer__right-side__social mt-2">
+              <a
+                target="_blank"
+                href="https://in.linkedin.com/company/devsnest"
+              >
+                <i className="fa fa-linkedin-square" aria-hidden="true"></i>
               </a>
-              <a href="">
-                {' '}
-                <i
-                  className="fa fa-facebook-square"
-                  aria-hidden="true"
-                ></i>{' '}
+              <a target="_blank" href="https://www.facebook.com/devsnest/">
+                <i className="fa fa-facebook-square" aria-hidden="true"></i>
               </a>
-              <a href="">
-                {' '}
-                <i className="fa fa-instagram" aria-hidden="true"></i>{' '}
+              <a target="_blank" href="https://www.instagram.com/devsnest.in/">
+                <i className="fa fa-instagram" aria-hidden="true"></i>
               </a>
             </div>
           </div>
