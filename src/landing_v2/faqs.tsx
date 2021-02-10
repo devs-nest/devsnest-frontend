@@ -81,7 +81,7 @@ function Faq() {
                 <Card.Body>
                   {' '}
                   You can simply join this{' '}
-                  <a href="https://discord.gg/brEeNA4vyA" target="_blank">
+                  <a href="https://discord.gg/E8YcJpGJKB" target="_blank">
                     discord link
                   </a>{' '}
                   and follow the guidelines provided on the welcome channel.{' '}

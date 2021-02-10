@@ -368,7 +368,7 @@ function Landing() {
               })}
             </ul>
 
-            <a href="https://discord.gg/brEeNA4vyA" target="_blank">
+            <a href="https://discord.gg/E8YcJpGJKB" target="_blank">
               <button className="community__main__left-side__btn btnx btnx-primary">
                 JOIN NOW
               </button>
