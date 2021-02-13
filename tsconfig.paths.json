@@ -1,0 +1,11 @@
+// this is for the editor to understand the paths, do re-start the editor after adding a route here
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@components/*": ["./src/romponents/*"],
+      "@config/*": ["./src/config/*"],
+      "@services": ["./src/services/*"]
+    }
+  }
+}

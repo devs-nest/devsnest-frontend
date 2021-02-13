@@ -10,6 +10,7 @@ import Setting from './romponents/Setting';
 import Containergbu from './Gbu/Containergbu';
 import ForgotPassword from './romponents/ForgotPassword';
 import Home from './romponents/Home';
+import ApiTestPage from './romponents/apiTestPage';
 
 import ContainerMentorFeedback from './MentorMentee/Mentor/ContainerMentorFeedback';
 import ContainerMenteeFeedback from './MentorMentee/Mentee/ContainerMenteeFeedback';
@@ -45,6 +46,7 @@ const App: React.ElementType = () => {
           <Route exact path="/home" component={Home} />
           <Route exact path="/" component={LandingV2} />
           <Route exact path="/faqs" component={Faq} />
+          <Route exact path="/api-test" component={ApiTestPage} />
         </Switch>
       </Router>
     </div>
