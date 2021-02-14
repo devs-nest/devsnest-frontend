@@ -78,7 +78,8 @@ $ git commit -am "<what changes you have made" && git push origin feature/<your-
 3. Create a PR, and get it reviewed, that's it.
 
 
-Note: Master is our holy grail, never push anything to master
+### Note 
+Master is our holy grail, never push anything to master
 
 ## Authors
-* **[Devsnest](https://github.com/devsnest)** - The community of some gems>>>
+* **[Devsnest](https://github.com/devs-nest)** - The community of some gems>>>
