@@ -1,5 +1,5 @@
 # Devsnest Discord Bot
-[![Python Versions](https://img.shields.io/badge/python-3.6%20%7C%203.7%20%7C%203.8-orange)](https://github.com/kkrypt0nn/Python-Discord-Bot-Template)
+![Python Versions](https://img.shields.io/badge/python-3.6%20%7C%203.7%20%7C%203.8-orange)
 
 This repository is a basic roadmap to use bot in a efficient way for everyone.
 
