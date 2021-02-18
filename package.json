@@ -51,7 +51,6 @@
     "react-tap-event-plugin": "^3.0.3",
     "react-tooltip": "^4.2.7",
     "react-window": "^1.8.5",
-    "reactstrap": "^8.5.1",
     "requests": "^0.3.0",
     "typescript": "~3.9.0"
   },
