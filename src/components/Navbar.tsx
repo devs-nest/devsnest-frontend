@@ -1,6 +1,6 @@
 import React from 'react';
 import NavBar from '../pages/home/navbar';
-
+import hero2 from '../assets/images/hero2.jpg';
 function Nav(props) {
   const { faqs } = props;
 
@@ -23,7 +23,7 @@ function Nav(props) {
       <section className="hero rowx dark">
         <NavBar />
         <div className="hero__left-side colx">
-          <img src="./hero2.jpg" alt="hero" />
+          <img src={hero2} alt="hero" />
         </div>
         <div className="hero__right-side colx">
           <div className="content">
