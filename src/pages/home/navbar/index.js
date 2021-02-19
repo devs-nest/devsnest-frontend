@@ -11,6 +11,9 @@ import MenuIcon from '@material-ui/icons/Menu';
 import './navbar.scss';
 import { menuItems } from './menuItems';
 
+import Logo from '../../../assets/images/logo.jpg';
+
+
 const useStyles = makeStyles({
   header: {
     backgroundColor: 'white',
@@ -144,7 +147,9 @@ export default function NavBar() {
 
           <NavHashLink to="/#top-header">
             <div className="nav-logo">
-              <img src="./logo.jpg" alt="DevsNest Logo" />
+
+              <img src={Logo} alt="DevsNest Logo" />
+
             </div>
           </NavHashLink>
 
