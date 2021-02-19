@@ -1,6 +1,6 @@
-import axios, { AxiosInstance } from 'axios';
+import axios from 'axios';
 
-const instance: AxiosInstance = axios.create({
+const instance = axios.create({
   baseURL:
     process.env.NODE_ENV === 'production'
       ? process.env.REACT_APP_BASE_PROD_IP

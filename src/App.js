@@ -8,9 +8,9 @@ import './assets/css/index.css';
 import LandingV2 from './pages/home';
 import Faq from './pages/home/faqs';
 
-const App: React.ElementType = () => {
+function App() {
   useEffect(() => {
-    let code: any =
+    let code =
       process.env.NODE_ENV === 'production'
         ? process.env.REACT_APP_GA_TRACKING_ID_PROD
         : process.env.REACT_APP_GA_TRACKING_ID_DEV;
@@ -28,6 +28,6 @@ const App: React.ElementType = () => {
       </Router>
     </div>
   );
-};
+}
 
 export default App;
