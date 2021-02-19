@@ -2,7 +2,9 @@ import React from 'react';
 import Carousel from 'react-multi-carousel';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
+
 import linkedin_icon from '../../assets/images/linkedin.svg';
+
 
 import 'react-multi-carousel/lib/styles.css';
 
@@ -12,6 +14,7 @@ import discord_logo from '../../assets/images/icon-discord.png';
 import Group_15 from '../../assets/images/Group_15.svg';
 import Group_2479 from '../../assets/images/Group_2479.svg';
 import Group_2672 from '../../assets/images/Group_2672.svg';
+
 import unique0 from '../../assets/images/unique0.svg';
 import unique1 from '../../assets/images/unique1.svg';
 import unique2 from '../../assets/images/unique2.svg';
@@ -132,6 +135,7 @@ function Landing() {
 
             <div className="unique__unit colx">
               <div className="unique__left-side">
+
                 <img src={unique1} alt="Live classes Everyday" />
               </div>
               <div className="unique__right-side">
@@ -149,7 +153,9 @@ function Landing() {
           <div className="rowx">
             <div className="unique__unit colx">
               <div className="unique__left-side">
+
                 <img src={unique2} alt="Personalized Guidance" />
+
               </div>
               <div className="unique__right-side">
                 <div className="unique__right-side__heading">
@@ -165,7 +171,9 @@ function Landing() {
 
             <div className="unique__unit colx">
               <div className="unique__left-side">
+
                 <img src={unique3} alt="Guest Tech Talk" />
+
               </div>
               <div className="unique__right-side">
                 <div className="unique__right-side__heading">
@@ -182,7 +190,9 @@ function Landing() {
           <div className="rowx">
             <div className="unique__unit colx">
               <div className="unique__left-side">
+
                 <img src={unique4} alt="Peer Learning" />
+
               </div>
               <div className="unique__right-side">
                 <div className="unique__right-side__heading">Peer Learning</div>
@@ -195,7 +205,9 @@ function Landing() {
 
             <div className="unique__unit colx">
               <div className="unique__left-side">
+
                 <img src={unique5} alt="Mock Interviews By Industry" />
+
               </div>
               <div className="unique__right-side">
                 <div className="unique__right-side__heading">
@@ -218,7 +230,9 @@ function Landing() {
           <div className="curriculum__unit">
             <div className="curriculum__left-side">
               <div className="curriculum__icon">
+
                 <img src={curr0} alt="Curriculum" />
+
               </div>
             </div>
 
@@ -243,7 +257,9 @@ function Landing() {
           <div className="curriculum__unit">
             <div className="curriculum__left-side">
               <div className="curriculum__icon">
+
                 <img src={curr1} alt="Curriculum" />
+
               </div>
             </div>
 
@@ -266,7 +282,9 @@ function Landing() {
           <div className="curriculum__unit">
             <div className="curriculum__left-side">
               <div className="curriculum__icon">
+
                 <img src={curr2} alt="Curriculum" />
+
               </div>
             </div>
 
@@ -291,7 +309,9 @@ function Landing() {
           <div className="curriculum__unit">
             <div className="curriculum__left-side">
               <div className="curriculum__icon">
+
                 <img src={curr3} alt="Curriculum" />
+
               </div>
             </div>
 
@@ -345,7 +365,9 @@ function Landing() {
                       >
                         <img
                           className="linkedin"
+
                           src={linkedin_icon}
+
                           alt="linkedin"
                         />
                       </a>
@@ -503,7 +525,9 @@ function Landing() {
         <section className="stories">
           <div className="stories__container">
             <div className="stories__left-side">
+
               <img src={abhishek} alt="Abhishek's pic" />
+
             </div>
 
             <div className="stories__right-side">
@@ -530,7 +554,9 @@ function Landing() {
         <section className="stories">
           <div className="stories__container">
             <div className="stories__left-side">
+
               <img src={priya} alt="Priya's pic" />
+
             </div>
 
             <div className="stories__right-side">
@@ -556,7 +582,9 @@ function Landing() {
         <section className="stories">
           <div className="stories__container">
             <div className="stories__left-side">
+
               <img src={vashu} alt="Vanshu'd pic" />
+
             </div>
 
             <div className="stories__right-side">

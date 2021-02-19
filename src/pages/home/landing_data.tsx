@@ -1,3 +1,4 @@
+
 import ved from '../../assets/images/mentor_ved.jpg';
 import kshitiz from '../../assets/images/mentors/kshitiz.png';
 import vaibhav from '../../assets/images/mentors/vaibhav_nutanix.jpeg';
@@ -48,7 +49,9 @@ const mentorsData = [
   {
     name: 'Vedansh Garg',
     company: 'Ex - HackerRank',
+
     img: `${ved}`,
+
     linkedin: 'https://www.linkedin.com/in/vedanshgarg/',
     descp: `Vedansh was a Senior Engineer at Hackerrank. In the last 5 years, he scaled the HackerRank community from 500k to 10M Developers.
 
@@ -68,7 +71,9 @@ const mentorsData = [
   {
     name: 'Kshitiz Miglani',
     company: 'Amazon',
+
     img: `${kshitiz}`,
+
     linkedin: 'https://www.linkedin.com/in/kshitizmiglani/',
     descp: `Kshitiz has worked as a developer in Amazon, PayTM and Samsung creating scalable solutions leading critical projects.
 
@@ -77,7 +82,9 @@ const mentorsData = [
   {
     name: 'Vaibhav Gupta',
     company: 'Nutanix',
+
     img: `${vaibhav}`,
+
     linkedin: 'https://www.linkedin.com/in/vaibhav-gupta-84a21883/',
     descp: `Vaibhav is an alumnus of BITS Pilani. He works in Nutanix as MTS 3. He has 4+ years of experience in designing scalable distributed systems. He has also worked as part of Oracle Cloud and Paypal.
     In the last 2 years, he has mentored many students on a 1:1 basis to get into companies like Samsung, Amazon, Flipkart, etc.`,
@@ -85,7 +92,9 @@ const mentorsData = [
   {
     name: 'Sai Ahladni Tripathy',
     company: 'Ex - Amazon',
+
     img: `${sai}`,
+
     linkedin: 'https://www.linkedin.com/in/ahladini/',
     descp: `Sai was a software developer at Amazon. She is an Alumni of BITS Pilani.
 
@@ -107,49 +116,63 @@ const webinarData = [
     name: 'Rohit Aggarwal',
     title: 'Lead Engineer Hackerrank',
     descp: 'Building scalable backends and writing Microservices',
+
     img: `${rohit}`,
+
   },
 
   {
     name: 'Abhishek Gahlot',
     title: 'Entrepreneur, EM at EduFlow',
     descp: 'How browsers work, V8 engine and Networking in browsers',
+
     img: `${abhishek}`,
+
   },
 
   {
     name: 'Naman Malhotra',
     title: 'Software Engineer at HackerRank',
     descp: `Cracking Frontend Interviews and contributing to open source`,
+
     img: `${naman}`,
+
   },
 
   {
     name: 'Vaibhav Gupta',
     title: 'Nutanix Ex- Paypal',
     descp: `System Designing and Creating a Highly Scalable URL Shortening service`,
+
     img: `${vaibhav}`,
+
   },
 
   {
     name: 'Kritarth Anand',
     title: 'Ex-Facebook',
     descp: 'Importance of building a brand and having the right tribe',
+
     img: `${kritarth}`,
+
   },
 
   {
     name: 'Kumar Akshay',
     title: 'Atlassian',
     descp: 'Starting with Opensource, GSOC and Interning at top-tech companies',
+
     img: `${akshay}`,
+
   },
 
   {
     name: ' Sudhanshu Yadav',
     title: 'Architect at HackerRank',
     descp: 'Projects Review, JS V8 Engine and Contributing to Brahmos',
+
     img: `${sudhanshu}`,
+
   },
 ];
 

@@ -23,6 +23,7 @@ function Nav(props) {
       <section className="hero rowx dark">
         <NavBar />
         <div className="hero__left-side colx">
+
           <img src={hero2} alt="hero" />
         </div>
         <div className="hero__right-side colx">
