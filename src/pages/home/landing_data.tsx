@@ -1,9 +1,7 @@
-
 import ved from '../../assets/images/mentor_ved.jpg';
 import kshitiz from '../../assets/images/mentors/kshitiz.png';
 import vaibhav from '../../assets/images/mentors/vaibhav_nutanix.jpeg';
 import sai from '../../assets/images/mentor_sai.jpg';
-import ankit from '../../assets/images/Ankit_goyal_google.jpeg';
 import abhishek from '../../assets/images/mentors/Abhishek_eduflow.jpeg';
 import naman from '../../assets/images/mentors/naman_hackerrank.jpg';
 import kritarth from '../../assets/images/mentors/kritarth_facebook.jpg';
@@ -118,7 +116,6 @@ const webinarData = [
     descp: 'Building scalable backends and writing Microservices',
 
     img: `${rohit}`,
-
   },
 
   {
@@ -127,7 +124,6 @@ const webinarData = [
     descp: 'How browsers work, V8 engine and Networking in browsers',
 
     img: `${abhishek}`,
-
   },
 
   {
@@ -136,7 +132,6 @@ const webinarData = [
     descp: `Cracking Frontend Interviews and contributing to open source`,
 
     img: `${naman}`,
-
   },
 
   {
@@ -145,7 +140,6 @@ const webinarData = [
     descp: `System Designing and Creating a Highly Scalable URL Shortening service`,
 
     img: `${vaibhav}`,
-
   },
 
   {
@@ -154,7 +148,6 @@ const webinarData = [
     descp: 'Importance of building a brand and having the right tribe',
 
     img: `${kritarth}`,
-
   },
 
   {
@@ -163,7 +156,6 @@ const webinarData = [
     descp: 'Starting with Opensource, GSOC and Interning at top-tech companies',
 
     img: `${akshay}`,
-
   },
 
   {
@@ -172,7 +164,6 @@ const webinarData = [
     descp: 'Projects Review, JS V8 Engine and Contributing to Brahmos',
 
     img: `${sudhanshu}`,
-
   },
 ];
 
