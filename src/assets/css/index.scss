@@ -48,3 +48,13 @@ $color-grey: #707070;
     color: #ff7d59 !important;
   }
 }
+
+@media only screen and (max-width: 768px) {
+  .navbar-nav {
+    margin: 1rem 0px !important;
+  }
+  .nav-link {
+    padding: 0px !important;
+    margin: 0.625rem 0px !important;
+  }
+}
