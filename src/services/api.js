@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import axios from '@config/axios.config';
+import axios from 'config/axios.config';
 
 /**
  * API custom hook
