@@ -6,8 +6,8 @@ import 'react-multi-carousel/lib/styles.css';
 import './assets/css/index.scss';
 import './assets/css/landing.scss';
 
-import LandingV2 from './pages/home';
-import Faq from './pages/home/faqs';
+import Home from './pages/index';
+import Faq from './pages/faqs';
 
 function App() {
   useEffect(() => {
@@ -23,7 +23,7 @@ function App() {
     <div>
       <Router>
         <Switch>
-          <Route exact path="/" component={LandingV2} />
+          <Route exact path="/" component={Home} />
           <Route exact path="/faqs" component={Faq} />
         </Switch>
       </Router>

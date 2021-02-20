@@ -1,30 +1,30 @@
 import React from 'react';
 import Carousel from 'react-multi-carousel';
-import Navbar from '../../components/Navbar';
-import Footer from '../../components/Footer';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 
-import linkedin_icon from '../../assets/images/linkedin.svg';
-import achieve from '../../assets/images/achieve.png';
-import whatsapp_logo from '../../assets/images/icon-whatsapp.png';
-import discord_logo from '../../assets/images/icon-discord.png';
-import Group_15 from '../../assets/images/Group_15.svg';
-import Group_2479 from '../../assets/images/Group_2479.svg';
-import Group_2672 from '../../assets/images/Group_2672.svg';
+import linkedin_icon from '../assets/images/linkedin.svg';
+import achieve from '../assets/images/achieve.png';
+import whatsapp_logo from '../assets/images/icon-whatsapp.png';
+import discord_logo from '../assets/images/icon-discord.png';
+import Group_15 from '../assets/images/Group_15.svg';
+import Group_2479 from '../assets/images/Group_2479.svg';
+import Group_2672 from '../assets/images/Group_2672.svg';
 
-import unique0 from '../../assets/images/unique0.svg';
-import unique1 from '../../assets/images/unique1.svg';
-import unique2 from '../../assets/images/unique2.svg';
-import unique3 from '../../assets/images/unique3.svg';
-import unique4 from '../../assets/images/unique4.svg';
-import unique5 from '../../assets/images/unique5.svg';
-import curr0 from '../../assets/images/curr0.svg';
-import curr1 from '../../assets/images/curr1.svg';
-import curr2 from '../../assets/images/curr2.svg';
-import curr3 from '../../assets/images/curr3.svg';
-import abhishek from '../../assets/images/abhishek.jpeg';
-import priya from '../../assets/images/priya.png';
-import vashu from '../../assets/images/vashu_f.png';
-import hero2 from '../../assets/images/hero2.jpg';
+import unique0 from '../assets/images/unique0.svg';
+import unique1 from '../assets/images/unique1.svg';
+import unique2 from '../assets/images/unique2.svg';
+import unique3 from '../assets/images/unique3.svg';
+import unique4 from '../assets/images/unique4.svg';
+import unique5 from '../assets/images/unique5.svg';
+import curr0 from '../assets/images/curr0.svg';
+import curr1 from '../assets/images/curr1.svg';
+import curr2 from '../assets/images/curr2.svg';
+import curr3 from '../assets/images/curr3.svg';
+import abhishek from '../assets/images/abhishek.jpeg';
+import priya from '../assets/images/priya.png';
+import vashu from '../assets/images/vashu_f.png';
+import hero2 from '../assets/images/hero2.jpg';
 
 import {
   prerequisite_data,
@@ -32,8 +32,8 @@ import {
   mentorsData,
   webinarData,
   discord_server_data,
-} from './landing_data';
-import { responsiveMultipleItem, responsiveSingleItem } from './landing_utils';
+} from '../landing_data';
+import { responsiveMultipleItem, responsiveSingleItem } from '../landing_utils';
 
 function Landing() {
   return (
