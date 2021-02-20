@@ -2,8 +2,9 @@ import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import ReactGA from 'react-ga';
 
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './assets/css/index.css';
+import 'react-multi-carousel/lib/styles.css';
+import './assets/css/index.scss';
+import './assets/css/landing.scss';
 
 import LandingV2 from './pages/home';
 import Faq from './pages/home/faqs';

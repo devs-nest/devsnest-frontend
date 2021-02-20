@@ -1,39 +1,46 @@
-import React from 'react';
-import NavBar from '../pages/home/navbar';
-import hero2 from '../assets/images/hero2.jpg';
+import React, { useState } from 'react';
+import {
+  Collapse,
+  Navbar as BSNavbar,
+  NavbarToggler,
+  NavbarBrand,
+  Nav as BSNav,
+  NavItem,
+  NavLink,
+} from 'reactstrap';
+import logo from '../assets/images/logo.jpg';
+import { menuItems } from '../constants';
 
-function Nav(props) {
-  const { faqs } = props;
+function Navbar() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggle = () => setIsOpen(!isOpen);
 
   return (
-    <>
-      <section className="hero rowx dark">
-        <NavBar />
-        <div className="hero__left-side colx">
-          <img src={hero2} alt="hero" />
-        </div>
-        <div className="hero__right-side colx">
-          <div className="content">
-            {faqs ? (
-              <h1 className="hero__heading">
-                Please go through the{' '}
-                <span className="color-purple ">FAQs.</span>
-              </h1>
-            ) : (
-              <h1 className="hero__heading">
-                Education which makes you financially{' '}
-                <span className="color-purple ">independent.</span>
-              </h1>
-            )}
-            <div className="descpx hero__descp">
-              A mentorship program designed to help you get your dream job. It
-              evolves as per your needs to mould you into a kickass developer.
-            </div>
-          </div>
-        </div>
-      </section>
-    </>
+    <BSNavbar color="white" light expand="md" className="shadow-sm">
+      <NavbarBrand href="/" className="d-flex align-items-center">
+        <img
+          src={logo}
+          alt="Devsnest logo"
+          height="72"
+          width="72"
+          class="d-inline-block align-top nav-logo"
+        />
+      </NavbarBrand>
+
+      <NavbarToggler onClick={toggle} />
+
+      <Collapse isOpen={isOpen} navbar>
+        <BSNav className="ml-auto" navbar>
+          {menuItems.map((item) => (
+            <NavItem key={item.id}>
+              <NavLink href={item.to}>{item.title}</NavLink>
+            </NavItem>
+          ))}
+        </BSNav>
+      </Collapse>
+    </BSNavbar>
   );
 }
 
-export default Nav;
+export default Navbar;

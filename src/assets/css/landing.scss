@@ -46,16 +46,6 @@ ul {
   padding-left: 20px;
 }
 
-a.nav-item {
-  color: $color-purple;
-  font-weight: 600;
-
-  &:hover {
-    text-decoration: none;
-    color: darken($color-purple, 20);
-  }
-}
-
 .btnx {
   color: #ffffff;
   padding: 20px 50px;
@@ -254,19 +244,6 @@ a.nav-item {
       &__item {
         padding: 6px 0px;
       }
-    }
-  }
-  .nav-item {
-    text-decoration: none;
-    color: #8d72d3;
-    font-weight: 600;
-    font-size: 25px;
-    padding: 10px 35px;
-    font-family: 'Montserrat', sans-serif;
-
-    &:hover {
-      text-decoration: none;
-      color: darken($color-purple, 20);
     }
   }
 

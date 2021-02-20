@@ -1,4 +1,4 @@
-const menuItems = [
+export const menuItems = [
   {
     id: 0,
     title: 'Vision',
@@ -24,6 +24,3 @@ const menuItems = [
     type: 'internal',
   },
 ];
-
-export { menuItems };
-// https://docs.google.com/forms/d/1FDUajSVjIgG-7hBBl5ekOpHxurVi-DvqQ1AcbwiJpuI/edit?ts=5f4a681a

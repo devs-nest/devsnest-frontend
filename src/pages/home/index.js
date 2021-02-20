@@ -2,7 +2,6 @@ import React from 'react';
 import Carousel from 'react-multi-carousel';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
-import 'react-multi-carousel/lib/styles.css';
 
 import linkedin_icon from '../../assets/images/linkedin.svg';
 import achieve from '../../assets/images/achieve.png';
@@ -25,6 +24,7 @@ import curr3 from '../../assets/images/curr3.svg';
 import abhishek from '../../assets/images/abhishek.jpeg';
 import priya from '../../assets/images/priya.png';
 import vashu from '../../assets/images/vashu_f.png';
+import hero2 from '../../assets/images/hero2.jpg';
 
 import {
   prerequisite_data,
@@ -39,6 +39,24 @@ function Landing() {
   return (
     <div className="landing-v2" id="top-header">
       <Navbar />
+
+      <section className="hero rowx dark">
+        <div className="hero__left-side colx">
+          <img src={hero2} alt="hero" />
+        </div>
+        <div className="hero__right-side colx">
+          <div className="content">
+            <h1 className="hero__heading">
+              Education which makes you financially{' '}
+              <span className="color-purple ">independent.</span>
+            </h1>
+            <div className="descpx hero__descp">
+              A mentorship program designed to help you get your dream job. It
+              evolves as per your needs to mould you into a kickass developer.
+            </div>
+          </div>
+        </div>
+      </section>
 
       <section className="our-vision" id="our-vision">
         <div className="headingx our-vision__heading">
