@@ -4,8 +4,8 @@ $color-purple: #8367c7;
 $color-sec: #ff7d59;
 $color-bg: #e4f2f8;
 $color-text: #39393a;
-$color-text-light: rgba(#000000, 0.7);
-$color-white: #ffffff;
+$color-text-light: rgba(#000, 0.7);
+$color-white: #fff;
 $color-black: #101116;
 $color-orange: #f0aa4f;
 $color-grey: #707070;
@@ -24,7 +24,7 @@ $color-grey: #707070;
 }
 
 .navbar-brand {
-  padding: 0px;
+  padding: 0;
 }
 
 .navbar-brand img {
@@ -42,7 +42,7 @@ $color-grey: #707070;
   color: #9c85d2 !important;
   font-size: 1.25rem;
   transition: 150ms color ease-in;
-  padding: 0px 0px 0px 1.25rem !important;
+  padding: 0 0 0 1.25rem !important;
 
   &:hover {
     color: #ff7d59 !important;
@@ -51,10 +51,11 @@ $color-grey: #707070;
 
 @media only screen and (max-width: 768px) {
   .navbar-nav {
-    margin: 1rem 0px !important;
+    margin: 1rem 0 !important;
   }
+
   .nav-link {
-    padding: 0px !important;
-    margin: 0.625rem 0px !important;
+    padding: 0 !important;
+    margin: 0.625rem 0 !important;
   }
 }
