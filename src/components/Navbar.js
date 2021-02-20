@@ -9,6 +9,8 @@ import {
   NavLink,
 } from 'reactstrap';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { login } from '../actions/loginActions';
 import logo from '../assets/images/logo.jpg';
 
 const homeMenuItems = [
@@ -67,7 +69,7 @@ function Navbar({ loginState }) {
       <NavbarToggler onClick={toggle} />
 
       <Collapse isOpen={isOpen} navbar>
-        <BSNav className={!loginState.loggedIn && 'ml-auto'} navbar>
+        <BSNav className={!loginState.loggedIn ? 'ml-auto' : ''} navbar>
           {navItems.map((item) => (
             <NavItem key={item.id}>
               <NavLink href={item.to}>{item.title}</NavLink>
@@ -86,7 +88,12 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
+  return bindActionCreators(
+    {
+      login,
+    },
+    dispatch
+  );
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

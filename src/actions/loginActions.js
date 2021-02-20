@@ -1,7 +1,7 @@
 import { LOGIN, LOGOUT } from '../constants/types';
 
-export const login = async (user) => {
-  return (dispatch) => {
+export const login = (user) => {
+  return async (dispatch) => {
     dispatch({
       type: LOGIN,
       payload: {
@@ -12,8 +12,8 @@ export const login = async (user) => {
   };
 };
 
-export const logout = async () => {
-  return (dispatch) => {
+export const logout = () => {
+  return async (dispatch) => {
     dispatch({
       type: LOGOUT,
       payload: {
