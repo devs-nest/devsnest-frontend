@@ -8,6 +8,7 @@ import './assets/css/landing.scss';
 
 import Home from './pages/index';
 import Faq from './pages/faqs';
+import Navbar from './components/Navbar';
 
 function App() {
   useEffect(() => {
@@ -20,14 +21,16 @@ function App() {
   }, []);
 
   return (
-    <div>
+    <>
+      <Navbar />
+
       <Router>
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/faqs" component={Faq} />
         </Switch>
       </Router>
-    </div>
+    </>
   );
 }
 

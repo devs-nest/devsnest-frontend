@@ -1,15 +1,12 @@
 import React from 'react';
 import Accordion from 'react-bootstrap/Accordion';
 import Card from 'react-bootstrap/Card';
-import Navbar from '../components/Navbar';
-import { faqsData } from '../landing_data';
+import { faqsData } from '../constants';
 import hero2 from '../assets/images/hero2.jpg';
 
 function Faq() {
   return (
     <div className="landing-v2">
-      <Navbar />
-
       <section className="hero rowx dark">
         <div className="hero__left-side colx">
           <img src={hero2} alt="hero" />

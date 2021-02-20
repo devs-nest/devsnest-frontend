@@ -1,15 +1,15 @@
-import ved from './assets/images/mentor_ved.jpg';
-import kshitiz from './assets/images/mentors/kshitiz.png';
-import vaibhav from './assets/images/mentors/vaibhav_nutanix.jpeg';
-import sai from './assets/images/mentor_sai.jpg';
-import abhishek from './assets/images/mentors/Abhishek_eduflow.jpeg';
-import naman from './assets/images/mentors/naman_hackerrank.jpg';
-import kritarth from './assets/images/mentors/kritarth_facebook.jpg';
-import akshay from './assets/images/mentors/akshay_atlassian.jpeg';
-import sudhanshu from './assets/images/mentors/sudhanshu_hackerrank.jpg';
-import rohit from './assets/images/mentors/rohit_hackerrank.jpeg';
+import ved from '../assets/images/mentor_ved.jpg';
+import kshitiz from '../assets/images/mentors/kshitiz.png';
+import vaibhav from '../assets/images/mentors/vaibhav_nutanix.jpeg';
+import sai from '../assets/images/mentor_sai.jpg';
+import abhishek from '../assets/images/mentors/Abhishek_eduflow.jpeg';
+import naman from '../assets/images/mentors/naman_hackerrank.jpg';
+import kritarth from '../assets/images/mentors/kritarth_facebook.jpg';
+import akshay from '../assets/images/mentors/akshay_atlassian.jpeg';
+import sudhanshu from '../assets/images/mentors/sudhanshu_hackerrank.jpg';
+import rohit from '../assets/images/mentors/rohit_hackerrank.jpeg';
 
-const faqsData = [
+export const faqsData = [
   {
     question: `What is the duration of the course?`,
     answer: `The ideal duration of the course is 6 months, Some students will be able to get a job sooner and some might need some more revision classes`,
@@ -68,7 +68,7 @@ const faqsData = [
   },
 ];
 
-const prerequisite_data = [
+export const prerequisite_data = [
   {
     name: 'Basic Understanding of English and Maths',
     descp: null,
@@ -89,7 +89,7 @@ const prerequisite_data = [
   },
 ];
 
-const who_can_join_data = [
+export const who_can_join_data = [
   {
     name: 'If you looking to explore a career in coding(Complete beginner)',
   },
@@ -102,7 +102,7 @@ const who_can_join_data = [
   },
 ];
 
-const mentorsData = [
+export const mentorsData = [
   {
     name: 'Vedansh Garg',
     company: 'Ex - HackerRank',
@@ -161,7 +161,7 @@ const mentorsData = [
   },
 ];
 
-const webinarData = [
+export const webinarData = [
   /* {
     name: 'Ankit Goyal',
     title: 'Google',
@@ -226,7 +226,7 @@ const webinarData = [
   },
 ];
 
-const discord_server_data = [
+export const discord_server_data = [
   {
     name: 'Batch starting on 10th March.',
   },
@@ -239,11 +239,64 @@ const discord_server_data = [
   },
 ];
 
-export {
-  prerequisite_data,
-  who_can_join_data,
-  mentorsData,
-  webinarData,
-  discord_server_data,
-  faqsData,
+export const menuItems = [
+  {
+    id: 0,
+    title: 'Vision',
+    to: '/#our-vision',
+    type: 'internal',
+  },
+  {
+    id: 1,
+    title: 'Curriculum',
+    to: '/#curriculum',
+    type: 'internal',
+  },
+  {
+    id: 2,
+    title: 'Join Now',
+    to: '/#community',
+    type: 'internal',
+  },
+  {
+    id: 3,
+    title: 'FAQs',
+    to: '/faqs#read',
+    type: 'internal',
+  },
+];
+
+export const responsiveMultipleItem = {
+  superLargeDesktop: {
+    breakpoint: { max: 4000, min: 3000 },
+    items: 3,
+  },
+  desktop: {
+    breakpoint: { max: 3000, min: 1024 },
+    items: 3,
+  },
+  tablet: {
+    breakpoint: { max: 1024, min: 464 },
+    items: 2,
+  },
+  mobile: {
+    breakpoint: { max: 464, min: 0 },
+    items: 1,
+  },
+};
+
+export const responsiveSingleItem = {
+  ...responsiveMultipleItem,
+  superLargeDesktop: {
+    ...responsiveMultipleItem.superLargeDesktop,
+    items: 1,
+  },
+  desktop: {
+    ...responsiveMultipleItem.desktop,
+    items: 1,
+  },
+  tablet: {
+    ...responsiveMultipleItem.tablet,
+    items: 1,
+  },
 };

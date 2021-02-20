@@ -1,6 +1,5 @@
 import React from 'react';
 import Carousel from 'react-multi-carousel';
-import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
 import linkedin_icon from '../assets/images/linkedin.svg';
@@ -10,7 +9,6 @@ import discord_logo from '../assets/images/icon-discord.png';
 import Group_15 from '../assets/images/Group_15.svg';
 import Group_2479 from '../assets/images/Group_2479.svg';
 import Group_2672 from '../assets/images/Group_2672.svg';
-
 import unique0 from '../assets/images/unique0.svg';
 import unique1 from '../assets/images/unique1.svg';
 import unique2 from '../assets/images/unique2.svg';
@@ -32,14 +30,13 @@ import {
   mentorsData,
   webinarData,
   discord_server_data,
-} from '../landing_data';
-import { responsiveMultipleItem, responsiveSingleItem } from '../landing_utils';
+  responsiveMultipleItem,
+  responsiveSingleItem,
+} from '../constants';
 
 function Landing() {
   return (
     <div className="landing-v2" id="top-header">
-      <Navbar />
-
       <section className="hero rowx dark">
         <div className="hero__left-side colx">
           <img src={hero2} alt="hero" />
