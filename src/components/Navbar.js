@@ -8,13 +8,49 @@ import {
   NavItem,
   NavLink,
 } from 'reactstrap';
+import { connect } from 'react-redux';
 import logo from '../assets/images/logo.jpg';
-import { menuItems } from '../constants';
 
-function Navbar() {
+const homeMenuItems = [
+  {
+    title: 'Vision',
+    to: '/#our-vision',
+  },
+  {
+    title: 'Curriculum',
+    to: '/#curriculum',
+  },
+  {
+    title: 'Join Now',
+    to: '/#community',
+  },
+  {
+    title: 'FAQs',
+    to: '/faqs#read',
+  },
+];
+
+const loginMenuItems = [
+  {
+    title: 'Challanges',
+    to: '/challanges',
+  },
+  {
+    title: 'Leaderboard',
+    to: '/leaderboard',
+  },
+  {
+    title: 'Groups',
+    to: '/groups',
+  },
+];
+
+function Navbar({ loginState }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
+
+  const navItems = loginState.loggedIn ? loginMenuItems : homeMenuItems;
 
   return (
     <BSNavbar color="white" light expand="md" className="shadow-sm">
@@ -31,8 +67,8 @@ function Navbar() {
       <NavbarToggler onClick={toggle} />
 
       <Collapse isOpen={isOpen} navbar>
-        <BSNav className="ml-auto" navbar>
-          {menuItems.map((item) => (
+        <BSNav className={!loginState.loggedIn && 'ml-auto'} navbar>
+          {navItems.map((item) => (
             <NavItem key={item.id}>
               <NavLink href={item.to}>{item.title}</NavLink>
             </NavItem>
@@ -43,4 +79,14 @@ function Navbar() {
   );
 }
 
-export default Navbar;
+const mapStateToProps = (state) => {
+  return {
+    loginState: state.loginState,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);
