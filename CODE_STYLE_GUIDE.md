@@ -2,6 +2,7 @@
 
 ## Folder Layout
 
+- Images to be put in `./src/assets/images` and css in `./src/assets/css`.
 - Pages are to be put in `./src/pages/<route>.js`. eg. If we are making a component for page at `/profile/me` it should be at `./src/pages/profile/Me.js`.
 - Reducers are to be put in `./src/reducers/<exampleReducer>.js` and named exampleReducer, while using in combineReducer name it as `exampleState: exampleReducer`.
 - Actions are to be added in `./src/actions/<exampleActions>.js`.
