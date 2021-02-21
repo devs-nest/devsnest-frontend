@@ -10,6 +10,10 @@ $color-black: #101116;
 $color-orange: #f0aa4f;
 $color-grey: #707070;
 
+body {
+  line-height: 1.2;
+}
+
 .navbar {
   padding: 0.625rem 2.125rem;
   position: fixed;
@@ -17,10 +21,10 @@ $color-grey: #707070;
   z-index: 1000;
 }
 
-@media (min-width: 768px) {
-  .navbar-nav {
-    margin-right: 50px;
-  }
+.navbar-nav {
+  width: 100%;
+  justify-content: flex-end;
+  align-items: center;
 }
 
 .navbar-brand {
@@ -49,13 +53,25 @@ $color-grey: #707070;
   }
 }
 
+.nav-item-profile {
+  align-items: center;
+  margin-left: auto !important;
+}
+
 @media only screen and (max-width: 768px) {
   .navbar-nav {
     margin: 1rem 0 !important;
+    margin-right: 50px;
+    justify-content: flex-start;
+    align-items: stretch;
   }
 
   .nav-link {
     padding: 0 !important;
     margin: 0.625rem 0 !important;
+  }
+
+  .nav-item-profile {
+    margin-left: 0px !important;
   }
 }

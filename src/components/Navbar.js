@@ -3,15 +3,12 @@ import {
   Collapse,
   Navbar as BSNavbar,
   NavbarToggler,
-  NavbarBrand,
   Nav as BSNav,
   NavItem,
-  NavLink,
 } from 'reactstrap';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { login } from '../actions/loginActions';
+import { useSelector } from 'react-redux';
 import logo from '../assets/images/logo.jpg';
+import { HashLink as Link } from 'react-router-hash-link';
 
 const homeMenuItems = [
   {
@@ -47,8 +44,9 @@ const loginMenuItems = [
   },
 ];
 
-function Navbar({ loginState }) {
+function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const loginState = useSelector((state) => state.loginState);
 
   const toggle = () => setIsOpen(!isOpen);
 
@@ -56,7 +54,7 @@ function Navbar({ loginState }) {
 
   return (
     <BSNavbar color="white" light expand="md" className="shadow-sm">
-      <NavbarBrand href="/" className="d-flex align-items-center">
+      <Link to="/" className="navbar-brand">
         <img
           src={logo}
           alt="Devsnest logo"
@@ -64,36 +62,46 @@ function Navbar({ loginState }) {
           width="72"
           class="d-inline-block align-top nav-logo"
         />
-      </NavbarBrand>
+      </Link>
 
       <NavbarToggler onClick={toggle} />
 
       <Collapse isOpen={isOpen} navbar>
-        <BSNav className={!loginState.loggedIn ? 'ml-auto' : ''} navbar>
+        <BSNav className={!loginState.loggedIn ? '' : ''} navbar>
           {navItems.map((item) => (
             <NavItem key={item.id}>
-              <NavLink href={item.to}>{item.title}</NavLink>
+              <Link to={item.to} smooth className="nav-link">
+                {item.title}
+              </Link>
             </NavItem>
           ))}
+
+          {loginState.loggedIn ? (
+            <NavItem className="nav-item-profile">
+              <Link to="/profile" className="nav-link">
+                <img
+                  src="https://via.placeholder.com/100"
+                  height="36"
+                  width="36"
+                  className="rounded-pill"
+                  alt="Jane Doe"
+                />
+                <span className="ml-3">Jane Doe</span>
+              </Link>
+            </NavItem>
+          ) : (
+            <></>
+            // For later uses
+            // <NavItem>
+            //   <Link className="nav-link" onClick={actions.login}>
+            //     Login
+            //   </Link>
+            // </NavItem>
+          )}
         </BSNav>
       </Collapse>
     </BSNavbar>
   );
 }
 
-const mapStateToProps = (state) => {
-  return {
-    loginState: state.loginState,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators(
-    {
-      login,
-    },
-    dispatch
-  );
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Navbar);
+export default Navbar;

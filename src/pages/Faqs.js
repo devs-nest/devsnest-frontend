@@ -15,13 +15,8 @@ function Faq() {
         <div className="hero__right-side colx">
           <div className="content">
             <h1 className="hero__heading">
-              Education which makes you financially{' '}
-              <span className="color-purple ">independent.</span>
+              Please go through the <span className="color-purple ">FAQs.</span>
             </h1>
-            <div className="descpx hero__descp">
-              A mentorship program designed to help you get your dream job. It
-              evolves as per your needs to mould you into a kickass developer.
-            </div>
           </div>
         </div>
       </section>
