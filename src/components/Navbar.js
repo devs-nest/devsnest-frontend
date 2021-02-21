@@ -70,7 +70,12 @@ function Navbar() {
         <BSNav className={!loginState.loggedIn ? '' : ''} navbar>
           {navItems.map((item) => (
             <NavItem key={item.id}>
-              <Link to={item.to} smooth className="nav-link">
+              <Link
+                to={item.to}
+                smooth
+                className="nav-link"
+                onClick={() => setIsOpen(false)}
+              >
                 {item.title}
               </Link>
             </NavItem>
@@ -78,7 +83,11 @@ function Navbar() {
 
           {loginState.loggedIn ? (
             <NavItem className="nav-item-profile">
-              <Link to="/profile" className="nav-link">
+              <Link
+                to="/profile"
+                className="nav-link"
+                onClick={() => setIsOpen(false)}
+              >
                 <img
                   src="https://via.placeholder.com/100"
                   height="36"
