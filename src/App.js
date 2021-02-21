@@ -9,6 +9,7 @@ import './assets/css/landing.scss';
 import Landing from './pages/Landing';
 import Faq from './pages/Faqs';
 import Navbar from './components/Navbar';
+import NotFound from './pages/NotFound';
 
 function App() {
   useEffect(() => {
@@ -27,6 +28,7 @@ function App() {
       <Switch>
         <Route exact path="/" component={Landing} />
         <Route exact path="/faqs" component={Faq} />
+        <Route component={NotFound} />
       </Switch>
     </Router>
   );
