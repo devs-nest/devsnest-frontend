@@ -19,7 +19,7 @@ function NotFound() {
         }}
       />
       <h2 className="text-secondary text-center mt-5 mb-3">
-        Looks like you're lost
+        This page doesn't exists.
       </h2>
       <Link to="/" className="text-center">
         Go back home
