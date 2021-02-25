@@ -1,13 +1,13 @@
 import ved from '../assets/images/mentor_ved.jpg';
 import kshitiz from '../assets/images/mentors/kshitiz.png';
-import vaibhav from '../assets/images/mentors/vaibhav_nutanix.jpeg';
+import vaibhav from '../assets/images/mentors/vaibhav_nutanix.jpg';
 import sai from '../assets/images/mentor_sai.jpg';
-import abhishek from '../assets/images/mentors/Abhishek_eduflow.jpeg';
+import abhishek from '../assets/images/mentors/Abhishek_eduflow.jpg';
 import naman from '../assets/images/mentors/naman_hackerrank.jpg';
 import kritarth from '../assets/images/mentors/kritarth_facebook.jpg';
-import akshay from '../assets/images/mentors/akshay_atlassian.jpeg';
+import akshay from '../assets/images/mentors/akshay_atlassian.jpg';
 import sudhanshu from '../assets/images/mentors/sudhanshu_hackerrank.jpg';
-import rohit from '../assets/images/mentors/rohit_hackerrank.jpeg';
+import rohit from '../assets/images/mentors/rohit_hackerrank.jpg';
 
 export const faqsData = [
   {

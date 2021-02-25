@@ -19,7 +19,7 @@ import curr0 from '../assets/images/curr0.svg';
 import curr1 from '../assets/images/curr1.svg';
 import curr2 from '../assets/images/curr2.svg';
 import curr3 from '../assets/images/curr3.svg';
-import abhishek from '../assets/images/abhishek.jpeg';
+import abhishek from '../assets/images/abhishek.jpg';
 import priya from '../assets/images/priya.png';
 import vashu from '../assets/images/vashu_f.png';
 import hero2 from '../assets/images/hero2.jpg';
