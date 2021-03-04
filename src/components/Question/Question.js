@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { UncontrolledTooltip } from 'reactstrap';
 import './Question.scss';
 

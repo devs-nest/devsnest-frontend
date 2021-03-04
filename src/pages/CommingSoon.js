@@ -13,7 +13,7 @@ export default function CommingSoon() {
           className="mb-4"
         />
         <h5 className="text-center mx-4 mb-3">
-          Exciting things are comming soon!
+          Exciting things are coming soon!
         </h5>
       </div>
     </div>
