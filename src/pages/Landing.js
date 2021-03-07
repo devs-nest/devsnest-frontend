@@ -514,7 +514,7 @@ function Landing() {
         </div>
       </section>
 
-      <Carousel infinite={true - fix} responsive={responsiveSingleItem}>
+      <Carousel infinite={true} responsive={responsiveSingleItem}>
         <section className="stories">
           <div className="stories__container">
             <div className="stories__left-side">
