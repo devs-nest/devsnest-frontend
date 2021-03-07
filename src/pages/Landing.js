@@ -483,6 +483,7 @@ function Landing() {
 
           <Carousel
             responsive={responsiveMultipleItem}
+            infinite={true}
             className="community__carousel-div__carousel"
           >
             {webinarData.map((item) => {
@@ -513,7 +514,7 @@ function Landing() {
         </div>
       </section>
 
-      <Carousel responsive={responsiveSingleItem}>
+      <Carousel infinite={true - fix} responsive={responsiveSingleItem}>
         <section className="stories">
           <div className="stories__container">
             <div className="stories__left-side">
