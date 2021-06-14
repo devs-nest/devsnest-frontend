@@ -1,6 +1,6 @@
 $cardColor: #b9a5db;
 $backgroundColor: #f2eff7;
-$paddingConstant: 15rem;
+$paddingConstant: 10rem;
 
 .TeamView {
   padding: 2rem $paddingConstant;
@@ -9,7 +9,8 @@ $paddingConstant: 15rem;
   flex-wrap: wrap;
   flex-direction: row;
   row-gap: 2rem;
-  justify-content: space-between;
+  column-gap: 2em;
+  justify-content: flex-start;
   align-content: space-between;
   align-items: center;
   background-color: $backgroundColor;
@@ -32,7 +33,7 @@ $paddingConstant: 15rem;
     margin-left: $paddingConstant;
   }
   div:nth-of-type(2) {
-    margin-right: $paddingConstant;
+    margin-right: 11rem;
   }
   p {
     color: $lineColor;
@@ -69,14 +70,16 @@ $paddingConstant: 15rem;
   height: 170px;
 
   h1 {
-    @include theme(3.1vmin, black);
+    @include theme(1.3rem, black);
     padding-left: 0;
     padding-bottom: 0;
     margin-bottom: 0;
+    word-wrap: break-word;
+    white-space: normal;
   }
 
   h2 {
-    @include theme(2.5vmin, #606060);
+    @include theme(1rem, #606060);
 
     padding-left: 1.4rem;
     font-weight: 400;
@@ -152,13 +155,13 @@ $paddingConstant: 15rem;
 }
 
 @media screen and (max-width: 768px) {
-  $tabPaddingConstant: 6rem;
+  $tabPaddingConstant: 5rem;
 
   .TeamView {
     padding: 2rem $tabPaddingConstant;
 
     & > div {
-      flex-basis: 48%;
+      flex-basis: 45%;
       flex-shrink: 0;
       flex-grow: 0;
     }
@@ -174,7 +177,7 @@ $paddingConstant: 15rem;
 
   .TeamCard {
     h1 {
-      font-size: 1rem;
+      font-size: 1.1rem;
     }
 
     h2 {
@@ -217,7 +220,7 @@ $paddingConstant: 15rem;
 
   .TeamCard {
     h1 {
-      font-size: 1rem;
+      font-size: 0.9rem;
       padding-left: $padding;
     }
 

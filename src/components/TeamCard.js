@@ -12,7 +12,7 @@ export default function TeamCard({
   return (
     <div className={styles.TeamCard}>
       <div className={styles.TeamName}>
-        <h1>{name}</h1>
+        <h1>{name.length > 10 ? name.slice(0, 10) + '...' : name}</h1>
         <button>
           <Link to={`/groups/${slug}`}>
             <img src={Arrow} alt=""></img>

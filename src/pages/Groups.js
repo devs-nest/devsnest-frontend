@@ -65,15 +65,16 @@ export default function Groups() {
       setIsLoading(false);
     } catch (e) {
       myLog(e);
+      setIsLoading(false); //fetching with /groups/null throws error ;
     }
   };
 
   useEffect(() => {
-    if (user.group_id) loadData();
+    if (slug !== 'null') loadData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (!user.group_id) {
+  if (slug === 'null') {
     return (
       <div className="groups d-flex flex-column align-items-center justify-content-center px-3">
         <img
