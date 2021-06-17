@@ -1,17 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import TeamCard from '../components/TeamCard';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import styles from '../assets/css/groupsView.module.scss';
-import { API_ENDPOINTS } from '../constants/api';
-import axios from '../config/axios.config';
-import myLog from '../utils/myLog';
 import { Redirect } from 'react-router-dom';
+
+import styles from '../assets/css/groupsView.module.scss';
+import TeamCard from '../components/TeamCard';
+import axios from '../config/axios.config';
+import { API_ENDPOINTS } from '../constants/api';
+import myLog from '../utils/myLog';
 
 export default function AllGroups() {
   const [allTeams, setAllTeams] = useState([]);
   const [myTeam, setMyTeam] = useState({});
   const [loading, setLoading] = useState(true);
   const my_group_id = useSelector((state) => state.loginState.user.group_id);
+
   useEffect(() => {
     async function getAllTeams() {
       try {
@@ -37,7 +39,7 @@ export default function AllGroups() {
       }
     }
     getAllTeams();
-  }, []);
+  }, [my_group_id]);
 
   if (loading) {
     return (

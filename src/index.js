@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
+
+import App from './App';
 import configureStore from './utils/configureStore';
 import { saveStorage } from './utils/localStorage';
-import App from './App';
 
 const store = configureStore();
 

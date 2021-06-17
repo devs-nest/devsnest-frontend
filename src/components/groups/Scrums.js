@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import UserImage from '../UserImage';
+import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
 import default_user from '../../assets/images/default_user.png';
-import { useSelector } from 'react-redux';
 import {
   getScrums,
   saveCurrentUserScrum,
   saveScrum,
 } from '../../services/scrum';
-import { toast } from 'react-toastify';
+import UserImage from '../UserImage';
 
 const DEFAULT_MEMBER_OBJECT = {
   data: '',

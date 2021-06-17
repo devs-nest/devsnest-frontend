@@ -1,36 +1,35 @@
 import React from 'react';
 import Carousel from 'react-multi-carousel';
 
-import linkedin_icon from '../assets/images/linkedin.svg';
-import whatsapp_logo from '../assets/images/icon-whatsapp.png';
 import discord_logo from '../assets/images/icon-discord.png';
+import whatsapp_logo from '../assets/images/icon-whatsapp.png';
 import achieve from '../assets/images/landing/achieve.png';
+import curr0 from '../assets/images/landing/curr0.svg';
+import curr1 from '../assets/images/landing/curr1.svg';
+import curr2 from '../assets/images/landing/curr2.svg';
+import curr3 from '../assets/images/landing/curr3.svg';
 import Group_15 from '../assets/images/landing/Group_15.svg';
 import Group_2479 from '../assets/images/landing/Group_2479.svg';
 import Group_2672 from '../assets/images/landing/Group_2672.svg';
+import hero2 from '../assets/images/landing/hero2.jpg';
 import unique0 from '../assets/images/landing/unique0.svg';
 import unique1 from '../assets/images/landing/unique1.svg';
 import unique2 from '../assets/images/landing/unique2.svg';
 import unique3 from '../assets/images/landing/unique3.svg';
 import unique4 from '../assets/images/landing/unique4.svg';
 import unique5 from '../assets/images/landing/unique5.svg';
-import curr0 from '../assets/images/landing/curr0.svg';
-import curr1 from '../assets/images/landing/curr1.svg';
-import curr2 from '../assets/images/landing/curr2.svg';
-import curr3 from '../assets/images/landing/curr3.svg';
+import linkedin_icon from '../assets/images/linkedin.svg';
 import abhishek from '../assets/images/people/abhishek.jpg';
 import priya from '../assets/images/people/priya.png';
 import vashu from '../assets/images/people/vashu_f.png';
-import hero2 from '../assets/images/landing/hero2.jpg';
-
 import {
-  prerequisite_data,
-  who_can_join_data,
-  mentorsData,
-  webinarData,
   discord_server_data,
+  mentorsData,
+  prerequisite_data,
   responsiveMultipleItem,
   responsiveSingleItem,
+  webinarData,
+  who_can_join_data,
 } from '../constants/mock_data';
 
 function Landing() {

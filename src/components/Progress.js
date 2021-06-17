@@ -23,7 +23,10 @@ function Progress(props) {
             chartType="PieChart"
             loader={
               <div className="d-flex" style={{ height: '250px' }}>
-                <div class="spinner-border text-primary m-auto" role="status" />
+                <div
+                  className="spinner-border text-primary m-auto"
+                  role="status"
+                />
               </div>
             }
             data={[['Topic', 'Ques solved'], ...topic_wise]}
@@ -45,7 +48,7 @@ function Progress(props) {
         </div>
       ) : (
         <div className="mt-4 bg-white d-flex py-4">
-          <div class="spinner-border text-primary mx-auto" role="status" />
+          <div className="spinner-border text-primary mx-auto" role="status" />
         </div>
       )}
     </div>

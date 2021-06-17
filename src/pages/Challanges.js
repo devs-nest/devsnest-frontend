@@ -1,14 +1,16 @@
+import '../assets/css/challenges.scss';
+
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import Question from '../components/Question';
+
 import Progress from '../components/Progress';
+import Question from '../components/Question';
 import QuestionFilters from '../components/QuestionFilters';
-import { getQuestions } from '../services/question';
-import { getTopics } from '../services/topic';
-import { submitQuestion } from '../services/submission';
 import axios from '../config/axios.config';
 import { API_ENDPOINTS } from '../constants/api';
-import '../assets/css/challenges.scss';
+import { getQuestions } from '../services/question';
+import { submitQuestion } from '../services/submission';
+import { getTopics } from '../services/topic';
 
 const DIFFICULTIES = [
   { title: 'Easy', key: 'easy' },
@@ -166,7 +168,7 @@ function Challenges(props) {
   if (isLoading) {
     return (
       <div className="dashboard d-flex">
-        <div class="spinner-border text-primary m-auto" role="status" />
+        <div className="spinner-border text-primary m-auto" role="status" />
       </div>
     );
   }

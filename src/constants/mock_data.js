@@ -1,13 +1,13 @@
-import ved from '../assets/images/people/mentor_ved.jpg';
-import kshitiz from '../assets/images/people/kshitiz.png';
-import vaibhav from '../assets/images/people/vaibhav_nutanix.jpg';
-import sai from '../assets/images/people/mentor_sai.jpg';
 import abhishek from '../assets/images/people/Abhishek_eduflow.jpg';
-import naman from '../assets/images/people/naman_hackerrank.jpg';
-import kritarth from '../assets/images/people/kritarth_facebook.jpg';
 import akshay from '../assets/images/people/akshay_atlassian.jpg';
-import sudhanshu from '../assets/images/people/sudhanshu_hackerrank.jpg';
+import kritarth from '../assets/images/people/kritarth_facebook.jpg';
+import kshitiz from '../assets/images/people/kshitiz.png';
+import sai from '../assets/images/people/mentor_sai.jpg';
+import ved from '../assets/images/people/mentor_ved.jpg';
+import naman from '../assets/images/people/naman_hackerrank.jpg';
 import rohit from '../assets/images/people/rohit_hackerrank.jpg';
+import sudhanshu from '../assets/images/people/sudhanshu_hackerrank.jpg';
+import vaibhav from '../assets/images/people/vaibhav_nutanix.jpg';
 
 export const faqsData = [
   {

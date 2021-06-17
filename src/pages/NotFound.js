@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+
 import taken_by_ufo from '../assets/images/taken_by_ufo.svg';
 
 function NotFound() {

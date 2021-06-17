@@ -1,4 +1,4 @@
-import { LOGIN, LOGOUT, LOGIN_LOADING } from '../constants/types';
+import { LOGIN, LOGIN_LOADING, LOGOUT } from '../constants/types';
 
 const initialState = {
   isLoading: true,

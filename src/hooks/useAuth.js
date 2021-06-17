@@ -1,10 +1,11 @@
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import useActions from './useActions';
-import { login, logout, loginLoadingState } from '../actions/loginActions';
+
+import { login, loginLoadingState, logout } from '../actions/loginActions';
 import axios from '../config/axios.config';
 import { API_ENDPOINTS } from '../constants/api';
 import myLog from '../utils/myLog';
+import useActions from './useActions';
 
 export default function useAuth() {
   const loginState = useSelector((state) => state.loginState);

@@ -1,16 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import { API_ENDPOINTS } from '../../constants/api';
-import { Redirect, useHistory, useLocation } from 'react-router-dom';
-import myLog from '../../utils/myLog';
-import axios from '../../config/axios.config';
-import { login } from '../../actions/loginActions';
-import { useSelector } from 'react-redux';
-import useActions from '../../hooks/useActions';
 import '../../assets/css/login.scss';
 
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { Redirect, useHistory, useLocation } from 'react-router-dom';
+
+import { login } from '../../actions/loginActions';
 import bg from '../../assets/images/login/bg.png';
-import right from '../../assets/images/login/Group 65.svg';
 import left from '../../assets/images/login/Group 17.svg';
+import right from '../../assets/images/login/Group 65.svg';
+import axios from '../../config/axios.config';
+import { API_ENDPOINTS } from '../../constants/api';
+import useActions from '../../hooks/useActions';
+import myLog from '../../utils/myLog';
 
 export default function LoginCallback() {
   const history = useHistory();
@@ -112,7 +113,7 @@ export default function LoginCallback() {
               disabled
             >
               <div
-                class="spinner-border text-light spinner-border-sm"
+                className="spinner-border text-light spinner-border-sm"
                 role="status"
               />
             </button>

@@ -1,6 +1,6 @@
 import axios from '../config/axios.config';
-import getDiscordId from '../utils/getDiscordId';
 import { API_ENDPOINTS } from '../constants/api';
+import getDiscordId from '../utils/getDiscordId';
 
 function submitQuestion({ question_unique_id, status }) {
   const discord_id = getDiscordId();

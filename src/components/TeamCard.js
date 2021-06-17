@@ -1,7 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
 import styles from '../assets/css/groupsView.module.scss';
 import Arrow from '../assets/images/groups/teamCardArrow.svg';
-import { Link } from 'react-router-dom';
 export default function TeamCard({
   name,
   owner_name,

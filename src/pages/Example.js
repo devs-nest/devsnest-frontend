@@ -1,8 +1,9 @@
 // Imports
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useActions } from '../hooks/useActions';
+
 import { login } from '../actions/loginActions';
+import { useActions } from '../hooks/useActions';
 import myLog from '../utils/myLog';
 
 // Other smaller components

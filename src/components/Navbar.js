@@ -1,23 +1,24 @@
 import React, { useState } from 'react';
-import {
-  Collapse,
-  Navbar as BSNavbar,
-  NavbarToggler,
-  Nav as BSNav,
-  NavItem,
-} from 'reactstrap';
 import { useSelector } from 'react-redux';
-import useActions from '../hooks/useActions';
-import { logout } from '../actions/loginActions';
-import logo from '../assets/images/logo.jpg';
-import default_user from '../assets/images/default_user.png';
 import { HashLink as Link } from 'react-router-hash-link';
 import {
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
+  Collapse,
+  Nav as BSNav,
+  Navbar as BSNavbar,
+  NavbarToggler,
+  NavItem,
 } from 'reactstrap';
+import {
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
+  UncontrolledDropdown,
+} from 'reactstrap';
+
+import { logout } from '../actions/loginActions';
+import default_user from '../assets/images/default_user.png';
+import logo from '../assets/images/logo.jpg';
+import useActions from '../hooks/useActions';
 
 const homeMenuItems = [
   {

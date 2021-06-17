@@ -1,9 +1,9 @@
 import React from 'react';
 import { UncontrolledTooltip } from 'reactstrap';
 
-import SolvedQuestion from '../assets/images/dashboard/solved_question.png';
-import UnsolvedQuestion from '../assets/images/dashboard/solve_question.png';
 import AttemptedQuestion from '../assets/images/dashboard/retry_question.png';
+import UnsolvedQuestion from '../assets/images/dashboard/solve_question.png';
+import SolvedQuestion from '../assets/images/dashboard/solved_question.png';
 
 const getColor = (difficulty = '') => {
   switch (difficulty.toLowerCase()) {

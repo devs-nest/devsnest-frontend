@@ -1,9 +1,11 @@
-import React, { useState, useEffect, useRef } from 'react';
+import '../assets/css/leaderboard.scss';
+
+import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
-import useScroll from '../hooks/useScroll';
+
 import axios from '../config/axios.config';
 import { API_ENDPOINTS } from '../constants/api';
-import '../assets/css/leaderboard.scss';
+import useScroll from '../hooks/useScroll';
 
 export default function Leaderboard() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -53,7 +55,7 @@ export default function Leaderboard() {
   if (isLoading) {
     return (
       <div className="leaderboard d-flex">
-        <div class="spinner-border text-primary m-auto" role="status" />
+        <div className="spinner-border text-primary m-auto" role="status" />
       </div>
     );
   }
@@ -87,7 +89,7 @@ export default function Leaderboard() {
               {isLoadingMore && (
                 <div className="d-flex my-3">
                   <div
-                    class="spinner-border text-primary mx-auto"
+                    className="spinner-border text-primary mx-auto"
                     role="status"
                   />
                 </div>
