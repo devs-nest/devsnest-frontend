@@ -1,5 +1,5 @@
 {
-  "name": "classshit",
+  "name": "devsnest-frontend",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -74,7 +74,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn verify"
+      "pre-commit": "echo Leave for now"
     }
   }
 }
