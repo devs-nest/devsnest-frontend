@@ -24,6 +24,7 @@ import Groups from './pages/Groups';
 import ViewAllGroups from './pages/AllTeams';
 import useAuth from './hooks/useAuth';
 import PrivacyPolicy from './pages/PrivacyPolicy';
+import Profile from './pages/Profile';
 
 function App() {
   useAuth();
@@ -51,6 +52,7 @@ function App() {
           />
           <Route exact path="/faqs" component={Faq} />
           <Route exact path="/login" component={Login} />
+          <Route exact path="/user/:username" component={Profile} />
           <PrivateRoute exact path="/challenges" component={Challenges} />
           <PrivateRoute exact path="/leaderboard" component={Leaderboard} />
           <PrivateRoute exact path="/groups/:slug" component={Groups} />
