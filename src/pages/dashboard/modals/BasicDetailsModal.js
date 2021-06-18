@@ -19,6 +19,7 @@ export const BasicDetailsModal = ({ modalProps, user, id }) => {
   // State for Modal
   const [details, setDetails] = useState({
     name: user.name || '',
+    username: user.username || '',
     github_url: user.github_url || '',
     linkedin_url: user.linkedin_url || '',
     resume_url: user.resume_url || '',
@@ -90,6 +91,23 @@ export const BasicDetailsModal = ({ modalProps, user, id }) => {
               className="p-2 ml-3 w-100"
               value={details.name}
               onChange={(e) => setDetails({ ...details, name: e.target.value })}
+              style={{
+                boxShadow: '0px 0px 10px #8264B433',
+                border: '0.800000011920929px solid #D6CCE6',
+                borderRadius: '13px',
+              }}
+              placeholder="Name"
+            />
+          </div>
+          <div className="m-2 my-3 px-3 d-flex align-items-center w-100">
+            <img src={userIcon} alt="user-icon" height="25px" width="25px" />
+            <input
+              type="text"
+              className="p-2 ml-3 w-100"
+              value={details.username}
+              onChange={(e) =>
+                setDetails({ ...details, username: e.target.value })
+              }
               style={{
                 boxShadow: '0px 0px 10px #8264B433',
                 border: '0.800000011920929px solid #D6CCE6',
