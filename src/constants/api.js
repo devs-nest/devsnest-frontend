@@ -11,7 +11,7 @@ export const API_ENDPOINTS = {
   LOGOUT: `api/v1/users/logout`,
   LOGIN: `api/v1/users/login`,
   CURRENT_USER: 'api/v1/users/me',
-  UPDATE_USER: `api/v1/users`,
+  USER: `api/v1/users`,
   CONTENTS: `api/v1/contents`,
   SUBMISSIONS: `api/v1/submissions`,
   REPORT: `api/v1/users/report`,

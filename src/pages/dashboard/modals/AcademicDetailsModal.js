@@ -36,7 +36,7 @@ export const AcademicDetailsModal = ({ modalProps, user, id }) => {
 
     try {
       const response = await axios.put(
-        `${API_ENDPOINTS.UPDATE_USER}/${id}`,
+        `${API_ENDPOINTS.USER}/${id}`,
         {
           data: {
             id: id.toString(),
