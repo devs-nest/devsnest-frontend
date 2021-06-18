@@ -52,7 +52,7 @@ function App() {
           />
           <Route exact path="/faqs" component={Faq} />
           <Route exact path="/login" component={Login} />
-          <Route exact path="/user/:username" component={Profile} />
+          <Route exact path="/users/:username" component={Profile} />
           <PrivateRoute exact path="/challenges" component={Challenges} />
           <PrivateRoute exact path="/leaderboard" component={Leaderboard} />
           <PrivateRoute exact path="/groups/:slug" component={Groups} />
