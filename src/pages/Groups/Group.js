@@ -5,40 +5,42 @@ import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import default_user from '../../assets/images/default_user.png';
-import assignment_checking from '../../assets/images/groups/assignment_checking.svg';
-import discussions_doubts from '../../assets/images/groups/discussions_doubts.svg';
-import doubt_class from '../../assets/images/groups/doubt_class.svg';
-import mentor_feedback from '../../assets/images/groups/mentor_feedback.svg';
-import mentor_mentee_feedback from '../../assets/images/groups/mentor_mentee_feedback.svg';
-import no_data from '../../assets/images/groups/no_data.svg';
-import peer_interviews from '../../assets/images/groups/peer_interviews.svg';
-import scrums from '../../assets/images/groups/scrums.svg';
 import team_leader from '../../assets/images/groups/team_leader.svg';
+import NoGroupData from '../../components/Groups/NoGroupData';
 import UserImage from '../../components/Layout/UserImage';
 import axios from '../../config/axios.config';
 import { API_ENDPOINTS } from '../../constants/api';
+import icons from '../../utils/getIcons';
 import myLog from '../../utils/myLog';
 
 const group_activities = [
-  { title: 'Scrums', key: 'scrums', img: scrums },
+  { title: 'Scrums', key: 'scrums', img: icons.group_scrums },
   {
     title: 'Discussions & Doubts',
     key: 'discussions_doubts',
-    img: discussions_doubts,
+    img: icons.group_discussion_doubt,
   },
-  { title: 'Doubt Class', key: 'doubt_class', img: doubt_class },
-  { title: 'Peer interviews', key: 'peer_interviews', img: peer_interviews },
+  { title: 'Doubt Class', key: 'doubt_class', img: icons.group_class_doubt },
+  {
+    title: 'Peer interviews',
+    key: 'peer_interviews',
+    img: icons.group_peer_interview,
+  },
   {
     title: 'Mentor/Mentee Feedback',
     key: 'mentor_mentee_feedback',
-    img: mentor_mentee_feedback,
+    img: icons.group_mentee_feedback,
   },
   {
     title: 'Assignment Checking',
     key: 'assignment_checking',
-    img: assignment_checking,
+    img: icons.group_assignment,
   },
-  { title: 'Mentor Feedback', key: 'mentor_feedback', img: mentor_feedback },
+  {
+    title: 'Mentor Feedback',
+    key: 'mentor_feedback',
+    img: icons.group_mentor_feedback,
+  },
 ];
 
 export default function Groups() {
@@ -83,27 +85,7 @@ export default function Groups() {
   }
 
   if (!user.group_id || !groupData) {
-    return (
-      <div className="groups d-flex flex-column align-items-center justify-content-center px-3">
-        <img
-          className="img-fluid"
-          src={no_data}
-          alt="New things are coming soon!"
-        />
-        <h5 className="text-center text-muted mt-5 mb-2">
-          {"You're"} not in any group yet.
-          <br />
-          Join our server and find one that fits you!
-        </h5>
-        <a
-          href="https://discord.gg/DVmruvFfDN"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Join our discord server
-        </a>
-      </div>
-    );
+    return <NoGroupData />;
   }
 
   return (
@@ -190,7 +172,7 @@ export default function Groups() {
             <>
               <img
                 className="img-fluid mx-3"
-                src={no_data}
+                src={icons.group_no_data}
                 alt="New things are coming soon!"
               />
               <h5 className="text-center text-muted mt-5 mb-0">
@@ -201,7 +183,7 @@ export default function Groups() {
             <>
               <img
                 className="img-fluid mx-3"
-                src={no_data}
+                src={icons.group_no_data}
                 alt="New things are coming soon!"
               />
               <h5 className="text-center text-muted mt-5 mb-0">

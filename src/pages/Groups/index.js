@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
-import TeamCard from '../../components/AllTeams/TeamCard';
+import NoGroupData from '../../components/Groups/NoGroupData';
+import TeamCard from '../../components/Groups/TeamCard';
 import axios from '../../config/axios.config';
 import { API_ENDPOINTS } from '../../constants/api';
-import icons from '../../utils/getIcons';
 import myLog from '../../utils/myLog';
 
 export default function AllGroups() {
@@ -62,27 +62,7 @@ export default function AllGroups() {
   }
 
   if (noTeam) {
-    return (
-      <div className="groups d-flex flex-column align-items-center justify-content-center px-3">
-        <img
-          className="img-fluid"
-          src={icons.group_no_data}
-          alt="New things are coming soon!"
-        />
-        <h5 className="text-center text-muted mt-5 mb-2">
-          {"You're"} not in any group yet.
-          <br />
-          Join our server and find one that fits you!
-        </h5>
-        <a
-          href="https://discord.gg/DVmruvFfDN"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Join our discord server
-        </a>
-      </div>
-    );
+    return <NoGroupData />;
   }
 
   return (
