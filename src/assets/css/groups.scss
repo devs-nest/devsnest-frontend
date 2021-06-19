@@ -1,3 +1,17 @@
+.group-card {
+  border-radius: 12px;
+  min-width: 230px;
+  max-width: 350px;
+  box-shadow: 0 0 10px 1px rgb(0 0 0 / 15%);
+}
+
+.group-card-header {
+  color: #1b1b1b;
+  background-color: #b9a5db;
+  border-top-right-radius: 12px !important;
+  border-top-left-radius: 12px !important;
+}
+
 .groups {
   min-height: calc(100vh - 92px);
   background: #f2eff7;

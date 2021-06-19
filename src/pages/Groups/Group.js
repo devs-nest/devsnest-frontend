@@ -1,23 +1,23 @@
-import '../assets/css/groups.scss';
+import '../../assets/css/groups.scss';
 
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
-import default_user from '../assets/images/default_user.png';
-import assignment_checking from '../assets/images/groups/assignment_checking.svg';
-import discussions_doubts from '../assets/images/groups/discussions_doubts.svg';
-import doubt_class from '../assets/images/groups/doubt_class.svg';
-import mentor_feedback from '../assets/images/groups/mentor_feedback.svg';
-import mentor_mentee_feedback from '../assets/images/groups/mentor_mentee_feedback.svg';
-import no_data from '../assets/images/groups/no_data.svg';
-import peer_interviews from '../assets/images/groups/peer_interviews.svg';
-import scrums from '../assets/images/groups/scrums.svg';
-import team_leader from '../assets/images/groups/team_leader.svg';
-import UserImage from '../components/Layout/UserImage';
-import axios from '../config/axios.config';
-import { API_ENDPOINTS } from '../constants/api';
-import myLog from '../utils/myLog';
+import default_user from '../../assets/images/default_user.png';
+import assignment_checking from '../../assets/images/groups/assignment_checking.svg';
+import discussions_doubts from '../../assets/images/groups/discussions_doubts.svg';
+import doubt_class from '../../assets/images/groups/doubt_class.svg';
+import mentor_feedback from '../../assets/images/groups/mentor_feedback.svg';
+import mentor_mentee_feedback from '../../assets/images/groups/mentor_mentee_feedback.svg';
+import no_data from '../../assets/images/groups/no_data.svg';
+import peer_interviews from '../../assets/images/groups/peer_interviews.svg';
+import scrums from '../../assets/images/groups/scrums.svg';
+import team_leader from '../../assets/images/groups/team_leader.svg';
+import UserImage from '../../components/Layout/UserImage';
+import axios from '../../config/axios.config';
+import { API_ENDPOINTS } from '../../constants/api';
+import myLog from '../../utils/myLog';
 
 const group_activities = [
   { title: 'Scrums', key: 'scrums', img: scrums },
@@ -45,36 +45,44 @@ export default function Groups() {
   const { slug } = useParams();
   const user = useSelector((state) => state.loginState.user);
   const [isLoading, setIsLoading] = useState(true);
-  const [groupData, setGroupData] = useState({});
+  const [groupData, setGroupData] = useState(null);
   const [currentTab, setCurrentTab] = useState('scrums');
 
-  const loadData = async () => {
-    try {
-      const groupReq = await axios.get(`${API_ENDPOINTS.GROUPS}/${slug}`);
-      const {
-        data: {
-          data: { id },
-        },
-      } = groupReq;
-      const groupMembers = await axios.get(
-        `${API_ENDPOINTS.GROUPS}/${id}/group-members`
-      );
-      setGroupData({
-        group: groupReq.data.data.attributes,
-        groupMembers: groupMembers.data.data.map((item) => item.attributes),
-      });
-      setIsLoading(false);
-    } catch (e) {
-      myLog(e);
-    }
-  };
-
   useEffect(() => {
-    if (user.group_id) loadData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    const loadData = async () => {
+      try {
+        const groupReq = await axios.get(`${API_ENDPOINTS.GROUPS}/${slug}`);
+        const {
+          data: {
+            data: { id },
+          },
+        } = groupReq;
+        const groupMembers = await axios.get(
+          `${API_ENDPOINTS.GROUPS}/${id}/group-members`
+        );
+        setGroupData({
+          group: groupReq.data.data.attributes,
+          groupMembers: groupMembers.data.data.map((item) => item.attributes),
+        });
+        setIsLoading(false);
+      } catch (e) {
+        myLog(e);
+        setIsLoading(false);
+      }
+    };
 
-  if (!user.group_id) {
+    loadData();
+  }, [slug]);
+
+  if (isLoading) {
+    return (
+      <div className="groups d-flex">
+        <div className="spinner-border text-primary m-auto" role="status" />
+      </div>
+    );
+  }
+
+  if (!user.group_id || !groupData) {
     return (
       <div className="groups d-flex flex-column align-items-center justify-content-center px-3">
         <img
@@ -98,14 +106,6 @@ export default function Groups() {
     );
   }
 
-  if (isLoading) {
-    return (
-      <div className="groups d-flex">
-        <div className="spinner-border text-primary m-auto" role="status" />
-      </div>
-    );
-  }
-
   return (
     <div className="groups">
       <div className="groups__container row align-items-stretch">
@@ -113,7 +113,7 @@ export default function Groups() {
           className="col p-0"
           style={{ position: 'relative', maxWidth: '5rem' }}
         >
-          <h1 className="group-title text-primary font-weight-bold display-4">
+          <h1 className="group-title text-truncate text-primary font-weight-bold display-4">
             {groupData.group.name}
           </h1>
         </div>

@@ -1,8 +1,8 @@
+import 'react-calendar-heatmap/dist/styles.css';
 import 'react-multi-carousel/lib/styles.css';
 import 'react-toastify/dist/ReactToastify.css';
 import './assets/css/index.scss';
 import './assets/css/landing.scss';
-import 'react-calendar-heatmap/dist/styles.css';
 
 import React, { useEffect } from 'react';
 import ReactGA from 'react-ga';
@@ -14,11 +14,11 @@ import Navbar from './components/Layout/Navbar';
 import ConditionalRoute from './components/Route/ConditionalRoute';
 import PrivateRoute from './components/Route/PrivateRoute';
 import useAuth from './hooks/useAuth';
-import ViewAllGroups from './pages/AllTeams';
 import Challenges from './pages/Challenges';
 import Dashboard from './pages/Dashboard';
 import Faq from './pages/Faqs';
-import Groups from './pages/Groups';
+import Group from './pages/Groups/Group';
+import Groups from './pages/Groups/index';
 import Landing from './pages/Landing';
 import Leaderboard from './pages/Leaderboard';
 import Login from './pages/Login';
@@ -55,8 +55,8 @@ function App() {
           <PrivateRoute exact path="/challenges" component={Challenges} />
           <PrivateRoute exact path="/question" component={Question} />
           <PrivateRoute exact path="/leaderboard" component={Leaderboard} />
-          <PrivateRoute exact path="/groups/:slug" component={Groups} />
-          <PrivateRoute exact path="/groups" component={ViewAllGroups} />
+          <PrivateRoute exact path="/groups/:slug" component={Group} />
+          <PrivateRoute exact path="/groups" component={Groups} />
           <Route exact path="/privacyPolicy" component={PrivacyPolicy} />
           <Route component={NotFound} />
         </Switch>
