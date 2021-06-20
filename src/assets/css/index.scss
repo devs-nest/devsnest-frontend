@@ -305,5 +305,11 @@ footer {
 }
 
 .Toastify__toast-body {
-  color: #fff !important;
+  color: $color-purple ;
 }
+.Toastify__progress-bar {
+background:none;
+background-color:$color-purple;
+}
+
+

@@ -1,13 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import UserImage from '../../components/Layout/UserImage';
 import icons from '../../utils/getIcons';
 import { BasicDetailsModal } from './BasicDetailsModal';
 import { Row } from './Row';
 
-export const BasicDetails = ({ user }) => {
-  const [modalShow, setModalShow] = useState(false);
-
+export const BasicDetails = ({ user, modalShow, setModalShow }) => {
   // Default values
   const DEFAULT_VALUE = '-- N/A --';
 
