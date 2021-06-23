@@ -14,18 +14,20 @@ export default function Profile() {
   const [user, setUser] = useState(null);
   const [error, setError] = useState('');
 
-  const loadData = async () => {
-    try {
-      const userRequest = await axios.get(`${API_ENDPOINTS.USER}/${username}`);
-      // console.log(userRequest.data.data.data);
-      setUser(userRequest.data.data.attributes);
-    } catch (e) {
-      setError(e.message);
-      myLog(e);
-    }
-  };
-
-  useEffect(loadData, []);
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        const userRequest = await axios.get(
+          `${API_ENDPOINTS.USER}/${username}`
+        );
+        setUser(userRequest.data.data.attributes);
+      } catch (e) {
+        setError(e.message);
+        myLog(e);
+      }
+    };
+    loadData();
+  }, [username]);
 
   if (error) {
     return <div> {error} </div>;
