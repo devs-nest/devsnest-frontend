@@ -8,6 +8,7 @@ import useActions from '../../hooks/useActions';
 import icons from '../../utils/getIcons';
 import myLog from '../../utils/myLog';
 
+
 export const BasicDetailsModal = ({ modalProps, user, id }) => {
   // State for Modal
   const [details, setDetails] = useState({
@@ -58,6 +59,8 @@ export const BasicDetailsModal = ({ modalProps, user, id }) => {
 
   return (
     <>
+
+
       <Modal
         {...modalProps}
         size="md"
@@ -102,6 +105,7 @@ export const BasicDetailsModal = ({ modalProps, user, id }) => {
                 disabled={user.update_count >= 2}
               />
             </div>
+
             <small className="text-muted">
               You Can Change your Username{' '}
               <span className="text-danger">{2 - user.update_count}</span> times
@@ -129,6 +133,7 @@ export const BasicDetailsModal = ({ modalProps, user, id }) => {
                 placeholder="Real Name"
               />
             </div>
+
             <div className="m-2 my-3 px-3 d-flex align-items-center w-100">
               <img
                 src={icons.user_birthday}
