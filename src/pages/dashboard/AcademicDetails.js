@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import { useSelector } from 'react-redux';
 // ICONS
 import academicLevel from '../../assets/images/dashboard/academicLevel.svg';
 import branch from '../../assets/images/dashboard/branch.svg';
@@ -18,7 +18,8 @@ import { addOrdinalSuffix } from '../../utils/addOrdinalSuffix';
 
 export const AcademicDetails = ({ user }) => {
   const [modalShow, setModalShow] = useState(false);
-
+  const loginState = useSelector((state) => state.loginState);
+  const currentUsername = loginState.loggedIn ? loginState.username : '';
   // Default Values
   const DEFAULT_VALUE = '-- N/A --';
 
@@ -56,14 +57,16 @@ export const AcademicDetails = ({ user }) => {
           />
         </div>
         <div className="d-flex justify-content-end">
-          <img
-            src={edit}
-            alt="edit"
-            onClick={() => setModalShow(true)}
-            style={{ cursor: 'pointer' }}
-            height="20px"
-            width="20px"
-          />
+          {user === currentUsername && (
+            <img
+              src={edit}
+              alt="edit"
+              onClick={() => setModalShow(true)}
+              style={{ cursor: 'pointer' }}
+              height="20px"
+              width="20px"
+            />
+          )}
         </div>
       </div>
       {modalShow && (

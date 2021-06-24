@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import { useSelector } from 'react-redux';
 // ICONS
 import default_user from '../../assets/images/default_user.svg';
 import UserImage from '../../components/UserImage';
@@ -17,7 +17,8 @@ import { Row } from './components/Row';
 
 export const BasicDetails = ({ user }) => {
   const [modalShow, setModalShow] = useState(false);
-
+  const loginState = useSelector((state) => state.loginState);
+  const currentUsername = loginState.loggedIn ? loginState.username : '';
   // Default values
   const DEFAULT_VALUE = '-- N/A --';
 
@@ -94,14 +95,16 @@ export const BasicDetails = ({ user }) => {
           <Row icon={batch} value={`Batch : ${user.batch || DEFAULT_VALUE}`} />
         </div>
         <div className="d-flex justify-content-end">
-          <img
-            src={edit}
-            alt="edit"
-            onClick={() => setModalShow(true)}
-            style={{ cursor: 'pointer' }}
-            height="20px"
-            width="20px"
-          />
+          {user === currentUsername && (
+            <img
+              src={edit}
+              alt="edit"
+              onClick={() => setModalShow(true)}
+              style={{ cursor: 'pointer' }}
+              height="20px"
+              width="20px"
+            />
+          )}
         </div>
       </div>
       {modalShow && (
