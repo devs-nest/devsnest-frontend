@@ -38,9 +38,9 @@ import temp_group from '../assets/images/temp/group.svg';
 import user_batch from '../assets/images/user/batch.svg';
 import user_birthday from '../assets/images/user/birthday.svg';
 import user_default_profile from '../assets/images/user/default_profile.svg';
+import user_real_name from '../assets/images/user/icon_real_name.svg';
 import user_team from '../assets/images/user/team.svg';
 import user_outline from '../assets/images/user/user_outline.svg';
-import user_real_name from '../assets/images/user/icon_real_name.svg';
 
 /** MAIN **/
 const icons = {

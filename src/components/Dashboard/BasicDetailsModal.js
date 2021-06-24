@@ -1,13 +1,12 @@
-import React, { useState,useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Modal } from 'react-bootstrap';
+
 import { login } from '../../actions/loginActions';
 import axios from '../../config/axios.config';
 import { API_ENDPOINTS } from '../../constants/api';
 import useActions from '../../hooks/useActions';
 import icons from '../../utils/getIcons';
 import myLog from '../../utils/myLog';
-
-
 
 export const BasicDetailsModal = ({ modalProps, user, id }) => {
   // State for Modal
@@ -57,11 +56,8 @@ export const BasicDetailsModal = ({ modalProps, user, id }) => {
     }
   };
 
-
-
   return (
     <>
-   
       <Modal
         {...modalProps}
         size="md"
@@ -69,7 +65,7 @@ export const BasicDetailsModal = ({ modalProps, user, id }) => {
         centered
         backdrop="static"
       >
-        <Modal.Header closeButton  style={{ backgroundColor: '#E3D2FF' }}>
+        <Modal.Header closeButton style={{ backgroundColor: '#E3D2FF' }}>
           <Modal.Title id="contained-modal-title-vcenter font-weight-bold ">
             Basic Details
           </Modal.Title>
@@ -105,10 +101,13 @@ export const BasicDetailsModal = ({ modalProps, user, id }) => {
                 placeholder="username"
                 disabled={user.update_count >= 2}
               />
-	
             </div>
-<small className="text-muted">You Can Change your Username <span className="text-danger">{2-user.update_count}</span> times more</small>
-<div className="m-2 my-3 px-3 d-flex align-items-center w-100">
+            <small className="text-muted">
+              You Can Change your Username{' '}
+              <span className="text-danger">{2 - user.update_count}</span> times
+              more
+            </small>
+            <div className="m-2 my-3 px-3 d-flex align-items-center w-100">
               <img
                 src={icons.user_real_name}
                 alt="name-icon"
@@ -120,7 +119,7 @@ export const BasicDetailsModal = ({ modalProps, user, id }) => {
                 className="p-2 ml-3 w-100"
                 value={details.name}
                 onChange={(e) =>
-                  setDetails({ ...details,name: e.target.value })
+                  setDetails({ ...details, name: e.target.value })
                 }
                 style={{
                   boxShadow: '0px 0px 10px #8264B433',
@@ -128,7 +127,6 @@ export const BasicDetailsModal = ({ modalProps, user, id }) => {
                   borderRadius: '13px',
                 }}
                 placeholder="Real Name"
-               
               />
             </div>
             <div className="m-2 my-3 px-3 d-flex align-items-center w-100">

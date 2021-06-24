@@ -7,32 +7,7 @@ export const getQuestions = async (options = {}) => {
     const params = getParams(options);
 
     const response = await axios.get(API_ENDPOINTS.CONTENTS, { params });
-
-   const questions= response.data.data.map(({attributes})=>{
-const {
-      unique_id: id,
-      name: title,
-      link,
-      parent_id,
-      status,
-      difficulty,
-      question_type,
-    } = attributes;
-	return {
- 	id,
-      title,
-      link,
-      status,
-      difficulty,
-      question_type,
-      tags: [parent_id]
-}
-
-
-
-})
-return questions;
-    
+    return response.data;
   } else return (await fakeQuestionData()).data;
 };
 

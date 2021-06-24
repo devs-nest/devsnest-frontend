@@ -1,35 +1,30 @@
-import React,{useEffect} from 'react';
-import{toast} from 'react-toastify';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
 import { AcademicDetails } from '../components/Dashboard/AcademicDetails';
 import { ActivityMap } from '../components/Dashboard/ActivityMap';
 import { BasicDetails } from '../components/Dashboard/BasicDetails';
 import { ProblemsDetails } from '../components/Dashboard/ProblemsDetails';
 import { ProjectsComingSoon } from '../components/Dashboard/ProjectsComingSoon';
-
 import { ConnectWithDiscordBanner } from '../components/Layout/Navbar';
 
 export default function Dashboard() {
   const user = useSelector((state) => state.loginState.user);
   const [modalShow, setModalShow] = React.useState(false);
 
-useEffect(()=>{
-
-if(user.login_count<=2)
-{
-const options={
-onClick:()=>setModalShow(true),
-closeOnClick:true,
-autoClose:10000}
-toast(`Click here to Change Username`,options);
-}
-
-},[])
+  useEffect(() => {
+    if (user.login_count <= 2) {
+      const options = {
+        onClick: () => setModalShow(true),
+        closeOnClick: true,
+        autoClose: 10000,
+      };
+      toast(`Click here to Change Username`, options);
+    }
+  }, []);
   return (
     <>
-	
-     
       <ConnectWithDiscordBanner />
 
       <div
