@@ -19,7 +19,7 @@ import { addOrdinalSuffix } from '../../utils/addOrdinalSuffix';
 export const AcademicDetails = ({ user }) => {
   const [modalShow, setModalShow] = useState(false);
   const loginState = useSelector((state) => state.loginState);
-  const currentUsername = loginState.loggedIn ? loginState.username : '';
+  console.log(loginState);
   // Default Values
   const DEFAULT_VALUE = '-- N/A --';
 
@@ -57,16 +57,17 @@ export const AcademicDetails = ({ user }) => {
           />
         </div>
         <div className="d-flex justify-content-end">
-          {user === currentUsername && (
-            <img
-              src={edit}
-              alt="edit"
-              onClick={() => setModalShow(true)}
-              style={{ cursor: 'pointer' }}
-              height="20px"
-              width="20px"
-            />
-          )}
+          {loginState.loggedIn &&
+            user.username === loginState.user.username && (
+              <img
+                src={edit}
+                alt="edit"
+                onClick={() => setModalShow(true)}
+                style={{ cursor: 'pointer' }}
+                height="20px"
+                width="20px"
+              />
+            )}
         </div>
       </div>
       {modalShow && (
