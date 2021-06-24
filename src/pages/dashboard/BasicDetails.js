@@ -18,7 +18,7 @@ import { Row } from './components/Row';
 export const BasicDetails = ({ user }) => {
   const [modalShow, setModalShow] = useState(false);
   const loginState = useSelector((state) => state.loginState);
-  console.log(user.username === 'araika');
+
   // Default values
   const DEFAULT_VALUE = '-- N/A --';
 

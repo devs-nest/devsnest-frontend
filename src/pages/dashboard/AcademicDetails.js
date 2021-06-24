@@ -19,7 +19,7 @@ import { addOrdinalSuffix } from '../../utils/addOrdinalSuffix';
 export const AcademicDetails = ({ user }) => {
   const [modalShow, setModalShow] = useState(false);
   const loginState = useSelector((state) => state.loginState);
-  console.log(loginState);
+
   // Default Values
   const DEFAULT_VALUE = '-- N/A --';
 

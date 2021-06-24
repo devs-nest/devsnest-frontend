@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { useHistory, useParams } from 'react-router-dom';
 import axios from '../config/axios.config';
 import { API_ENDPOINTS } from '../constants/api';
 import myLog from '../utils/myLog';
@@ -13,7 +14,12 @@ export default function Profile() {
   const { username } = useParams();
   const [user, setUser] = useState(null);
   const [error, setError] = useState('');
+  const loginState = useSelector((state) => state.loginState);
 
+  let history = useHistory();
+  if (loginState.loggedIn && username === loginState.user.username) {
+    history.push('/');
+  }
   useEffect(() => {
     const loadData = async () => {
       try {
