@@ -18,7 +18,7 @@ export default function Profile() {
     const loadData = async () => {
       try {
         const userRequest = await axios.get(
-          `${API_ENDPOINTS.USER}/${username}`
+          `${API_ENDPOINTS.USER}/${username}/get_by_username`
         );
         setUser(userRequest.data.data.attributes);
       } catch (e) {
