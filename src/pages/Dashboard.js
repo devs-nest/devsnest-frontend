@@ -7,15 +7,13 @@ import { ActivityMap } from '../components/Dashboard/ActivityMap';
 import { BasicDetails } from '../components/Dashboard/BasicDetails';
 import { ProblemsDetails } from '../components/Dashboard/ProblemsDetails';
 import { ProjectsComingSoon } from '../components/Dashboard/ProjectsComingSoon';
-
 import { ConnectWithDiscordBanner } from '../components/Layout/Navbar';
 export default function Dashboard() {
   const user = useSelector((state) => state.loginState.user);
   const [modalShow, setModalShow] = React.useState(false);
 
-
   useEffect(() => {
-    if (user.login_count <= 2) {
+    if (user?.login_count <= 2) {
       const options = {
         onClick: () => setModalShow(true),
         closeOnClick: true,
@@ -27,7 +25,6 @@ export default function Dashboard() {
 
   return (
     <>
-     
       <ConnectWithDiscordBanner />
 
       <div

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Modal } from 'react-bootstrap';
 
 import { login } from '../../actions/loginActions';
@@ -8,7 +8,6 @@ import useActions from '../../hooks/useActions';
 import icons from '../../utils/getIcons';
 import myLog from '../../utils/myLog';
 
-
 export const BasicDetailsModal = ({ modalProps, user, id }) => {
   // State for Modal
   const [details, setDetails] = useState({
@@ -17,7 +16,7 @@ export const BasicDetailsModal = ({ modalProps, user, id }) => {
     linkedin_url: user.linkedin_url || '',
     resume_url: user.resume_url || '',
     dob: user.dob || '',
-    username: user.username || '',
+    username: user?.username || '',
   });
 
   const actions = useActions({ login });
@@ -59,8 +58,6 @@ export const BasicDetailsModal = ({ modalProps, user, id }) => {
 
   return (
     <>
-
-
       <Modal
         {...modalProps}
         size="md"
@@ -102,7 +99,7 @@ export const BasicDetailsModal = ({ modalProps, user, id }) => {
                   borderRadius: '13px',
                 }}
                 placeholder="username"
-                disabled={user.update_count >= 2}
+                disabled={user?.update_count >= 2}
               />
             </div>
 
