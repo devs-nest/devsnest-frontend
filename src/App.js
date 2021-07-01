@@ -16,6 +16,7 @@ import PrivateRoute from './components/Route/PrivateRoute';
 import useAuth from './hooks/useAuth';
 import Challenges from './pages/Challenges';
 import Dashboard from './pages/Dashboard';
+import Editor from './pages/Editor';
 import Faq from './pages/Faqs';
 import Group from './pages/Groups/Group';
 import Groups from './pages/Groups/index';
@@ -61,6 +62,7 @@ function App() {
           <PrivateRoute exact path="/groups/:slug" component={Group} />
           <PrivateRoute exact path="/groups" component={Groups} />
           <PrivateRoute exact path="/videos" component={Videos} />
+          <Route exact path="/editor" component={Editor} />
           <Route exact path="/privacyPolicy" component={PrivacyPolicy} />
           <Route component={NotFound} />
         </Switch>
