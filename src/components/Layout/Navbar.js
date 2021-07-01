@@ -48,7 +48,7 @@ const homeMenuItems = [
 const loginMenuItems = [
   {
     title: 'Videos',
-    to: '/videos',
+    to: '',
   },
   {
     title: 'Challenges',
@@ -99,18 +99,44 @@ function Navbar() {
         <Collapse isOpen={isOpen} navbar>
           {!loginState.isLoading && (
             <BSNav navbar>
-              {navItems.map((item, index) => (
-                <NavItem key={index}>
-                  <Link
-                    to={item.to}
-                    className="nav-link"
-                    onClick={() => setIsOpen(false)}
-                    scroll={(e) => offsetScroll(e, 70)}
-                  >
-                    {item.title}
-                  </Link>
-                </NavItem>
-              ))}
+              {navItems.map((item, index) => {
+                return item.title === 'Videos' ? (
+                  <NavItem key={index}>
+                    <UncontrolledDropdown>
+                      <DropdownToggle
+                        tag="div"
+                        className="nav-link d-flex align-items-center"
+                      >
+                        <span className="ml-3 text-truncate">{item.title}</span>
+                      </DropdownToggle>
+                      <DropdownMenu className="nav-menu">
+                        <DropdownItem tag="div">
+                          <Link to="/dsa" className="dropdown-item">
+                            DSA
+                          </Link>
+                        </DropdownItem>
+                        <DropdownItem divider />
+                        <DropdownItem tag="div">
+                          <Link to="/frontend" className="dropdown-item">
+                            Frontend
+                          </Link>
+                        </DropdownItem>
+                      </DropdownMenu>
+                    </UncontrolledDropdown>
+                  </NavItem>
+                ) : (
+                  <NavItem key={index}>
+                    <Link
+                      to={item.to}
+                      className="nav-link"
+                      onClick={() => setIsOpen(false)}
+                      scroll={(e) => offsetScroll(e, 70)}
+                    >
+                      {item.title}
+                    </Link>
+                  </NavItem>
+                );
+              })}
 
               {loginState.loggedIn ? (
                 <NavItem className="nav-item-profile">
