@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import styles from '../assets/css/videos.module.scss';
@@ -11,6 +12,8 @@ import icons from '../utils/getIcons';
 import myLog from '../utils/myLog';
 
 function VideoScreen() {
+  const params = useParams();
+  console.log(params);
   const [filter, setFilter] = useState({
     values: [],
     selected: -1,
