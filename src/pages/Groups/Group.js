@@ -7,6 +7,7 @@ import default_user from '../../assets/images/default_user.png';
 import team_leader from '../../assets/images/groups/team_leader.svg';
 import NoGroupData from '../../components/Groups/NoGroupData';
 import Scrums from '../../components/Groups/Scrums';
+import WeeklyTodoGroups from '../../components/Groups/WeeklyTodoGroups';
 import UserImage from '../../components/Layout/UserImage';
 import axios from '../../config/axios.config';
 import { API_ENDPOINTS } from '../../constants/api';
@@ -16,6 +17,11 @@ import myLog from '../../utils/myLog';
 const group_activities = [
   { title: 'Group Info', key: 'group_info', img: icons.group_info },
   { title: 'Scrums', key: 'scrums', img: icons.group_scrums },
+  {
+    title: 'Weekly Team To-do',
+    key: 'weekly_team_todo',
+    img: icons.group_scrums,
+  },
   {
     title: 'Discussions & Doubts',
     key: 'discussions_doubts',
@@ -48,7 +54,7 @@ export default function Groups() {
   const { slug } = useParams();
   const [isLoading, setIsLoading] = useState(true);
   const [groupData, setGroupData] = useState(null);
-  const [currentTab, setCurrentTab] = useState('group_info');
+  const [currentTab, setCurrentTab] = useState('weekly_team_todo');
 
   useEffect(() => {
     const loadData = async () => {
@@ -167,8 +173,37 @@ export default function Groups() {
         )}
 
         <div className="col d-flex flex-column align-items-center justify-content-center ">
-          {currentTab === 'scrums' ? (
+          {/* {currentTab === 'scrums' ? (
             <Scrums
+              group={groupData.group}
+              groupMembers={groupData.groupMembers}
+              groupId={groupData.group_id}
+            />
+          ) : !currentTab ? (
+            <>
+              <img
+                className="img-fluid mx-3"
+                src={icons.group_no_data}
+                alt="New things are coming soon!"
+              />
+              <h5 className="text-center text-muted mt-5 mb-0">
+                Select a tab from left.
+              </h5>
+            </>
+          ) : (
+            <>
+              <img
+                className="img-fluid mx-3"
+                src={icons.group_no_data}
+                alt="New things are coming soon!"
+              />
+              <h5 className="text-center text-muted mt-5 mb-0">
+                Interesting things are coming soon!
+              </h5>
+            </>
+          )} */}
+          {currentTab === 'weekly_team_todo' ? (
+            <WeeklyTodoGroups
               group={groupData.group}
               groupMembers={groupData.groupMembers}
               groupId={groupData.group_id}

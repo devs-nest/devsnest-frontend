@@ -1,0 +1,12 @@
+.todo-questions-container {
+  &::-webkit-scrollbar {
+    width: 7px;
+    background-color: #d9d0e8;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #8a8297;
+    border-radius: 5px;
+  }
+}
