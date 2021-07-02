@@ -23,6 +23,7 @@ import Landing from './pages/Landing';
 import Leaderboard from './pages/Leaderboard';
 import Login from './pages/Login';
 import NotFound from './pages/NotFound';
+import Onboarding from './pages/Onboarding';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import Profile from './pages/Profile';
 import Question from './pages/Question';
@@ -61,6 +62,7 @@ function App() {
           <PrivateRoute exact path="/groups/:slug" component={Group} />
           <PrivateRoute exact path="/groups" component={Groups} />
           <PrivateRoute exact path="/videos" component={Videos} />
+          <PrivateRoute exact path="/onboarding" component={Onboarding} />
           <Route exact path="/privacyPolicy" component={PrivacyPolicy} />
           <Route component={NotFound} />
         </Switch>
