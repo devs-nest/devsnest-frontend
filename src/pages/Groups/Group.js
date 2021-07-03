@@ -13,10 +13,16 @@ import axios from '../../config/axios.config';
 import { API_ENDPOINTS } from '../../constants/api';
 import icons from '../../utils/getIcons';
 import myLog from '../../utils/myLog';
+import BatchLeaderScrums from '../../components/Groups/BatchLeaderScrums';
 
 const group_activities = [
   { title: 'Group Info', key: 'group_info', img: icons.group_info },
   { title: 'Scrums', key: 'scrums', img: icons.group_scrums },
+  {
+    title: 'Batch Leader',
+    key: 'batch_leader',
+    img: icons.group_batch_leader_scrum,
+  },
   {
     title: 'Weekly Team To-do',
     key: 'weekly_team_todo',
@@ -187,6 +193,13 @@ export default function Groups() {
               groupId={groupData.group_id}
             />
           )}
+          {currentTab === 'batch_leader' && (
+            <BatchLeaderScrums
+              group={groupData.group}
+              groupMembers={groupData.groupMembers}
+              groupId={groupData.group_id}
+            />
+          )}
           {!currentTab && (
             <>
               <img
@@ -201,6 +214,7 @@ export default function Groups() {
           )}
           {currentTab !== 'scrums' &&
             currentTab !== 'weekly_team_todo' &&
+            currentTab !== 'batch_leader' &&
             currentTab && (
               <>
                 <img
