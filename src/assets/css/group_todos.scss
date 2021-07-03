@@ -1,4 +1,5 @@
-.todo-questions-container {
+.todo-questions-container,
+.todo-item-container {
   &::-webkit-scrollbar {
     width: 7px;
     background-color: #d9d0e8;
@@ -8,5 +9,54 @@
   &::-webkit-scrollbar-thumb {
     background-color: #8a8297;
     border-radius: 5px;
+  }
+}
+
+.todo-item-container {
+  max-height: 354px;
+  overflow-y: auto;
+}
+
+.todo-item {
+  background-color: white;
+  border-radius: 9px;
+  font-size: 0.9rem;
+  overflow: hidden;
+  box-shadow: 0px 0px 10px #00000029;
+  height: 35px;
+  color: #404040;
+
+  .todo-status {
+    width: 40px;
+    height: 100%;
+    margin-right: 15px;
+    border-top-left-radius: inherit;
+    border-bottom-left-radius: inherit;
+  }
+
+  & > img {
+    height: 100%;
+    margin-left: auto;
+    margin-right: 4px;
+    cursor: pointer;
+    padding: 2px;
+  }
+}
+
+.todo-input-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 5px 6px;
+  border-radius: 9px;
+
+  & > input {
+    flex-grow: 1;
+    border: none;
+    outline: none;
+  }
+
+  & > img {
+    cursor: pointer;
   }
 }
