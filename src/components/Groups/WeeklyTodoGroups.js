@@ -1,52 +1,12 @@
 import '../../assets/css/group_todos.scss';
 
-import React from 'react';
+import React, { useState } from 'react';
 
 import icons from '../../utils/getIcons';
 import myLog from '../../utils/myLog';
-
-const Streak = () => {
-  const arr = [
-    true,
-    true,
-    true,
-    false,
-    false,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    false,
-    false,
-    false,
-  ];
-
-  return (
-    <div className="d-flex flex-column w-100" style={{ color: '#707070' }}>
-      <h3 className="h4 my-1 mb-2">Streak :</h3>
-      <div
-        className="d-flex flex-wrap pb-2"
-        style={{ borderBottom: '1.5px solid #BBBBBB' }}
-      >
-        {arr.map((val, idx) => {
-          let iconSrc = val
-            ? icons.group_streak_tick
-            : icons.group_streak_cross;
-          return (
-            <div
-              key={idx}
-              className="d-flex p-2 justify-content-center align-items-center"
-            >
-              <img src={iconSrc} alt="streak_icon" width="20px" height="20px" />
-            </div>
-          );
-        })}
-      </div>
-    </div>
-  );
-};
+import Question from './Question';
+import Streak from './Streak';
+import Todo from './Todo';
 
 const questions = [
   {
@@ -63,28 +23,44 @@ const questions = [
   },
 ];
 
-const Question = ({ title, answer }) => {
-  return (
-    <div
-      className="p-3 my-2"
-      style={{
-        boxShadow: '0px 0px 10px #00000029',
-        borderRadius: '10px',
-        color: '#707070',
-        width: '100%',
-      }}
-    >
-      <p className="m-0">{title}</p>
-      <div className="my-2 border-bottom" style={{ width: '40%' }}></div>
-      <p className="m-0">{answer}</p>
-    </div>
-  );
-};
+const todos = [
+  {
+    title: 'Finish THA and push to github',
+    status: true,
+  },
+  {
+    title: 'Finish THA and push to github',
+    status: false,
+  },
+  {
+    title: 'Finish THA and push to github',
+    status: false,
+  },
+];
+
+const lastWeekTodo = [
+  {
+    title: 'Finish THA and push to github',
+    status: true,
+  },
+  {
+    title: 'Finish THA and push to github',
+    status: false,
+  },
+  {
+    title: 'Finish THA and push to github',
+    status: false,
+  },
+];
 
 const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
-  myLog(group);
-  myLog(groupMembers);
-  myLog(groupId);
+  // myLog(group);
+  // myLog(groupMembers);
+  // myLog(groupId);
+
+  const [todoInputVisible, setTodoInputVisible] = useState(true);
+  const [todoInput, setTodoInput] = useState('');
+
   return (
     <div
       style={{
@@ -128,12 +104,53 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
               return <Question key={idx} title={title} answer={answer} />;
             })}
           </div>
+          <img
+            className="mt-2"
+            src={icons.save}
+            alt="save-icon"
+            height="30px"
+            width="30px"
+          />
         </div>
-        <div
-          className="h-100 d-flex flex-column ml-4"
-          style={{ flexGrow: 1, color: '#707070' }}
-        >
-          <h3 className="h4">This Week&#39;s tasks</h3>
+        <div className="h-100 ml-4" style={{ flexGrow: 1, color: '#707070' }}>
+          <h3 className="h4 mb-3">This Week&#39;s tasks:</h3>
+          <div className="pr-4 pt-1 todo-item-container">
+            {todos.map((todo, idx) => (
+              <Todo key={idx} title={todo.title} status={todo.status} />
+            ))}
+            {todoInputVisible && (
+              <div className="todo-input-container border">
+                <input
+                  type="text"
+                  value={todoInput}
+                  placeholder="Add a Todo"
+                  onChange={(e) => setTodoInput(e.value)}
+                />
+                <img
+                  src={icons.question_solve}
+                  alt="todo-add"
+                  height="25px"
+                  width="25px"
+                />
+              </div>
+            )}
+
+            <img
+              style={{ cursor: 'pointer' }}
+              className="m-0"
+              src={icons.group_todo_add}
+              alt="group_todo_add"
+              height="50px"
+              width="50px"
+              onClick={() => setTodoInputVisible((prevState) => !prevState)}
+            />
+            <h3 style={{ color: '#707070' }} className="h4 my-3">
+              Last Week&#39;s tasks:
+            </h3>
+            {lastWeekTodo.map((todo, idx) => (
+              <Todo key={idx} title={todo.title} status={todo.status} />
+            ))}
+          </div>
         </div>
       </section>
     </div>
