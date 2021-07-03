@@ -1,5 +1,5 @@
-import axios from '../config/axios.config';
-import { API_ENDPOINTS } from '../constants/api';
+import axios from '../../config/axios.config';
+import { API_ENDPOINTS } from '../../constants/api';
 
 export function transformData(data) {
   return data.map((scrum) => {
