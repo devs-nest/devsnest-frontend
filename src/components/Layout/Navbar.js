@@ -111,13 +111,13 @@ function Navbar() {
                       </DropdownToggle>
                       <DropdownMenu className="nav-menu">
                         <DropdownItem tag="div">
-                          <Link to="/videos/dsa" className="dropdown-item">
+                          <Link to="/videos/algo" className="dropdown-item">
                             DSA
                           </Link>
                         </DropdownItem>
                         <DropdownItem divider />
                         <DropdownItem tag="div">
-                          <Link to="/videos/frontend" className="dropdown-item">
+                          <Link to="/videos/fend" className="dropdown-item">
                             Frontend
                           </Link>
                         </DropdownItem>

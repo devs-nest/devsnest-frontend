@@ -5,7 +5,7 @@ import { API_ENDPOINTS } from '../constants/api';
 export const getQuestions = async (options = {}) => {
   if (!process.env.REACT_APP_MOCK_API) {
     const params = getParams(options);
-
+    console.log('xxxxxxxxxxxxxxxxxxxx', { params });
     const response = await axios.get(API_ENDPOINTS.CONTENTS, { params });
     return response.data;
   } else return (await fakeQuestionData()).data;

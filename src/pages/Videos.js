@@ -13,7 +13,7 @@ import myLog from '../utils/myLog';
 
 function VideoScreen() {
   const params = useParams();
-  console.log(params);
+  console.log('---------------', params);
   const [filter, setFilter] = useState({
     values: [],
     selected: -1,
@@ -61,17 +61,43 @@ function VideoScreen() {
     });
   };
 
+  //   topicRes:
+  // data: Array(2)
+  // 0:
+  // attributes:
+  // data_type: "subtopic"
+  // difficulty: null
+  // link: null
+  // name: "Arrays"
+  // parent_id: "algo"
+  // priority: 22
+  // question_type: null
+  // questions_list: []
+  // reference_data: null
+  // score: null
+  // status: "notdone"
+  // submission_link: null
+  // unique_id: "arrays"
+  // video_questions: null
+  // __proto__: Object
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        const topicRes = await getTopics();
+        const topicRes = await getTopics({ params });
+        const topics = topicRes?.data.map((e) => {
+          return {
+            name: e?.attributes?.unique_id,
+          };
+        });
         setFilter((current) => ({
           ...current,
           values: transformTopicsData(topicRes.data),
         }));
+
         const questionsRes = await getQuestions({
           data_type: 'video',
+          topics,
         });
         setVideos(transformQuestionsData(questionsRes));
         // setVideos(dummyData);
@@ -83,7 +109,7 @@ function VideoScreen() {
       }
     };
     fetchData();
-  }, []);
+  }, [params]);
 
   if (isLoading) {
     return (

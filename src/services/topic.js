@@ -9,12 +9,13 @@ export const getTopics = async (options = {}) => {
   } else return (await fakeTopic()).data;
 };
 
-const getParams = () => {
-  const params = {
+const getParams = ({ params }) => {
+  const parameter = {
     'filter[data_type]': 'subtopic',
+    'filter[parent_id]': params.videoType,
   };
 
-  return params;
+  return parameter;
 };
 
 const fakeTopic = () => {
