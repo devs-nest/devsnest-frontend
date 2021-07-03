@@ -192,13 +192,14 @@ export default function Onboarding() {
   const handleFormData = async (event) => {
     event.preventDefault();
     try {
+      console.log(formData);
       const response = await axios.post(`${API_ENDPOINTS.ONBOARDING}`, {
         data: { attributes: formData, type: 'onboards' },
       });
       if (response.data) {
         toast.success('Details Submitted');
+        setisFormSubmit(true);
       }
-      setisFormSubmit(true);
     } catch (err) {
       toast.warning(err.message);
     }
@@ -212,7 +213,9 @@ export default function Onboarding() {
             <div className="col-md-12" style={{ height: '100%' }}>
               <div className="onboarding__table pb-3">
                 <div className="content">
-                  <div className="main-title">Devsnest's 6 months course</div>
+                  <div className="main-title">
+                    Devsnest&apos;s 6 months course
+                  </div>
                   {content.map((data, index) => {
                     return (
                       <span key={index}>
@@ -255,7 +258,9 @@ export default function Onboarding() {
         <div className="background">
           <div className="inner-card">
             <div className="shadow profile-card py-4 px-4 flex-fill m-5 d-flex flex-column justify-content-start left-content">
-              <div className="main-title my-4">Devsnest's 6 months course</div>
+              <div className="main-title my-4">
+                Devsnest&apos;s 6 months course
+              </div>
               {content.map((data, index) => {
                 return (
                   <span key={index}>
@@ -283,6 +288,11 @@ export default function Onboarding() {
               </div>
               <div className="message">
                 Join our Discord Server
+                <a
+              href="https://discord.gg/E8YcJpGJKB"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
                 <button
                   className={`form-button ${
                     isDiscordJoin ? 'bg-green' : 'bg-blue'
@@ -291,6 +301,7 @@ export default function Onboarding() {
                 >
                   {isDiscordJoin ? 'Joined' : 'Join'}
                 </button>
+                </a>
               </div>
               <div
                 className={`message border-down-grey ${
@@ -298,19 +309,24 @@ export default function Onboarding() {
                 }`}
               >
                 Connect to Discord
+                <a href={API_ENDPOINTS.DISCORD_LOGIN_REDIRECT} target="_blank"
+              rel="noopener noreferrer">
                 <button
                   className={`form-button ${
                     isDiscordJoin ? 'bg-blue' : 'bg-grey'
                   } ${isDiscordConnect ? 'bg-green' : ''}`}
-                  onClick={() => {
+                  onClick={async () => {
                     // window.location = API_ENDPOINTS.DISCORD_LOGIN_REDIRECT;
-                    setisDiscordConnect(true);
+                    const response = await axios.get(API_ENDPOINTS.CURRENT_USER);
+                    setisDiscordConnect(response.data.data.attributes.activity.discord_active);
+                    // setisDiscordConnect(true);
                   }}
                   // onClick={() => setisDiscordConnect(true)}
                   disabled={!isDiscordJoin}
-                >
+                  >
                   {isDiscordConnect ? 'Connected' : 'Connect'}
                 </button>
+                  </a>
               </div>
               <div
                 className={`message ${
@@ -361,6 +377,7 @@ export default function Onboarding() {
                       {[...Array(5)].map((icon, index) => {
                         return (
                           <div
+                            key={index}
                             style={{
                               display: 'flex',
                               flexDirection: 'row',
@@ -403,6 +420,7 @@ export default function Onboarding() {
                         (optionTitle, index) => {
                           return (
                             <div
+                              key={index}
                               style={{
                                 display: 'flex',
                                 flexDirection: 'row',
