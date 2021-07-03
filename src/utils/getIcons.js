@@ -15,6 +15,7 @@ import group_class_doubt from '../assets/images/groups/doubt_class.svg';
 import group_info from '../assets/images/groups/group_info.svg';
 import group_streak_cross from '../assets/images/groups/group_streak_cross.svg';
 import group_streak_tick from '../assets/images/groups/group_streak_tick.svg';
+import group_todo_add from '../assets/images/groups/group_todo_add.svg';
 import group_mentor_feedback from '../assets/images/groups/mentor_feedback.svg';
 import group_mentee_feedback from '../assets/images/groups/mentor_mentee_feedback.svg';
 import group_no_data from '../assets/images/groups/no_data.svg';
@@ -92,6 +93,7 @@ const icons = {
   group_info,
   group_streak_tick,
   group_streak_cross,
+  group_todo_add,
   github,
   github_outline,
   linkedin,
