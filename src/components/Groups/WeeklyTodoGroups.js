@@ -1,6 +1,7 @@
 import '../../assets/css/group_todos.scss';
 
 import React, { useState } from 'react';
+import { toast } from 'react-toastify';
 
 import icons from '../../utils/getIcons';
 import myLog from '../../utils/myLog';
@@ -8,71 +9,82 @@ import Question from './Question';
 import Streak from './Streak';
 import Todo from './Todo';
 
-const questions = [
-  {
-    title: 'Who was the most active member in the last week?',
-    answer: 'John Doe',
-  },
-  {
-    title: 'Who Helped You the most in the last week?',
-    answer: 'John Doe',
-  },
-  {
-    title: 'Who Helped You the most in the last week?',
-    answer: 'John Doe',
-  },
-];
-
-const todos = [
-  {
-    title: 'Finish THA and push to github',
-    status: true,
-  },
-  {
-    title: 'Finish THA and push to github',
-    status: false,
-  },
-  {
-    title: 'Finish THA and push to github',
-    status: false,
-  },
-];
-
-const lastWeekTodo = [
-  {
-    title: 'Finish THA and push to github',
-    status: true,
-  },
-  {
-    title: 'Finish THA and push to github',
-    status: false,
-  },
-  {
-    title: 'Finish THA and push to github',
-    status: false,
-  },
-];
-
 const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
+  const [todoInputVisible, setTodoInputVisible] = useState(true);
+  const [todoInput, setTodoInput] = useState('');
   // myLog(group);
   // myLog(groupMembers);
   // myLog(groupId);
 
-  const [todoInputVisible, setTodoInputVisible] = useState(true);
-  const [todoInput, setTodoInput] = useState('');
+  const [todos, setTodos] = useState([
+    {
+      title: 'Finish THA and push to github',
+      status: true,
+    },
+    {
+      title: 'Finish THA and push to github',
+      status: false,
+    },
+    {
+      title: 'Finish THA and push to github',
+      status: false,
+    },
+  ]);
+
+  const [questions, setQuestions] = useState([
+    {
+      title: 'Who was the most active member in the last week?',
+      answer: '',
+    },
+    {
+      title: 'Who Helped You the most in the last week?',
+      answer: '',
+    },
+    {
+      title: 'Who Helped You the most in the last week?',
+      answer: '',
+    },
+  ]);
+
+  const onQuestionChange = (key, answer) => {
+    setQuestions(
+      questions.map((q, idx) => {
+        if (idx === key)
+          return {
+            ...q,
+            answer: answer,
+          };
+
+        return q;
+      })
+    );
+  };
+
+  const addTodo = (title) => {
+    if (!title) {
+      toast.warn('Todo title required');
+      return;
+    }
+    setTodos([...todos, { title, status: false }]);
+    setTodoInput('');
+  };
+
+  const onTodoMarked = (key) => {
+    setTodos((todos) =>
+      todos.map((todo, idx) => {
+        if (idx === key) {
+          return {
+            ...todo,
+            status: !todo.status,
+          };
+        }
+        return todo;
+      })
+    );
+  };
 
   return (
-    <div
-      style={{
-        backgroundColor: '#fff',
-        boxShadow: '0 0 20px #0003',
-        height: '100%',
-        borderRadius: '20px',
-        maxWidth: '1000px',
-        padding: '30px',
-        width: '100%',
-      }}
-    >
+    <div className="weekly-todo">
       {/* Header */}
       <div className="d-flex justify-content-between flex-wrap">
         <h3 className="h4 text-primary">Weekly Team To-do</h3>
@@ -84,26 +96,37 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
         </div>
       </div>
       {/* Main section */}
-      <section className="d-flex w-100 h-100">
+      <section className="d-flex w-100 h-100 weekly-todo-container">
         <div
-          className="flex-column pr-4"
+          className="flex-column pr-4  weekly-todo-left"
           style={{
             borderRight: '1.5px solid #BBBBBB',
-            width: '45%',
             height: '90%',
             color: '#707070',
           }}
         >
           <Streak />
-          <h3 className="h4 my-3">Questions :</h3>
-          <div
-            className="d-flex flex-column pr-3 mb-1 p-1 todo-questions-container"
-            style={{ maxHeight: '220px', overflowY: 'auto' }}
-          >
-            {questions.map(({ title, answer }, idx) => {
-              return <Question key={idx} title={title} answer={answer} />;
-            })}
-          </div>
+          <h3 className="h5 mt-3 mb-1">Learning :</h3>
+          <Question
+            index={0}
+            title="who was the most active member in you team, this week?"
+            answer="me"
+            onChange={onQuestionChange}
+          />
+          <Question
+            index={1}
+            title="Which team member helped the most in your team?"
+            answer="me"
+            onChange={onQuestionChange}
+          />
+
+          <h3 className="h5 mt-3 mb-1">Feedback :</h3>
+          <Question
+            index={1}
+            title="What feedback would you want to give to Devsnest?"
+            answer="me"
+            onChange={onQuestionChange}
+          />
           <img
             className="mt-2"
             src={icons.save}
@@ -113,10 +136,29 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
           />
         </div>
         <div className="h-100 ml-4" style={{ flexGrow: 1, color: '#707070' }}>
-          <h3 className="h4 mb-3">This Week&#39;s tasks:</h3>
+          <h3 className="h5 mt-1 mb-1">Goals :</h3>
+          <Question
+            index={1}
+            title="How has your team's morale been this week?"
+            answer="me"
+            onChange={onQuestionChange}
+          />
+          <Question
+            index={1}
+            title="What obstacles did your team face this week?"
+            answer="me"
+            onChange={onQuestionChange}
+          />
+          <h3 className="h5 mt-3 mb-1">Add your this week&#39;s goals :</h3>
           <div className="pr-4 pt-1 todo-item-container">
             {todos.map((todo, idx) => (
-              <Todo key={idx} title={todo.title} status={todo.status} />
+              <Todo
+                key={idx}
+                title={todo.title}
+                status={todo.status}
+                index={idx}
+                onTodoUpdate={onTodoMarked}
+              />
             ))}
             {todoInputVisible && (
               <div className="todo-input-container border">
@@ -124,13 +166,14 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
                   type="text"
                   value={todoInput}
                   placeholder="Add a Todo"
-                  onChange={(e) => setTodoInput(e.value)}
+                  onChange={(e) => setTodoInput(e.target.value)}
                 />
                 <img
                   src={icons.question_solve}
                   alt="todo-add"
                   height="25px"
                   width="25px"
+                  onClick={() => addTodo(todoInput)}
                 />
               </div>
             )}
@@ -144,12 +187,6 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
               width="50px"
               onClick={() => setTodoInputVisible((prevState) => !prevState)}
             />
-            <h3 style={{ color: '#707070' }} className="h4 my-3">
-              Last Week&#39;s tasks:
-            </h3>
-            {lastWeekTodo.map((todo, idx) => (
-              <Todo key={idx} title={todo.title} status={todo.status} />
-            ))}
           </div>
         </div>
       </section>
