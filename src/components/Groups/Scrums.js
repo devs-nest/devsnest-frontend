@@ -3,7 +3,7 @@ import { Table } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 
 import { useUser } from '../../redux/slices/loginSlice';
-import { getScrums, saveScrum } from '../../services/Group/scrum';
+import { getScrums, saveScrum } from '../../services/Groups/scrum';
 import icons from '../../utils/getIcons';
 import TableRow from './TableRow';
 
@@ -134,5 +134,3 @@ export default function Scrums({ group, groupMembers, groupId }) {
     </div>
   );
 }
-
-

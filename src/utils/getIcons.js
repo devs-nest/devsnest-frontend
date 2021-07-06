@@ -24,6 +24,7 @@ import moral_selected from '../assets/images/groups/moral_selected.svg';
 import group_no_data from '../assets/images/groups/no_data.svg';
 import group_peer_interview from '../assets/images/groups/peer_interviews.svg';
 import group_scrums from '../assets/images/groups/scrums.svg';
+import group_batch_leader_scrum from '../assets/images/groups/batchleader_scrum.svg';
 import scrums_attendence_false from '../assets/images/groups/scrums/attendance_absent_button.svg';
 import scrums_attendence_true from '../assets/images/groups/scrums/attendance_present_button.svg';
 import scrums_back_button from '../assets/images/groups/scrums/backward_button.svg';
@@ -83,6 +84,7 @@ const icons = {
   question_class_assignment,
   question_code,
   question_reading,
+  group_batch_leader_scrum,
   group_assignment,
   group_discussion_doubt,
   group_class_doubt,
