@@ -1,3 +1,13 @@
+.weekly-todo {
+  background-color: #fff;
+  box-shadow: 0 0 20px #0003;
+  height: 100%;
+  border-radius: 20px;
+  max-width: 1000px;
+  padding: 30px;
+  width: 100%;
+}
+
 .todo-questions-container,
 .todo-item-container {
   &::-webkit-scrollbar {
@@ -10,6 +20,10 @@
     background-color: #8a8297;
     border-radius: 5px;
   }
+}
+
+.weekly-todo-left {
+  width: 45%;
 }
 
 .todo-item-container {
@@ -58,5 +72,31 @@
 
   & > img {
     cursor: pointer;
+  }
+}
+
+.todo-question-container {
+  box-shadow: 0px 0px 10px #00000029;
+  border-radius: 10px;
+  color: #707070;
+  width: 100%;
+  & > input {
+    width: 100%;
+    outline: none;
+    border: none;
+    color: inherit;
+
+    &::placeholder {
+      font-size: 0.9rem;
+    }
+  }
+}
+
+@media screen and (max-width: 720px) {
+  .weekly-todo-container {
+    flex-direction: column;
+  }
+  .weekly-todo-left {
+    width: 100%;
   }
 }
