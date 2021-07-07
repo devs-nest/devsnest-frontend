@@ -38,7 +38,7 @@ function VideoScreen() {
   };
 
   const transformQuestionsData = (data) => {
-    return data.data.map((question) => {
+    return data.map((question) => {
       const {
         unique_id: id,
         name: title,
@@ -147,7 +147,14 @@ function VideoScreen() {
               filter.selected === -1 ||
               filter.values[filter.selected] === video.tag
             ) {
-              return <Video video={video} key={index} setVideos={setVideos} />;
+              return (
+                <Video
+                  video={video}
+                  key={index}
+                  setVideos={setVideos}
+                  type={params.videoType}
+                />
+              );
             }
             return '';
           })}
