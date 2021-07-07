@@ -28,9 +28,10 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
   const user = useUser();
   const isTeamOwner = group.owner_id === user.id;
   const isTeamCoOwner = group.co_owner_id === user.id;
+  const canEdit = isTeamOwner || isTeamCoOwner;
 
   const [state, setState] = useState({});
-  const [todoInputVisible, setTodoInputVisible] = useState(true);
+  const [todoInputVisible, setTodoInputVisible] = useState(false);
   const [todoInput, setTodoInput] = useState('');
   const [todos, setTodos] = useState([]);
   const [questions, setQuestions] = useState(DEFAULT_QUESTION_VALUE);
@@ -54,34 +55,30 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
     };
     fetchWeeklyTodo();
   }, [groupId]);
-  // myLog(group);
-  // myLog(groupMembers);
-  // myLog(groupId);
 
-  const onQuestionChange = (key, answer) => {
-    setQuestions(
-      questions.map((q, idx) => {
-        if (idx === key)
-          return {
-            ...q,
-            answer: answer,
-          };
-
-        return q;
-      })
-    );
-  };
-
-  const saveQuestion = (questionsState) => {
-    return 'will do it later';
+  const saveQuestion = async (questionsState) => {
+    if (!canEdit) {
+      toast.warn(`you can't edit`);
+      return;
+    }
+    try {
+      await saveWeeklyTodo({ ...state, ...questionsState }, canEdit);
+    } catch (e) {
+      toast.error(e.message);
+    }
   };
 
   const addTodo = async (title) => {
+    if (!canEdit) {
+      toast.warn(`you can't add todo`);
+      return;
+    }
     if (!title) {
       toast.warn('Todo title required');
       return;
     }
-    if (todos.length >= 5) {
+    console.log(todos, todos.length);
+    if (state.todo_list.length >= 5) {
       toast.warn('you can add max 5 todos');
       return;
     }
@@ -90,7 +87,7 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
       todo_list: [...state.todo_list, { title, status: false }],
     };
     try {
-      const response = await saveWeeklyTodo(newState);
+      const response = await saveWeeklyTodo(newState, canEdit);
       setState(newState);
       setTodoInput('');
     } catch (e) {
@@ -99,6 +96,10 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
   };
 
   const onTodoMarked = async (key) => {
+    if (!canEdit) {
+      toast.warn(`you can't edit`);
+      return;
+    }
     const newTodoState = state.todo_list.map((todo, idx) => {
       if (idx === key) {
         return {
@@ -113,7 +114,7 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
       todo_list: newTodoState,
     };
     try {
-      await saveWeeklyTodo(newState);
+      await saveWeeklyTodo(newState, canEdit);
       setState(newState);
     } catch (e) {
       toast.error(e.message);
@@ -167,13 +168,17 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
                   );
                 })}
               </select>
-              <img
-                className="ml-3"
-                src={icons.save}
-                alt="save"
-                height="19px"
-                width="19px"
-              />
+              {canEdit && (
+                <img
+                  style={{ cursor: 'pointer' }}
+                  className="ml-3"
+                  src={icons.save}
+                  alt="save"
+                  height="19px"
+                  width="19px"
+                  onClick={() => saveQuestion(questions)}
+                />
+              )}
             </div>
             <p className="weekly-todo-question mb-0">
               Which team member helped the most in your team?
@@ -197,13 +202,17 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
                   );
                 })}
               </select>
-              <img
-                className="ml-3"
-                src={icons.save}
-                alt="save"
-                height="19px"
-                width="19px"
-              />
+              {canEdit && (
+                <img
+                  style={{ cursor: 'pointer' }}
+                  className="ml-3"
+                  src={icons.save}
+                  alt="save"
+                  height="19px"
+                  width="19px"
+                  onClick={() => saveQuestion(questions)}
+                />
+              )}
             </div>
           </div>
           <h3 className="h5 mt-3 mb-1 weekly-todo-heading">Feedback :</h3>
@@ -214,23 +223,27 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
           <div className="d-flex align-items-center">
             <textarea
               className="form-control"
-              rows="2"
+              rows="3"
               onChange={(e) =>
                 setQuestions({ ...questions, feedback: e.target.value })
               }
             ></textarea>
-            <img
-              className="ml-3"
-              src={icons.save}
-              alt="save"
-              height="19px"
-              width="19px"
-            />
+            {canEdit && (
+              <img
+                style={{ cursor: 'pointer' }}
+                className="ml-3"
+                src={icons.save}
+                alt="save"
+                height="19px"
+                width="19px"
+                onClick={() => saveQuestion(questions)}
+              />
+            )}
           </div>
           {/* {JSON.stringify(state)}; */}
         </div>
         <div className="h-100 ml-4" style={{ flexGrow: 1, color: '#707070' }}>
-          <h3 className="h5 mt-1 mb-3 weekly-todo-heading">Goals :</h3>
+          <h3 className="h5 mt-1 mb-2 weekly-todo-heading">Goals :</h3>
           <div>
             <p className="weekly-todo-question mb-1">
               How has your team&#39;s morale been this week?
@@ -247,6 +260,11 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
                       src={iconNeed}
                       alt="moral-icon"
                       onClick={() => {
+                        if (!canEdit) {
+                          toast.warn(`you can't edit`);
+                          return;
+                        }
+                        saveQuestion({ ...questions, moral_status: idx + 1 });
                         setQuestions({ ...questions, moral_status: idx + 1 });
                       }}
                     />
@@ -266,31 +284,37 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
                   setQuestions({ ...questions, obstacles: e.target.value });
                 }}
               />
-              <img
-                className="ml-3"
-                src={icons.save}
-                alt="save"
-                height="19px"
-                width="19px"
-              />
+              {canEdit && (
+                <img
+                  style={{ cursor: 'pointer' }}
+                  className="ml-3"
+                  src={icons.save}
+                  alt="save"
+                  height="19px"
+                  width="19px"
+                  onClick={() => saveQuestion(questions)}
+                />
+              )}
             </div>
           </div>
-          <h3 className="h5 mt-3 mb-2 weekly-todo-question">
-            Add your this week&#39;s goals :
-          </h3>
+          <div className="d-flex justify-content-between align-items-center pr-4 mt-3">
+            <h3 className="h5 weekly-todo-question">
+              Add your this week&#39;s goals :
+            </h3>
+            <img
+              style={{ cursor: 'pointer' }}
+              className="m-0 p-0"
+              src={icons.group_todo_add}
+              alt="group_todo_add"
+              height="45px"
+              width="45px"
+              onClick={() => setTodoInputVisible((prevState) => !prevState)}
+            />
+          </div>
+
           <div className="pr-4 pt-1 todo-item-container">
-            {state.todo_list &&
-              state.todo_list.map((todo, idx) => (
-                <Todo
-                  key={idx}
-                  title={todo.title}
-                  status={todo.status}
-                  index={idx}
-                  onTodoUpdate={onTodoMarked}
-                />
-              ))}
             {todoInputVisible && (
-              <div className="todo-input-container border">
+              <div className="todo-input-container border mb-3">
                 <input
                   type="text"
                   value={todoInput}
@@ -306,16 +330,16 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
                 />
               </div>
             )}
-
-            <img
-              style={{ cursor: 'pointer' }}
-              className="m-0"
-              src={icons.group_todo_add}
-              alt="group_todo_add"
-              height="50px"
-              width="50px"
-              onClick={() => setTodoInputVisible((prevState) => !prevState)}
-            />
+            {state.todo_list &&
+              state.todo_list.map((todo, idx) => (
+                <Todo
+                  key={idx}
+                  title={todo.title}
+                  status={todo.status}
+                  index={idx}
+                  onTodoUpdate={onTodoMarked}
+                />
+              ))}
           </div>
         </div>
       </section>
