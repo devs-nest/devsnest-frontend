@@ -92,6 +92,41 @@
   }
 }
 
+.weekly-todo-dropdown {
+  width: 60%;
+  min-width: 130px;
+  padding: 5px;
+  outline: none;
+  border: none;
+  border-radius: 6px;
+  background-color: #f2eff7;
+}
+
+.weekly-moral-select {
+  display: flex;
+  & > .moral-status-icon {
+    margin-right: 10px;
+    cursor: pointer;
+  }
+}
+
+.weekly-todo-heading {
+  color: #333333;
+}
+
+.weekly-todo-question {
+  color: #4d4d4d;
+}
+
+.weekly-todo-input {
+  width: 100%;
+  outline: none;
+  padding: 8px;
+  border: none;
+  border-radius: 6px;
+  background-color: #f2eff7;
+}
+
 @media screen and (max-width: 720px) {
   .weekly-todo-container {
     flex-direction: column;
