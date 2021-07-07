@@ -7,7 +7,7 @@ const Todo = ({ title, status, onTodoUpdate, index }) => {
   const todoStatusImg = status ? icons.question_tick : icons.question_solve;
 
   return (
-    <div className="d-flex align-items-center mb-4 todo-item">
+    <div className="d-flex align-items-center mb-3 todo-item">
       <div style={{ backgroundColor: todoColor }} className="todo-status"></div>
       <p className="mb-0">{title}</p>
       <img

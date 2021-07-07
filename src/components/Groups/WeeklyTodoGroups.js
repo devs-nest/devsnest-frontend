@@ -16,6 +16,14 @@ const getDate = () => {
   return `${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`;
 };
 
+const DEFAULT_QUESTION_VALUE = {
+  most_active: '',
+  most_helpful: '',
+  moral_status: 0,
+  obstacles: '',
+  feedback: '',
+};
+
 const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
   const user = useUser();
   const isTeamOwner = group.owner_id === user.id;
@@ -24,6 +32,8 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
   const [state, setState] = useState({});
   const [todoInputVisible, setTodoInputVisible] = useState(true);
   const [todoInput, setTodoInput] = useState('');
+  const [todos, setTodos] = useState([]);
+  const [questions, setQuestions] = useState(DEFAULT_QUESTION_VALUE);
 
   useEffect(() => {
     const fetchWeeklyTodo = async () => {
@@ -31,6 +41,13 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
         const response = await getWeeklyTodo(groupId, getDate());
         setState(response);
         setTodos(() => (response.todo_list ? response.todo_list : []));
+        setQuestions({
+          moral_status: response.moral_status ? response.moral_status : 0,
+          most_active: response.most_active,
+          most_helpful: response.most_helpful,
+          obstacles: response.obstacles,
+          feedback: response.feedback,
+        });
       } catch (e) {
         toast.error('An error occurred fetching weekly todo');
       }
@@ -40,36 +57,6 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
   // myLog(group);
   // myLog(groupMembers);
   // myLog(groupId);
-
-  const [todos, setTodos] = useState([
-    {
-      title: 'Finish THA and push to github',
-      status: true,
-    },
-    {
-      title: 'Finish THA and push to github',
-      status: false,
-    },
-    {
-      title: 'Finish THA and push to github',
-      status: false,
-    },
-  ]);
-
-  const [questions, setQuestions] = useState([
-    {
-      title: 'Who was the most active member in the last week?',
-      answer: '',
-    },
-    {
-      title: 'Who Helped You the most in the last week?',
-      answer: '',
-    },
-    {
-      title: 'Who Helped You the most in the last week?',
-      answer: '',
-    },
-  ]);
 
   const onQuestionChange = (key, answer) => {
     setQuestions(
@@ -83,6 +70,10 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
         return q;
       })
     );
+  };
+
+  const saveQuestion = (questionsState) => {
+    return 'will do it later';
   };
 
   const addTodo = async (title) => {
@@ -152,50 +143,141 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
           }}
         >
           <Streak group_id={groupId} />
-          <h3 className="h5 mt-3 mb-1">Learning :</h3>
-          <Question
-            index={0}
-            title="who was the most active member in you team, this week?"
-            answer="me"
-            onChange={onQuestionChange}
-          />
-          <Question
-            index={1}
-            title="Which team member helped the most in your team?"
-            answer="me"
-            onChange={onQuestionChange}
-          />
-          <h3 className="h5 mt-3 mb-1">Feedback :</h3>
-          <Question
-            index={1}
-            title="What feedback would you want to give to Devsnest?"
-            answer="me"
-            onChange={onQuestionChange}
-          />
-          <img
-            className="mt-2"
-            src={icons.save}
-            alt="save-icon"
-            height="30px"
-            width="30px"
-          />
+          <div className="border-bottom">
+            <h3 className="h5 mt-3 mb-1 weekly-todo-heading">Learning :</h3>
+            <p className="weekly-todo-question mb-1">
+              who was the most active member in you team, this week?
+            </p>
+            <div className="d-flex justify-content-between align-items-center">
+              <select
+                name="dropdown"
+                className="weekly-todo-dropdown border mb-4 mt-2"
+                value={questions.most_active}
+                onChange={(e) => {
+                  setQuestions({ ...questions, most_active: e.target.value });
+                }}
+              >
+                {groupMembers.map(({ user_details }, idx) => {
+                  return (
+                    user_details.username && (
+                      <option key={idx} value={user_details.username}>
+                        {user_details.username}
+                      </option>
+                    )
+                  );
+                })}
+              </select>
+              <img
+                className="ml-3"
+                src={icons.save}
+                alt="save"
+                height="19px"
+                width="19px"
+              />
+            </div>
+            <p className="weekly-todo-question mb-0">
+              Which team member helped the most in your team?
+            </p>
+            <div className="d-flex justify-content-between align-items-center">
+              <select
+                name="dropdown"
+                className="weekly-todo-dropdown border mb-4 mt-2"
+                value={questions.most_helpful}
+                onChange={(e) => {
+                  setQuestions({ ...questions, most_helpful: e.target.value });
+                }}
+              >
+                {groupMembers.map(({ user_details }, idx) => {
+                  return (
+                    user_details.username && (
+                      <option key={idx} value={user_details.username}>
+                        {user_details.username}
+                      </option>
+                    )
+                  );
+                })}
+              </select>
+              <img
+                className="ml-3"
+                src={icons.save}
+                alt="save"
+                height="19px"
+                width="19px"
+              />
+            </div>
+          </div>
+          <h3 className="h5 mt-3 mb-1 weekly-todo-heading">Feedback :</h3>
+          <p className="weekly-todo-question">
+            What feedback would you want to give to Devsnest?
+          </p>
+          {/* Text BOX */}
+          <div className="d-flex align-items-center">
+            <textarea
+              className="form-control"
+              rows="2"
+              onChange={(e) =>
+                setQuestions({ ...questions, feedback: e.target.value })
+              }
+            ></textarea>
+            <img
+              className="ml-3"
+              src={icons.save}
+              alt="save"
+              height="19px"
+              width="19px"
+            />
+          </div>
           {/* {JSON.stringify(state)}; */}
         </div>
         <div className="h-100 ml-4" style={{ flexGrow: 1, color: '#707070' }}>
-          <h3 className="h5 mt-1 mb-1">Goals :</h3>
-          <Question
-            index={1}
-            title="How has your team's morale been this week?"
-            answer="me"
-            onChange={onQuestionChange}
-          />
-          <Question
-            index={1}
-            title="What obstacles did your team face this week?"
-            answer="me"
-            onChange={onQuestionChange}
-          />
-          <h3 className="h5 mt-3 mb-1">Add your this week&#39;s goals :</h3>
+          <h3 className="h5 mt-1 mb-3 weekly-todo-heading">Goals :</h3>
+          <div>
+            <p className="weekly-todo-question mb-1">
+              How has your team&#39;s morale been this week?
+            </p>
+            <div className="weekly-moral-select mb-4 mt-2">
+              {new Array(10).fill().map((_, idx) => {
+                const iconNeed =
+                  idx < questions.moral_status
+                    ? icons.moral_selected
+                    : icons.moral_not_selected;
+                return (
+                  <div key={idx} className="moral-status-icon">
+                    <img
+                      src={iconNeed}
+                      alt="moral-icon"
+                      onClick={() => {
+                        setQuestions({ ...questions, moral_status: idx + 1 });
+                      }}
+                    />
+                  </div>
+                );
+              })}
+            </div>
+            <p className="weekly-todo-question mb-2">
+              What obstacles did your team face this week?
+            </p>
+            <div className="d-flex align-items-center border-bottom pb-3">
+              <input
+                type="text"
+                className="weekly-todo-input"
+                value={questions.obstacles}
+                onChange={(e) => {
+                  setQuestions({ ...questions, obstacles: e.target.value });
+                }}
+              />
+              <img
+                className="ml-3"
+                src={icons.save}
+                alt="save"
+                height="19px"
+                width="19px"
+              />
+            </div>
+          </div>
+          <h3 className="h5 mt-3 mb-2 weekly-todo-question">
+            Add your this week&#39;s goals :
+          </h3>
           <div className="pr-4 pt-1 todo-item-container">
             {state.todo_list &&
               state.todo_list.map((todo, idx) => (
