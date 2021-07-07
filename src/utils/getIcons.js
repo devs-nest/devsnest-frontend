@@ -18,6 +18,8 @@ import group_streak_tick from '../assets/images/groups/group_streak_tick.svg';
 import group_todo_add from '../assets/images/groups/group_todo_add.svg';
 import group_mentor_feedback from '../assets/images/groups/mentor_feedback.svg';
 import group_mentee_feedback from '../assets/images/groups/mentor_mentee_feedback.svg';
+import moral_not_selected from '../assets/images/groups/moral_not_selected.svg';
+import moral_selected from '../assets/images/groups/moral_selected.svg';
 import group_no_data from '../assets/images/groups/no_data.svg';
 import group_peer_interview from '../assets/images/groups/peer_interviews.svg';
 import group_scrums from '../assets/images/groups/scrums.svg';
@@ -94,6 +96,8 @@ const icons = {
   group_streak_tick,
   group_streak_cross,
   group_todo_add,
+  moral_not_selected,
+  moral_selected,
   github,
   github_outline,
   linkedin,
