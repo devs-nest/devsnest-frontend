@@ -27,7 +27,7 @@ const Streak = ({ group_id }) => {
         style={{ borderBottom: '1.5px solid #BBBBBB' }}
       >
         {streak.map((val, idx) => {
-          const [date, status] = Object.entries(val)[0];
+          const [date, status] = val;
           let iconSrc = status
             ? icons.group_streak_tick
             : icons.group_streak_cross;
