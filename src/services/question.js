@@ -3,7 +3,7 @@ import { API_ENDPOINTS } from '../constants/api';
 
 // https://api.devsnest.in/api/v1/contents?filter[data_type]=question&filter[parent_id]=warmup,arrays
 export const getQuestions = async (options = {}) => {
-  if (process.env.REACT_APP_MOCK_API) {
+  if (!process.env.REACT_APP_MOCK_API) {
     const params = getParams(options);
     console.log('xxxxxxxxxxxxxxxxxxxx', { params });
     const response = await axios.get(API_ENDPOINTS.CONTENTS, { params });

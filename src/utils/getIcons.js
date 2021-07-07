@@ -38,6 +38,7 @@ import question_doubt from '../assets/images/question/doubt.svg';
 import question_progress from '../assets/images/question/progress.svg';
 import question_reading from '../assets/images/question/reading.svg';
 import question_solve from '../assets/images/question/solve.svg';
+import question_submit from '../assets/images/question/submit.svg';
 import question_tha from '../assets/images/question/tha.svg';
 import question_tick from '../assets/images/question/tick.svg';
 import save from '../assets/images/save.svg';
@@ -111,6 +112,7 @@ const icons = {
   scrums_next_button,
   scrums_thanks_icon,
   scrums_bg_img,
+  question_submit,
 };
 
 export default icons;

@@ -40,7 +40,7 @@ export const Question = ({ question, setVideos, video_id, submittable }) => {
     setError('');
     try {
       if (!input.startsWith('https://github.com'))
-        throw new Error('Wrong Link');
+        throw new Error('*Enter a valid link');
       await submitQuestionFend({
         question_unique_id: question.unique_id,
         submission_link: input,
@@ -127,18 +127,40 @@ export const Question = ({ question, setVideos, video_id, submittable }) => {
         </div>
       </div>
       <Collapse isOpen={isOpen}>
-        <div>
+        <div
+          style={{
+            padding: '25px',
+          }}
+        >
           <input
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
+            placeholder="Enter the Github link to your solution"
+            style={{
+              borderBottom: '1px solid #F2EFF7',
+              padding: '4px 0',
+              marginRight: '15px',
+              width: '270px',
+              outline: 'none',
+              borderTopStyle: 'hidden',
+              borderRightStyle: 'hidden',
+              borderLeftStyle: 'hidden',
+              borderBottomStyle: 'groove',
+              backgroundColor: 'transparent',
+              background: 'transparent',
+            }}
           />
-          <button onClick={handleSubmitInput} disabled={isLoading}>
-            {' '}
-            submit{' '}
-          </button>
+          <img
+            src={icons.question_submit}
+            alt="question_submit"
+            onClick={handleSubmitInput}
+            disabled={isLoading}
+          />
         </div>
-        {error && <p>{error}</p>}
+        {error && (
+          <p className="d-flex justify-content-end pr-2 text-danger">{error}</p>
+        )}
       </Collapse>
     </div>
   );
