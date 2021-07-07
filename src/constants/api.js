@@ -19,4 +19,5 @@ export const API_ENDPOINTS = {
   GROUPS: `api/v1/groups`,
   SCRUMS: `api/v1/scrums`,
   CONNECT_DISCORD: `/api/v1/users/connect_discord`,
+  WEEKLY_TODO: `/api/v1/weekly-todo`,
 };

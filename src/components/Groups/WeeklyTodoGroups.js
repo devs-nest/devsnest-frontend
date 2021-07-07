@@ -1,17 +1,42 @@
 import '../../assets/css/group_todos.scss';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
+import { useUser } from '../../redux/slices/loginSlice';
+import { getWeeklyTodo, saveWeeklyTodo } from '../../services/weekly_todo';
 import icons from '../../utils/getIcons';
 import myLog from '../../utils/myLog';
 import Question from './Question';
 import Streak from './Streak';
 import Todo from './Todo';
 
+const getDate = () => {
+  const today = new Date();
+  return `${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`;
+};
+
 const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
+  const user = useUser();
+  const isTeamOwner = group.owner_id === user.id;
+  const isTeamCoOwner = group.co_owner_id === user.id;
+
+  const [state, setState] = useState({});
   const [todoInputVisible, setTodoInputVisible] = useState(true);
   const [todoInput, setTodoInput] = useState('');
+
+  useEffect(() => {
+    const fetchWeeklyTodo = async () => {
+      try {
+        const response = await getWeeklyTodo(groupId, getDate());
+        setState(response);
+        setTodos(() => (response.todo_list ? response.todo_list : []));
+      } catch (e) {
+        toast.error('An error occurred fetching weekly todo');
+      }
+    };
+    fetchWeeklyTodo();
+  }, [groupId]);
   // myLog(group);
   // myLog(groupMembers);
   // myLog(groupId);
@@ -60,27 +85,48 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
     );
   };
 
-  const addTodo = (title) => {
+  const addTodo = async (title) => {
     if (!title) {
       toast.warn('Todo title required');
       return;
     }
-    setTodos([...todos, { title, status: false }]);
-    setTodoInput('');
+    if (todos.length >= 5) {
+      toast.warn('you can add max 5 todos');
+      return;
+    }
+    const newState = {
+      ...state,
+      todo_list: [...state.todo_list, { title, status: false }],
+    };
+    try {
+      const response = await saveWeeklyTodo(newState);
+      setState(newState);
+      setTodoInput('');
+    } catch (e) {
+      toast.error(e.message);
+    }
   };
 
-  const onTodoMarked = (key) => {
-    setTodos((todos) =>
-      todos.map((todo, idx) => {
-        if (idx === key) {
-          return {
-            ...todo,
-            status: !todo.status,
-          };
-        }
-        return todo;
-      })
-    );
+  const onTodoMarked = async (key) => {
+    const newTodoState = state.todo_list.map((todo, idx) => {
+      if (idx === key) {
+        return {
+          ...todo,
+          status: !todo.status,
+        };
+      }
+      return todo;
+    });
+    const newState = {
+      ...state,
+      todo_list: newTodoState,
+    };
+    try {
+      await saveWeeklyTodo(newState);
+      setState(newState);
+    } catch (e) {
+      toast.error(e.message);
+    }
   };
 
   return (
@@ -91,7 +137,7 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
         <div className="d-flex" style={{ height: '20px' }}>
           <img className="mx-1" src={icons.scrums_calender} alt="calender" />
           <div className="mx-1" style={{ color: '#9b9b9b', width: '210px' }}>
-            21-06-2021 to 28-06-2021
+            {state && `${state.creation_week}  To  ${state.end_week}`}
           </div>
         </div>
       </div>
@@ -105,7 +151,7 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
             color: '#707070',
           }}
         >
-          <Streak />
+          <Streak group_id={groupId} />
           <h3 className="h5 mt-3 mb-1">Learning :</h3>
           <Question
             index={0}
@@ -119,7 +165,6 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
             answer="me"
             onChange={onQuestionChange}
           />
-
           <h3 className="h5 mt-3 mb-1">Feedback :</h3>
           <Question
             index={1}
@@ -134,6 +179,7 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
             height="30px"
             width="30px"
           />
+          {/* {JSON.stringify(state)}; */}
         </div>
         <div className="h-100 ml-4" style={{ flexGrow: 1, color: '#707070' }}>
           <h3 className="h5 mt-1 mb-1">Goals :</h3>
@@ -151,15 +197,16 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
           />
           <h3 className="h5 mt-3 mb-1">Add your this week&#39;s goals :</h3>
           <div className="pr-4 pt-1 todo-item-container">
-            {todos.map((todo, idx) => (
-              <Todo
-                key={idx}
-                title={todo.title}
-                status={todo.status}
-                index={idx}
-                onTodoUpdate={onTodoMarked}
-              />
-            ))}
+            {state.todo_list &&
+              state.todo_list.map((todo, idx) => (
+                <Todo
+                  key={idx}
+                  title={todo.title}
+                  status={todo.status}
+                  index={idx}
+                  onTodoUpdate={onTodoMarked}
+                />
+              ))}
             {todoInputVisible && (
               <div className="todo-input-container border">
                 <input
