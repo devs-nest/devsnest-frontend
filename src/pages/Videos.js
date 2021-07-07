@@ -38,7 +38,7 @@ function VideoScreen() {
   };
 
   const transformQuestionsData = (data) => {
-    return data.map((question) => {
+    return data.data.map((question) => {
       const {
         unique_id: id,
         name: title,
