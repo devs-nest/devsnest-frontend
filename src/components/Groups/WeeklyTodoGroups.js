@@ -41,7 +41,6 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
       try {
         const response = await getWeeklyTodo(groupId, getDate());
         setState(response);
-        setTodos(() => (response.todo_list ? response.todo_list : []));
         setQuestions({
           moral_status: response.moral_status ? response.moral_status : 0,
           most_active: response.most_active,
@@ -62,7 +61,10 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
       return;
     }
     try {
+      console.log(questionsState);
       await saveWeeklyTodo({ ...state, ...questionsState }, canEdit);
+      setState({ ...state, ...questionsState });
+      toast.info('Data saved');
     } catch (e) {
       toast.error(e.message);
     }
@@ -78,13 +80,15 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
       return;
     }
     console.log(todos, todos.length);
-    if (state.todo_list.length >= 5) {
+    if (state.todo_list && state.todo_list.length >= 5) {
       toast.warn('you can add max 5 todos');
       return;
     }
     const newState = {
       ...state,
-      todo_list: [...state.todo_list, { title, status: false }],
+      todo_list: state.todo_list
+        ? [...state.todo_list, { title, status: false }]
+        : [{ title, status: false }],
     };
     try {
       const response = await saveWeeklyTodo(newState, canEdit);
@@ -153,7 +157,9 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
               <select
                 name="dropdown"
                 className="weekly-todo-dropdown border mb-4 mt-2"
-                value={questions.most_active}
+                value={
+                  questions.most_active ? questions.most_active : 'Not selected'
+                }
                 onChange={(e) => {
                   setQuestions({ ...questions, most_active: e.target.value });
                 }}
@@ -187,7 +193,11 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
               <select
                 name="dropdown"
                 className="weekly-todo-dropdown border mb-4 mt-2"
-                value={questions.most_helpful}
+                value={
+                  questions.most_helpful
+                    ? questions.most_helpful
+                    : 'Not selected'
+                }
                 onChange={(e) => {
                   setQuestions({ ...questions, most_helpful: e.target.value });
                 }}
@@ -224,6 +234,7 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
             <textarea
               className="form-control"
               rows="3"
+              value={questions.feedback}
               onChange={(e) =>
                 setQuestions({ ...questions, feedback: e.target.value })
               }
