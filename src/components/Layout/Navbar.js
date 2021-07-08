@@ -48,7 +48,7 @@ const homeMenuItems = [
 const loginMenuItems = [
   {
     title: 'Videos',
-    to: '',
+    to: '/videos',
   },
   {
     title: 'Challenges',
@@ -111,13 +111,19 @@ function Navbar() {
                       </DropdownToggle>
                       <DropdownMenu className="nav-menu">
                         <DropdownItem tag="div">
-                          <Link to="/videos/algo" className="dropdown-item">
+                          <Link
+                            to={`${item.to}/algo`}
+                            className="dropdown-item"
+                          >
                             DSA
                           </Link>
                         </DropdownItem>
                         <DropdownItem divider />
                         <DropdownItem tag="div">
-                          <Link to="/videos/fend" className="dropdown-item">
+                          <Link
+                            to={`${item.to}/fend`}
+                            className="dropdown-item"
+                          >
                             Frontend
                           </Link>
                         </DropdownItem>

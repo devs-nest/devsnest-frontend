@@ -9,11 +9,18 @@ export const getTopics = async (options = {}) => {
   } else return (await fakeTopic()).data;
 };
 
-const getParams = ({ params }) => {
+const getParams = (options) => {
+  const { params, parent_id } = options;
   const parameter = {
     'filter[data_type]': 'subtopic',
-    'filter[parent_id]': params.videoType,
   };
+
+  if (params) {
+    parameter['filter[parent_id]'] = params.videoType;
+  }
+  if (parent_id) {
+    parameter['filter[parent_id]'] = parent_id;
+  }
 
   return parameter;
 };
