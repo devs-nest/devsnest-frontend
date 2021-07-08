@@ -7,7 +7,6 @@ import { useUser } from '../../redux/slices/loginSlice';
 import { getWeeklyTodo, saveWeeklyTodo } from '../../services/weekly_todo';
 import icons from '../../utils/getIcons';
 import myLog from '../../utils/myLog';
-import Question from './Question';
 import Streak from './Streak';
 import Todo from './Todo';
 
@@ -33,7 +32,6 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
   const [state, setState] = useState({});
   const [todoInputVisible, setTodoInputVisible] = useState(false);
   const [todoInput, setTodoInput] = useState('');
-  const [todos, setTodos] = useState([]);
   const [questions, setQuestions] = useState(DEFAULT_QUESTION_VALUE);
 
   useEffect(() => {
@@ -79,7 +77,6 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
       toast.warn('Todo title required');
       return;
     }
-    console.log(todos, todos.length);
     if (state.todo_list && state.todo_list.length >= 5) {
       toast.warn('you can add max 5 todos');
       return;
@@ -91,7 +88,7 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
         : [{ title, status: false }],
     };
     try {
-      const response = await saveWeeklyTodo(newState, canEdit);
+      await saveWeeklyTodo(newState, canEdit);
       setState(newState);
       setTodoInput('');
     } catch (e) {
@@ -139,14 +136,7 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
       </div>
       {/* Main section */}
       <section className="d-flex w-100 h-100 weekly-todo-container">
-        <div
-          className="flex-column pr-4  weekly-todo-left"
-          style={{
-            borderRight: '1.5px solid #BBBBBB',
-            height: '90%',
-            color: '#707070',
-          }}
-        >
+        <div className="flex-column pr-4 weekly-todo-left">
           <Streak group_id={groupId} />
           <div className="border-bottom">
             <h3 className="h5 mt-3 mb-1 weekly-todo-heading">Learning :</h3>
@@ -157,13 +147,14 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
               <select
                 name="dropdown"
                 className="weekly-todo-dropdown border mb-4 mt-2"
-                value={
-                  questions.most_active ? questions.most_active : 'Not selected'
-                }
+                value={questions.most_active}
                 onChange={(e) => {
                   setQuestions({ ...questions, most_active: e.target.value });
                 }}
               >
+                <option value="" disabled hidden>
+                  Choose here
+                </option>
                 {groupMembers.map(({ user_details }, idx) => {
                   return (
                     user_details.username && (
@@ -193,15 +184,14 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
               <select
                 name="dropdown"
                 className="weekly-todo-dropdown border mb-4 mt-2"
-                value={
-                  questions.most_helpful
-                    ? questions.most_helpful
-                    : 'Not selected'
-                }
+                value={questions.most_helpful}
                 onChange={(e) => {
                   setQuestions({ ...questions, most_helpful: e.target.value });
                 }}
               >
+                <option value="" disabled hidden>
+                  Choose here
+                </option>
                 {groupMembers.map(({ user_details }, idx) => {
                   return (
                     user_details.username && (
@@ -289,6 +279,7 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
             <div className="d-flex align-items-center border-bottom pb-3">
               <input
                 type="text"
+                placeholder="specify here..."
                 className="weekly-todo-input"
                 value={questions.obstacles}
                 onChange={(e) => {
