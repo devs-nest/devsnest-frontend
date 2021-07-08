@@ -29,7 +29,7 @@ export const Question = ({
   const QUESTION_DIFFICULTY_COLOR = getQuestionColor(question.difficulty);
   const QUESTION_STATUS_IMG =
     question.status === 'done' ||
-    (question.submission_link && question.submission_link !== 'null')
+    (question.submission_link && question.submission_link !== 'nil')
       ? icons.question_tick
       : question.status === 'doubt'
       ? icons.question_doubt
@@ -40,7 +40,7 @@ export const Question = ({
 
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState(
-    question.submission_link !== 'null' ? question.submission_link : ''
+    question.submission_link !== 'nil' ? question.submission_link : ''
   );
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
@@ -55,6 +55,20 @@ export const Question = ({
         question_unique_id: question.unique_id,
         submission_link: input,
       });
+      setVideos((current) =>
+        current.map((video) => {
+          if (video.id === video_id) {
+            const newArr = video.questions.map((q) => {
+              if (q.unique_id === question.unique_id) {
+                return { ...q, submission_link: input };
+              }
+              return q;
+            });
+            return { ...video, questions: newArr };
+          }
+          return video;
+        })
+      );
       toast.success('Submission link submitted');
     } catch (error) {
       setError(error.message);

@@ -16,7 +16,7 @@ function submitQuestionFend({ question_unique_id, submission_link }) {
   const res = axios.post(API_ENDPOINTS.FRONTEND_SUBMISSIONS, {
     data: {
       attributes: { question_unique_id, submission_link },
-      type: 'submissions',
+      type: 'frontend_submissions',
     },
   });
 
