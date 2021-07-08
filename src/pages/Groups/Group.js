@@ -20,7 +20,7 @@ const group_activities = [
   {
     title: 'Weekly Team To-do',
     key: 'weekly_team_todo',
-    img: icons.group_scrums,
+    img: icons.group_weekly_todo_clicked,
   },
   {
     title: 'Discussions & Doubts',

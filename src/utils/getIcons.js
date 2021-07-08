@@ -16,6 +16,7 @@ import group_info from '../assets/images/groups/group_info.svg';
 import group_streak_cross from '../assets/images/groups/group_streak_cross.svg';
 import group_streak_tick from '../assets/images/groups/group_streak_tick.svg';
 import group_todo_add from '../assets/images/groups/group_todo_add.svg';
+import group_weekly_todo_clicked from '../assets/images/groups/group_weekly_todo_clicked.svg';
 import group_mentor_feedback from '../assets/images/groups/mentor_feedback.svg';
 import group_mentee_feedback from '../assets/images/groups/mentor_mentee_feedback.svg';
 import moral_not_selected from '../assets/images/groups/moral_not_selected.svg';
@@ -94,6 +95,7 @@ const icons = {
   group_left_arrow,
   group_info,
   group_streak_tick,
+  group_weekly_todo_clicked,
   group_streak_cross,
   group_todo_add,
   moral_not_selected,
