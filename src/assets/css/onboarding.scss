@@ -101,6 +101,7 @@
 
 .onboarding-main {
   min-width: 500px;
+  overflow: hidden;
 }
 
 .left-content {
@@ -115,10 +116,6 @@
   align-items: center;
   font-size: 23px;
   font-weight: 600;
-}
-
-.border-down-grey {
-  border-bottom: 2px solid #dbd8de;
 }
 
 .form-button {
@@ -163,7 +160,7 @@
   outline: none;
   border: none;
   border-bottom-style: groove;
-  background-color: #F2EFF7;
+  background-color: #f2eff7;
   padding: 7px;
   border-radius: 5px;
 }
@@ -223,11 +220,23 @@ input[type='number'] {
 .applying-button {
   font-size: 25px;
   padding: 8px;
-  margin: 60px 10px;
+  // margin: 60px 10px;
   width: 150px;
   border-radius: 5px;
   text-decoration: none;
   background-color: white;
   color: #8264b4;
   border: 1px solid #8264b4;
+}
+
+@keyframes scaleAnimation {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
 }

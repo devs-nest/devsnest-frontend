@@ -5,24 +5,23 @@ import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router';
 import { toast } from 'react-toastify';
 
+import { Info } from '../components/Onboarding/Info';
+import { Main } from '../components/Onboarding/Main';
+import { Welcome } from '../components/Onboarding/Welcome';
 import axios from '../config/axios.config';
 import { API_ENDPOINTS } from '../constants/api';
 import { login } from '../redux';
-import { loadStorage } from '../utils/localStorage';
-import { Welcome } from '../components/Onboarding/Welcome';
-import { Info } from '../components/Onboarding/Info';
-import { Main } from '../components/Onboarding/Main';
+import { useUser } from '../redux';
 
 export default function Onboarding() {
+  const user = useUser();
   const location = useLocation();
   const dispatch = useDispatch();
   const [isApplying, setisApplying] = useState(false);
+  const [isDiscordJoin, setisDiscordJoin] = useState(false);
+  const [progressPercent, setprogressPercent] = useState(0);
 
-  const [isDiscordConnect, setisDiscordConnect] = useState(
-    (loadStorage(`${window.origin}/state`) || {}) === {}
-      ? false
-      : loadStorage(`${window.origin}/state`).login.user.discord_active
-  );
+  const [isDiscordConnect, setisDiscordConnect] = useState(user.discord_active);
   const [isFormSubmit, setisFormSubmit] = useState(false);
 
   useEffect(() => {
@@ -112,11 +111,27 @@ export default function Onboarding() {
       ) : !isFormSubmit ? (
         <div className="background">
           <div className="inner-card">
-            <Info content={content} />
+            <Info
+              content={content}
+              percentage={
+                isDiscordJoin
+                  ? isDiscordConnect
+                    ? isFormSubmit
+                      ? 100
+                      : 66
+                    : 33
+                  : 0
+              }
+              progressPercent={progressPercent}
+            />
             <Main
+              isDiscordJoin={isDiscordJoin}
               isDiscordConnect={isDiscordConnect}
+              progressPercent={progressPercent}
               setisFormSubmit={setisFormSubmit}
               setisDiscordConnect={setisDiscordConnect}
+              setisDiscordJoin={setisDiscordJoin}
+              setprogressPercent={setprogressPercent}
             />
           </div>
         </div>

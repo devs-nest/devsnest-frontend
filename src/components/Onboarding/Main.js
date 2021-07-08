@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import { toast } from 'react-toastify';
-import icons from '../../utils/getIcons';
+
 import axios from '../../config/axios.config';
 import { API_ENDPOINTS } from '../../constants/api';
+import { useUser } from '../../redux';
+import icons from '../../utils/getIcons';
 
 const formQuestions = [
   {
@@ -60,12 +62,14 @@ const formQuestions = [
     type: 'radio',
     field: 'dsa_skill',
     format: 'scale',
+    option: ['1', '2', '3', '4', '5'],
   },
   {
     title: 'How much will you rate your Web Development skills?',
     type: 'radio',
     field: 'webd_skill',
     format: 'scale',
+    option: ['1', '2', '3', '4', '5'],
   },
   {
     title: 'Are you sure you want to proceed with these above filled details?',
@@ -74,11 +78,15 @@ const formQuestions = [
 ];
 
 export const Main = ({
+  isDiscordJoin,
   isDiscordConnect,
+  progressPercent,
   setisFormSubmit,
   setisDiscordConnect,
+  setisDiscordJoin,
+  setprogressPercent,
 }) => {
-  const [isDiscordJoin, setisDiscordJoin] = useState(false);
+  const user = useUser();
   const [formStep, setformStep] = useState(0);
   const [formData, setformData] = useState({
     discord_username: '',
@@ -91,7 +99,6 @@ export const Main = ({
     dsa_skill: '',
     webd_skill: '',
   });
-  const [progressPercent, setprogressPercent] = useState(0);
 
   const handleFormInput = (event) => {
     setformData({
@@ -102,6 +109,13 @@ export const Main = ({
 
   const handleFormData = async (event) => {
     event.preventDefault();
+    if (
+      Object.keys(formData).filter((field) => formData[field] === '').length !==
+      0
+    ) {
+      toast.warning('Please Complete Form Before Submitting');
+      return;
+    }
     try {
       const response = await axios.put(`${API_ENDPOINTS.ONBOARDING}`, {
         data: { attributes: formData, type: 'users' },
@@ -110,7 +124,7 @@ export const Main = ({
         toast.success('Details Submitted');
       }
     } catch (err) {
-      toast.warning(err.message);
+      toast.error(err.message);
     }
     setisFormSubmit(true);
   };
@@ -130,16 +144,18 @@ export const Main = ({
         count--;
       }
     });
-    console.log(count);
     setprogressPercent(11 * count);
   };
 
   return (
-    <div className="shadow profile-card py-4 pl-0 flex-fill m-5 d-flex flex-column justify-content-start left-content onboarding-main">
-      <div className="main-title p-3">
+    <div className="shadow profile-card pb-4 pl-0 flex-fill m-5 d-flex flex-column justify-content-start left-content onboarding-main">
+      <div
+        className="main-title p-3 pt-4"
+        style={{ backgroundColor: '#9a7dc9', color: 'white' }}
+      >
         Complete these steps to Join the course :
       </div>
-      <div className="message">
+      <div className="message" style={{ borderTop: 'none' }}>
         Join our Discord Server
         <a
           href="https://discord.gg/E8YcJpGJKB"
@@ -148,17 +164,18 @@ export const Main = ({
         >
           <button
             className={`form-button ${isDiscordJoin ? 'bg-green' : 'bg-blue'}`}
+            style={{
+              animation: `${
+                !isDiscordJoin && 'scaleAnimation 1s linear infinite'
+              }`,
+            }}
             onClick={() => setisDiscordJoin(true)}
           >
             {isDiscordJoin ? 'Joined' : 'Join'}
           </button>
         </a>
       </div>
-      <div
-        className={`message border-down-grey ${
-          isDiscordJoin ? '' : 'color-grey'
-        }`}
-      >
+      <div className={`message ${isDiscordJoin ? '' : 'color-grey'}`}>
         Connect to Discord
         <a
           href={API_ENDPOINTS.DISCORD_LOGIN_REDIRECT}
@@ -169,13 +186,17 @@ export const Main = ({
             className={`form-button ${isDiscordJoin ? 'bg-blue' : 'bg-grey'} ${
               isDiscordConnect ? 'bg-green' : ''
             }`}
-            onClick={async () => {
-              // window.location = API_ENDPOINTS.DISCORD_LOGIN_REDIRECT;
-              const response = await axios.get(API_ENDPOINTS.CURRENT_USER);
-              // setisDiscordConnect(response.data.data.attributes.activity.discord_active);
-              setisDiscordConnect(true);
+            style={{
+              animation: `${
+                !isDiscordConnect &&
+                isDiscordJoin &&
+                'scaleAnimation 1s linear infinite'
+              }`,
             }}
-            // onClick={() => setisDiscordConnect(true)}
+            onClick={async () => {
+              setisDiscordConnect(user.discord_active);
+              // setisDiscordConnect(true);
+            }}
             disabled={!isDiscordJoin}
           >
             {isDiscordConnect ? 'Connected' : 'Connect'}
@@ -189,7 +210,6 @@ export const Main = ({
       >
         {formStep === formQuestions.length - 1 ? '' : 'Fill your details'}
       </div>
-      {/* {JSON.stringify(formData)} */}
       <form onSubmit={handleFormData}>
         {formQuestions[formStep].format === 'input' ? (
           <div className="form-content">
@@ -211,6 +231,11 @@ export const Main = ({
               onChange={handleFormInput}
               min="0"
               disabled={!(isDiscordJoin && isDiscordConnect)}
+              onKeyPress={(event) => {
+                if (event.key === 'Enter') {
+                  handleFormQuestion('down');
+                }
+              }}
             />
           </div>
         ) : formQuestions[formStep].format === 'scale' ? (
@@ -227,7 +252,7 @@ export const Main = ({
                 marginTop: '20px',
               }}
             >
-              {[...Array(5)].map((icon, index) => {
+              {formQuestions[formStep].option.map((optionTitle, index) => {
                 return (
                   <div
                     key={index}
@@ -241,12 +266,15 @@ export const Main = ({
                       className="form-check-input"
                       type="radio"
                       name={formQuestions[formStep].field}
-                      id={index + 's'}
-                      value={index + 1}
+                      id={index}
+                      value={optionTitle}
                       onChange={handleFormInput}
+                      checked={
+                        formData[formQuestions[formStep].field] === optionTitle
+                      }
                     />
-                    <label className="form-check-label" htmlFor={index + 's'}>
-                      {index + 1}
+                    <label className="form-check-label" htmlFor={index}>
+                      {optionTitle}
                     </label>
                   </div>
                 );
@@ -262,7 +290,6 @@ export const Main = ({
               style={{
                 display: 'flex',
                 flexDirection: 'column',
-                // height: '58px',
                 marginLeft: '50px',
               }}
             >
@@ -283,6 +310,9 @@ export const Main = ({
                       id={index}
                       value={optionTitle}
                       onChange={handleFormInput}
+                      checked={
+                        formData[formQuestions[formStep].field] === optionTitle
+                      }
                     />
                     <label className="form-check-label" htmlFor={index}>
                       {optionTitle}
@@ -330,6 +360,7 @@ export const Main = ({
                   style={{
                     marginRight: '10px',
                     transform: 'rotate(-90deg)',
+                    cursor: 'pointer',
                     zIndex: '5',
                   }}
                   onClick={() => handleFormQuestion('up')}
@@ -347,6 +378,7 @@ export const Main = ({
                 style={{
                   marginRight: '10px',
                   transform: 'rotate(-90deg)',
+                  cursor: 'pointer',
                   zIndex: '5',
                 }}
                 onClick={() =>
