@@ -4,11 +4,13 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router';
 import { toast } from 'react-toastify';
+import ProgressBar from 'react-bootstrap/ProgressBar';
 
 import axios from '../config/axios.config';
 import { API_ENDPOINTS } from '../constants/api';
 import { login } from '../redux';
 import icons from '../utils/getIcons';
+import { loadStorage } from '../utils/localStorage';
 
 const formQuestions = [
   {
@@ -32,13 +34,13 @@ const formQuestions = [
   {
     title: 'College',
     type: 'text',
-    field: 'college',
+    field: 'college_name',
     format: 'input',
   },
   {
     title: 'College Year (Stream)',
     type: 'text',
-    field: 'college_year',
+    field: 'grad_year',
     format: 'input',
   },
   {
@@ -79,8 +81,9 @@ export default function Onboarding() {
   const [isApplying, setisApplying] = useState(false);
 
   const [isDiscordJoin, setisDiscordJoin] = useState(false);
-  const [isDiscordConnect, setisDiscordConnect] = useState(false);
+  const [isDiscordConnect, setisDiscordConnect] = useState((loadStorage(`${window.origin}/state`) || {}) === {}? false: loadStorage(`${window.origin}/state`).login.user.discord_active);
   const [isFormSubmit, setisFormSubmit] = useState(false);
+  const [progressPercent, setprogressPercent] = useState(0);
 
   useEffect(() => {
     const load = async () => {
@@ -153,8 +156,8 @@ export default function Onboarding() {
     discord_username: '',
     discord_id: '',
     name: '',
-    college: '',
-    college_year: '',
+    college_name: '',
+    grad_year: '',
     work_exp: '',
     known_from: '',
     dsa_skill: '',
@@ -180,6 +183,15 @@ export default function Onboarding() {
         setformStep(formStep - 1);
       }
     }
+    
+    let count = 9;
+    Object.keys(formData).forEach(field => {
+      if(formData[field] === ''){
+        count--;
+      }
+    })
+    console.log(count);
+    setprogressPercent(11*count);
   };
 
   const handleFormInput = (event) => {
@@ -192,21 +204,21 @@ export default function Onboarding() {
   const handleFormData = async (event) => {
     event.preventDefault();
     try {
-      console.log(formData);
-      const response = await axios.post(`${API_ENDPOINTS.ONBOARDING}`, {
-        data: { attributes: formData, type: 'onboards' },
+      const response = await axios.put(`${API_ENDPOINTS.ONBOARDING}`, {
+        data: { attributes: formData, type: 'users' },
       });
       if (response.data) {
         toast.success('Details Submitted');
-        setisFormSubmit(true);
       }
     } catch (err) {
       toast.warning(err.message);
     }
+    setisFormSubmit(true);
   };
 
   return (
     <>
+    {JSON.stringify(isDiscordConnect)}
       {!isApplying ? (
         <div className="onboarding">
           <div className="onboarding__container row flex-row-reverse">
@@ -278,7 +290,7 @@ export default function Onboarding() {
                   </span>
                 );
               })}
-              <button className="applying-button blue-border-button">
+              <button className="applying-button blue-border-button" style={{cursor: "default"}}>
                 Applying
               </button>
             </div>
@@ -318,8 +330,8 @@ export default function Onboarding() {
                   onClick={async () => {
                     // window.location = API_ENDPOINTS.DISCORD_LOGIN_REDIRECT;
                     const response = await axios.get(API_ENDPOINTS.CURRENT_USER);
-                    setisDiscordConnect(response.data.data.attributes.activity.discord_active);
-                    // setisDiscordConnect(true);
+                    // setisDiscordConnect(response.data.data.attributes.activity.discord_active);
+                    setisDiscordConnect(true);
                   }}
                   // onClick={() => setisDiscordConnect(true)}
                   disabled={!isDiscordJoin}
@@ -456,6 +468,7 @@ export default function Onboarding() {
                     details?
                   </div>
                 )}
+                  <ProgressBar now={progressPercent>95?100:progressPercent} label={`${progressPercent>95?100:progressPercent}%`} />
                 <div className="form-navigate-button">
                   {formStep === formQuestions.length - 1 ? (
                     <>
@@ -482,7 +495,7 @@ export default function Onboarding() {
                             : icons.grey_down_button
                         }
                         alt="Down Button"
-                        style={{ marginRight: '10px' }}
+                        style={{ marginRight: '10px', transform: "rotate(-90deg)", zIndex: "5"  }}
                         onClick={() =>
                           isDiscordConnect && isDiscordJoin
                             ? handleFormQuestion('down')
@@ -493,7 +506,7 @@ export default function Onboarding() {
                         <img
                           src={icons.up_button}
                           alt="Up Button"
-                          style={{ marginRight: '10px' }}
+                          style={{ marginRight: '10px', transform: "rotate(-90deg)", zIndex: "5" }}
                           onClick={() => handleFormQuestion('up')}
                         />
                       ) : (
