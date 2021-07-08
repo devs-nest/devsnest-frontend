@@ -13,7 +13,6 @@ import myLog from '../utils/myLog';
 
 function VideoScreen() {
   const params = useParams();
-  console.log('---------------', params);
   const [filter, setFilter] = useState({
     values: [],
     selected: -1,
@@ -61,30 +60,11 @@ function VideoScreen() {
     });
   };
 
-  //   topicRes:
-  // data: Array(2)
-  // 0:
-  // attributes:
-  // data_type: "subtopic"
-  // difficulty: null
-  // link: null
-  // name: "Arrays"
-  // parent_id: "algo"
-  // priority: 22
-  // question_type: null
-  // questions_list: []
-  // reference_data: null
-  // score: null
-  // status: "notdone"
-  // submission_link: null
-  // unique_id: "arrays"
-  // video_questions: null
-  // __proto__: Object
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        const topicRes = await getTopics({ params });
+        const topicRes = await getTopics({ parent_id: params.videoType });
         const topics = topicRes?.data.map((e) => {
           return {
             name: e?.attributes?.unique_id,

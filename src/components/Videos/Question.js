@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { toast } from 'react-toastify';
 import { Collapse } from 'reactstrap';
 
 import styles from '../../assets/css/videos.module.scss';
@@ -15,13 +16,20 @@ import {
   getQuestionTypeIcon,
 } from '../../utils/questionConstant';
 
-export const Question = ({ question, setVideos, video_id, submittable }) => {
+export const Question = ({
+  question,
+  setVideos,
+  video_id,
+  submittable,
+  isReference,
+}) => {
   const QUESTION_TYPE_IMG = getQuestionTypeIcon(
     question.question_type || question.type
   );
   const QUESTION_DIFFICULTY_COLOR = getQuestionColor(question.difficulty);
   const QUESTION_STATUS_IMG =
-    question.status === 'done'
+    question.status === 'done' ||
+    (question.submission_link && question.submission_link !== 'null')
       ? icons.question_tick
       : question.status === 'doubt'
       ? icons.question_doubt
@@ -31,7 +39,9 @@ export const Question = ({ question, setVideos, video_id, submittable }) => {
   );
 
   const [isOpen, setIsOpen] = useState(false);
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState(
+    question.submission_link !== 'null' ? question.submission_link : ''
+  );
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -39,12 +49,13 @@ export const Question = ({ question, setVideos, video_id, submittable }) => {
     setIsLoading(true);
     setError('');
     try {
-      if (!input.startsWith('https://github.com'))
-        throw new Error('*Enter a valid link');
+      if (!input.startsWith('https://github.com/'))
+        throw new Error('*Enter a valid github link');
       await submitQuestionFend({
         question_unique_id: question.unique_id,
         submission_link: input,
       });
+      toast.success('Submission link submitted');
     } catch (error) {
       setError(error.message);
     }
@@ -100,12 +111,13 @@ export const Question = ({ question, setVideos, video_id, submittable }) => {
           {question.name || question.title}
         </a>
         <div className={`${styles['img']}`}>
-          {submittable ? (
+          {!isReference ? (
             <img
               src={QUESTION_STATUS_IMG}
               alt={question.status}
               height="30px"
               width="30px"
+              style={{ cursor: 'pointer' }}
               onClick={() =>
                 disableQuestionSubmission
                   ? null
@@ -126,42 +138,45 @@ export const Question = ({ question, setVideos, video_id, submittable }) => {
           )}
         </div>
       </div>
-      <Collapse isOpen={isOpen}>
-        <div
-          style={{
-            padding: '25px',
-          }}
-        >
-          <input
-            type="text"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="Enter the Github link to your solution"
+      {submittable && (
+        <Collapse isOpen={isOpen}>
+          <div
+            className="d-flex justify-content-center"
             style={{
-              borderBottom: '1px solid #F2EFF7',
-              padding: '4px 0',
-              marginRight: '15px',
-              width: '270px',
-              outline: 'none',
-              borderTopStyle: 'hidden',
-              borderRightStyle: 'hidden',
-              borderLeftStyle: 'hidden',
-              borderBottomStyle: 'groove',
-              backgroundColor: 'transparent',
-              background: 'transparent',
+              borderTop: '1px solid lightgray',
+              padding: '20px 25px',
             }}
-          />
-          <img
-            src={icons.question_submit}
-            alt="question_submit"
-            onClick={handleSubmitInput}
-            disabled={isLoading}
-          />
-        </div>
-        {error && (
-          <p className="d-flex justify-content-end pr-2 text-danger">{error}</p>
-        )}
-      </Collapse>
+          >
+            <input
+              type="text"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder="Enter the Github link to your solution"
+              style={{
+                border: 'none',
+                borderBottom: '3px groove #F2EFF7',
+                padding: '4px 0',
+                marginRight: '15px',
+                width: '100%',
+                outline: 'none',
+                background: 'transparent',
+              }}
+            />
+            <img
+              src={icons.question_submit}
+              alt="question_submit"
+              onClick={handleSubmitInput}
+              disabled={isLoading}
+              style={{ cursor: 'pointer' }}
+            />
+          </div>
+          {error && (
+            <p className="d-flex justify-content-end pr-3 text-danger m-0 mb-1">
+              {error}
+            </p>
+          )}
+        </Collapse>
+      )}
     </div>
   );
 };

@@ -12,7 +12,6 @@ const handleDifficultySort = (v1, v2) => {
 
 export const Video = ({ video, setVideos, type }) => {
   const [selected, setSelected] = useState(0);
-  console.log(video);
   return (
     <div
       className={`${styles['card']} d-flex my-4 p-sm-4 p-2 flex-column flex-xl-row`}
@@ -81,7 +80,7 @@ export const Video = ({ video, setVideos, type }) => {
               : 'No Questions'
             : video.references && video.references.length > 0
             ? video.references.map((q, index) => (
-                <Question question={q} key={index} />
+                <Question question={q} key={index} isReference={true} />
               ))
             : 'No References'}
         </div>
