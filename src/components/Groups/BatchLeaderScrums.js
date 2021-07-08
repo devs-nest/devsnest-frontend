@@ -28,6 +28,7 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
     { value: 'f', label: 'f' },
   ];
   const [group_member_activity, setGroup_member_activity] = useState(options);
+  const copy_group_member_activity = options;
 
   const today_date = useMemo(() => {
     const now = new Date();
@@ -219,19 +220,28 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
                         }))
                   }
                   onChange={(val) => {
-                    setGroup_member_activity(
-                      group_member_activity.filter(
-                        (elm) =>
-                          !val
-                            .map((elm) => JSON.stringify(elm))
-                            .includes(JSON.stringify(elm))
-                      )
-                    );
-
+                    const updated_active_members = val.map(({value}) => value); 
                     setQuestions({
                       ...questions,
-                      active_members: val.map(({ value }) => value),
+                      active_members: updated_active_members,
                     });
+                    setGroup_member_activity(
+                      copy_group_member_activity.filter(
+                        (elm) =>
+                          !(val
+                            .map((elm) => JSON.stringify(elm))
+                            .includes(JSON.stringify(elm))
+                          ||
+                            (updated_active_members && updated_active_members
+                            .includes(elm.value))
+                          ||
+                            (questions.par_active_members && questions.par_active_members
+                            .includes(elm.value))
+                          ||
+                            (questions.inactive_members && questions.inactive_members
+                            .includes(elm.value)))
+                      )
+                    );
                   }}
                 />
               </td>
@@ -254,18 +264,28 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
                         }))
                   }
                   onChange={(val) => {
-                    setGroup_member_activity(
-                      group_member_activity.filter(
-                        (elm) =>
-                          !val
-                            .map((elm) => JSON.stringify(elm))
-                            .includes(JSON.stringify(elm))
-                      )
-                    );
+                    const updated_par_active_members = val.map(({value}) => value);
                     setQuestions({
                       ...questions,
-                      par_active_members: val.map(({ value }) => value),
+                      par_active_members: updated_par_active_members,
                     });
+                    setGroup_member_activity(
+                      copy_group_member_activity.filter(
+                        (elm) =>
+                          !(val
+                            .map((elm) => JSON.stringify(elm))
+                            .includes(JSON.stringify(elm)) 
+                          ||
+                            (questions.active_members && questions.active_members
+                            .includes(elm.value))
+                          ||
+                            (updated_par_active_members && updated_par_active_members
+                            .includes(elm.value))
+                          ||
+                            (questions.inactive_members && questions.inactive_members
+                            .includes(elm.value)))
+                      )
+                    );
                   }}
                 />
               </td>
@@ -288,18 +308,28 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
                         }))
                   }
                   onChange={(val) => {
-                    setGroup_member_activity(
-                      group_member_activity.filter(
-                        (elm) =>
-                          !val
-                            .map((elm) => JSON.stringify(elm))
-                            .includes(JSON.stringify(elm))
-                      )
-                    );
+                    const updated_inactive_members = val.map(({value}) => value);
                     setQuestions({
                       ...questions,
-                      inactive_members: val.map(({ value }) => value),
+                      inactive_members: updated_inactive_members,
                     });
+                    setGroup_member_activity(
+                      copy_group_member_activity.filter(
+                        (elm) =>
+                          !(val
+                            .map((elm) => JSON.stringify(elm))
+                            .includes(JSON.stringify(elm)) 
+                            ||
+                              (questions.active_members && questions.active_members
+                              .includes(elm.value))
+                            ||
+                            (questions.par_active_members && questions.par_active_members
+                              .includes(elm.value))
+                            ||
+                              (updated_inactive_members && updated_inactive_members
+                              .includes(elm.value)))
+                      )
+                    );
                   }}
                 />
               </td>
