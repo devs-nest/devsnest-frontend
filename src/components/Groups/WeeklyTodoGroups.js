@@ -7,6 +7,7 @@ import { useUser } from '../../redux/slices/loginSlice';
 import { getWeeklyTodo, saveWeeklyTodo } from '../../services/weekly_todo';
 import icons from '../../utils/getIcons';
 import myLog from '../../utils/myLog';
+import MoralSelector from './MoralSelecter';
 import Streak from './Streak';
 import Todo from './Todo';
 
@@ -143,7 +144,7 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
             <p className="weekly-todo-question mb-1">
               who was the most active member in you team, this week?
             </p>
-            <div className="d-flex justify-content-between align-items-center">
+            <div>
               <select
                 name="dropdown"
                 className="weekly-todo-dropdown border mb-4 mt-2"
@@ -169,7 +170,7 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
             <p className="weekly-todo-question mb-0">
               Which team member helped the most in your team?
             </p>
-            <div className="d-flex justify-content-between align-items-center">
+            <div>
               <select
                 name="dropdown"
                 className="weekly-todo-dropdown border mb-4 mt-2"
@@ -224,61 +225,18 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
         </div>
         <div className="h-100 ml-4" style={{ flexGrow: 1, color: '#707070' }}>
           <h3 className="h5 mt-1 mb-2 weekly-todo-heading">Goals :</h3>
-          <div>
+          <div className="mb-3">
             <p className="weekly-todo-question mb-1">
               How has your team&#39;s morale been this week?
             </p>
-            <div className="weekly-moral-select mb-4 mt-2">
-              {new Array(10).fill().map((_, idx) => {
-                const iconNeed =
-                  idx < questions.moral_status
-                    ? icons.moral_selected
-                    : icons.moral_not_selected;
-                return (
-                  <div key={idx} className="moral-status-icon">
-                    <img
-                      src={iconNeed}
-                      alt="moral-icon"
-                      onClick={() => {
-                        if (!canEdit) {
-                          toast.warn(`you can't edit`);
-                          return;
-                        }
-                        saveQuestion({ ...questions, moral_status: idx + 1 });
-                        setQuestions({ ...questions, moral_status: idx + 1 });
-                      }}
-                    />
-                  </div>
-                );
-              })}
-            </div>
-            <p className="weekly-todo-question mb-2">
-              What obstacles did your team face this week?
-            </p>
-            <div className="d-flex align-items-center border-bottom pb-3">
-              <input
-                type="text"
-                placeholder="specify here..."
-                className="weekly-todo-input"
-                value={questions.obstacles}
-                onChange={(e) => {
-                  setQuestions({ ...questions, obstacles: e.target.value });
-                }}
-              />
-              {canEdit && (
-                <img
-                  style={{ cursor: 'pointer' }}
-                  className="ml-3"
-                  src={icons.save}
-                  alt="save"
-                  height="19px"
-                  width="19px"
-                  onClick={() => saveQuestion(questions)}
-                />
-              )}
-            </div>
+            <MoralSelector
+              setQuestions={setQuestions}
+              saveQuestion={saveQuestion}
+              questions={questions}
+              canEdit={canEdit}
+            />
           </div>
-          <div className="d-flex justify-content-between align-items-center pr-4 mt-3">
+          <div className="d-flex justify-content-between align-items-center pr-4">
             <h3 className="h5 weekly-todo-question">
               Add your this week&#39;s goals :
             </h3>
@@ -321,6 +279,33 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
                   onTodoUpdate={onTodoMarked}
                 />
               ))}
+          </div>
+          <div className="mt-4 weekly-todo-right">
+            <p className="weekly-todo-question mb-2">
+              What obstacles did your team face this week?
+            </p>
+            <div className="d-flex align-items-center">
+              <input
+                type="text"
+                placeholder="specify here..."
+                className="weekly-todo-input"
+                value={questions.obstacles}
+                onChange={(e) => {
+                  setQuestions({ ...questions, obstacles: e.target.value });
+                }}
+              />
+              {canEdit && (
+                <img
+                  style={{ cursor: 'pointer' }}
+                  className="ml-3"
+                  src={icons.save}
+                  alt="save"
+                  height="19px"
+                  width="19px"
+                  onClick={() => saveQuestion(questions)}
+                />
+              )}
+            </div>
           </div>
         </div>
       </section>
