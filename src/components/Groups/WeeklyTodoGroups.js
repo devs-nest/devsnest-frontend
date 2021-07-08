@@ -59,9 +59,9 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
       return;
     }
     try {
-      console.log(questionsState);
       await saveWeeklyTodo({ ...state, ...questionsState }, canEdit);
       setState({ ...state, ...questionsState });
+      setQuestions(questionsState);
       toast.info('Data saved');
     } catch (e) {
       toast.error(e.message);
@@ -149,7 +149,7 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
                 className="weekly-todo-dropdown border mb-4 mt-2"
                 value={questions.most_active}
                 onChange={(e) => {
-                  setQuestions({ ...questions, most_active: e.target.value });
+                  saveQuestion({ ...questions, most_active: e.target.value });
                 }}
               >
                 <option value="" disabled hidden>
@@ -165,17 +165,6 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
                   );
                 })}
               </select>
-              {canEdit && (
-                <img
-                  style={{ cursor: 'pointer' }}
-                  className="ml-3"
-                  src={icons.save}
-                  alt="save"
-                  height="19px"
-                  width="19px"
-                  onClick={() => saveQuestion(questions)}
-                />
-              )}
             </div>
             <p className="weekly-todo-question mb-0">
               Which team member helped the most in your team?
@@ -186,7 +175,7 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
                 className="weekly-todo-dropdown border mb-4 mt-2"
                 value={questions.most_helpful}
                 onChange={(e) => {
-                  setQuestions({ ...questions, most_helpful: e.target.value });
+                  saveQuestion({ ...questions, most_helpful: e.target.value });
                 }}
               >
                 <option value="" disabled hidden>
@@ -202,17 +191,6 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
                   );
                 })}
               </select>
-              {canEdit && (
-                <img
-                  style={{ cursor: 'pointer' }}
-                  className="ml-3"
-                  src={icons.save}
-                  alt="save"
-                  height="19px"
-                  width="19px"
-                  onClick={() => saveQuestion(questions)}
-                />
-              )}
             </div>
           </div>
           <h3 className="h5 mt-3 mb-1 weekly-todo-heading">Feedback :</h3>
@@ -222,6 +200,7 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
           {/* Text BOX */}
           <div className="d-flex align-items-center">
             <textarea
+              style={{ backgroundColor: '#F2EFF7' }}
               className="form-control"
               rows="3"
               value={questions.feedback}
