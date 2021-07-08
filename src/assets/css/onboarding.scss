@@ -1,5 +1,5 @@
 .onboarding {
-  height: calc(100vh - 92px);
+  // height: calc(100vh - 92px);
   background: #f2eff7;
 
   &__container {
@@ -15,8 +15,6 @@
     box-shadow: 0 0 20px #0003;
     background-color: #fff;
     height: 100%;
-    display: flex;
-    flex-direction: row;
     padding: 4%;
 
     .row {
@@ -25,13 +23,10 @@
   }
 }
 
-.content {
-  width: 50%;
-}
-
 .title {
-  padding: 2.5% 2.5% 2.5% 0%;
+  padding: 7px;
   font-size: larger;
+  cursor: pointer;
 }
 
 .description {
@@ -51,10 +46,12 @@
 
 .main-title {
   font-size: x-large;
+  font-weight: bold;
+  color: #404040;
 }
 
 .box {
-  height: 60%;
+  height: 300px;
   width: 95%;
   border-radius: 20px;
   background-color: rgb(255, 201, 185);
@@ -69,10 +66,8 @@
 
 .button-style {
   font-size: x-large;
-  padding: 2%;
-  margin: 2.5%;
-  width: 25%;
-  height: 20%;
+  padding: 11px;
+  margin: 15px;
   border-radius: 5px;
   text-decoration: none;
   border: none;
@@ -90,15 +85,22 @@
 
 .background {
   background: #f2eff7;
-  height: calc(100vh - 92px);
+  min-height: calc(100vh - 92px);
 }
 
 .inner-card {
   display: flex;
   justify-content: space-around;
-  width: 80%;
   height: 100%;
   margin: auto;
+}
+
+.onboarding-info {
+  min-width: 300px;
+}
+
+.onboarding-main {
+  min-width: 500px;
 }
 
 .left-content {
@@ -111,7 +113,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 22px;
+  font-size: 23px;
+  font-weight: 600;
 }
 
 .border-down-grey {
@@ -158,18 +161,26 @@
   width: 55%;
   font-size: 20px;
   outline: none;
-  border-top-style: hidden;
-  border-right-style: hidden;
-  border-left-style: hidden;
+  border: none;
   border-bottom-style: groove;
-  background-color: transparent;
-  background: transparent;
+  background-color: #F2EFF7;
+  padding: 7px;
+  border-radius: 5px;
 }
 
 .form-navigate-button {
   display: flex;
-  flex-direction: row-reverse;
+  justify-content: space-between;
   margin: 20px 30px;
+}
+
+.onboarding-progress-bar {
+  width: 250px;
+  background-color: #f2eff7;
+}
+
+.onboarding-progress-bar .progress-bar {
+  background-color: #8264b4;
 }
 
 /* Chrome, Safari, Edge, Opera */
