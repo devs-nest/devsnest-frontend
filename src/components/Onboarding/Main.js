@@ -119,7 +119,7 @@ export const Main = ({
     try {
       const response = await axios.put(`${API_ENDPOINTS.ONBOARDING}`, {
         data: {
-          attributes: { ...formData, is_form_filled: true },
+          attributes: { ...formData, is_discord_form_filled: true },
           type: 'users',
         },
       });
