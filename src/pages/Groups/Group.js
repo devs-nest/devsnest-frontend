@@ -173,42 +173,21 @@ export default function Groups() {
         )}
 
         <div className="col d-flex flex-column align-items-center justify-content-center ">
-          {/* {currentTab === 'scrums' ? (
+          {currentTab === 'scrums' && (
             <Scrums
               group={groupData.group}
               groupMembers={groupData.groupMembers}
               groupId={groupData.group_id}
             />
-          ) : !currentTab ? (
-            <>
-              <img
-                className="img-fluid mx-3"
-                src={icons.group_no_data}
-                alt="New things are coming soon!"
-              />
-              <h5 className="text-center text-muted mt-5 mb-0">
-                Select a tab from left.
-              </h5>
-            </>
-          ) : (
-            <>
-              <img
-                className="img-fluid mx-3"
-                src={icons.group_no_data}
-                alt="New things are coming soon!"
-              />
-              <h5 className="text-center text-muted mt-5 mb-0">
-                Interesting things are coming soon!
-              </h5>
-            </>
-          )} */}
-          {currentTab === 'weekly_team_todo' ? (
+          )}
+          {currentTab === 'weekly_team_todo' && (
             <WeeklyTodoGroups
               group={groupData.group}
               groupMembers={groupData.groupMembers}
               groupId={groupData.group_id}
             />
-          ) : !currentTab ? (
+          )}
+          {!currentTab && (
             <>
               <img
                 className="img-fluid mx-3"
@@ -219,18 +198,21 @@ export default function Groups() {
                 Select a tab from left.
               </h5>
             </>
-          ) : (
-            <>
-              <img
-                className="img-fluid mx-3"
-                src={icons.group_no_data}
-                alt="New things are coming soon!"
-              />
-              <h5 className="text-center text-muted mt-5 mb-0">
-                Interesting things are coming soon!
-              </h5>
-            </>
           )}
+          {currentTab !== 'scrums' &&
+            currentTab !== 'weekly_team_todo' &&
+            currentTab && (
+              <>
+                <img
+                  className="img-fluid mx-3"
+                  src={icons.group_no_data}
+                  alt="New things are coming soon!"
+                />
+                <h5 className="text-center text-muted mt-5 mb-0">
+                  Interesting things are coming soon!
+                </h5>
+              </>
+            )}
         </div>
       </div>
     </div>
