@@ -13,11 +13,17 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
   const isBatchLeader = group.batch_leader_id === user.id;
   const [isLoading, setIsLoading] = useState(false);
   const [questions, setQuestions] = useState({});
+
   // this options array of object will be used in multiselect
   // const options = groupMembers.map(({ user_details: { username } }) => ({
   //   value: username,
   //   label: username,
   // }));
+
+  const today_date = useMemo(() => {
+    const now = new Date().toLocaleString('in-IN').split(' ')[0].split('/');
+    return `${now[2]}-${now[1].padStart(2, '0')}-${now[0].padStart(2, '0')}`;
+  }, []);
 
   const options = [
     { value: 'a', label: 'a' },
@@ -27,14 +33,9 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
     { value: 'e', label: 'e' },
     { value: 'f', label: 'f' },
   ];
-  const [group_member_activity, setGroup_member_activity] = useState(options);
-  const copy_group_member_activity = options;
 
-  const today_date = useMemo(() => {
-    const now = new Date();
-    let formatDate = now.toLocaleDateString().split('/');
-    return `${formatDate[2]}-${formatDate[0]}-${formatDate[1]}`;
-  }, []);
+  const copy_group_member_activity = options;
+  const [group_member_activity, setGroup_member_activity] = useState(options);
   const [scrumDate, setScrumDate] = useState(today_date);
 
   const Fetch_specific_scrum = async (scrum_date) => {
@@ -111,10 +112,11 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
         padding: '40px 40px',
         width: 'calc(100% - 80px - 15px)',
         position: 'relative',
+        maxHeight: '100%',
       }}
     >
       <div className="d-flex justify-content-between ">
-        <h3 className="h4 text-primary mb-3 ml-2">Batch Leader</h3>
+        <h3 className="h4 text-primary  ml-2">Batch Leader</h3>
         <div className="d-flex">
           <div className="mx-1">
             <img src={icons.scrums_calender} alt="calender" />
@@ -137,7 +139,7 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
         </div>
       </div>
 
-      <div className="container my-5">
+      <div className="container mt-3  pb-5 ">
         <Table
           responsive
           bordered
@@ -151,8 +153,8 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
                   minWidth: 'fit-content',
                   borderLeft: 'none',
                   borderRight: 'none',
-                  fontSize: '18px',
-                  fontWeight: 'bold',
+                  fontSize: '17px',
+                  fontWeight: '600',
                 }}
               >
                 Scrum sheet filling status
@@ -161,12 +163,14 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
                 colSpan="2"
                 style={{ borderLeft: 'none', borderRight: 'none' }}
               >
-                <BatchLeaderButtons
-                  value={questions.scrum_filled}
-                  onChange={(newValue) =>
-                    setQuestions({ ...questions, scrum_filled: newValue })
-                  }
-                />
+                <div style={{ marginLeft: '45px' }}>
+                  <BatchLeaderButtons
+                    value={questions.scrum_filled}
+                    onChange={(newValue) =>
+                      setQuestions({ ...questions, scrum_filled: newValue })
+                    }
+                  />
+                </div>
               </td>
             </tr>
             <tr>
@@ -175,6 +179,9 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
                   color: '#006716',
                   fontSize: '18px',
                   fontWeight: 'bolder',
+                  width: '33%',
+                  textAlign: 'center',
+                  borderLeft: 'none',
                 }}
               >
                 Active
@@ -185,6 +192,8 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
                   color: '#B57300',
                   fontSize: '18px',
                   fontWeight: 'bolder',
+                  width: '34%',
+                  textAlign: 'center',
                 }}
               >
                 Partially active
@@ -192,21 +201,22 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
 
               <td
                 style={{
+                  textAlign: 'center',
+                  borderRight: 'none',
                   color: '#7A0000',
                   fontSize: '18px',
                   fontWeight: 'bolder',
+                  width: '33%',
                 }}
               >
                 Inactive
               </td>
             </tr>
             <tr>
-              <td>
-                {/* active_members */}
+              <td style={{ borderLeft: 'none' }}>
                 <Select
                   className="multi-select"
                   classNamePrefix="react-select"
-                  // options= {options}
                   options={group_member_activity}
                   isMulti
                   isSearchable={true}
@@ -220,7 +230,9 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
                         }))
                   }
                   onChange={(val) => {
-                    const updated_active_members = val.map(({value}) => value); 
+                    const updated_active_members = val.map(
+                      ({ value }) => value
+                    );
                     setQuestions({
                       ...questions,
                       active_members: updated_active_members,
@@ -228,33 +240,32 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
                     setGroup_member_activity(
                       copy_group_member_activity.filter(
                         (elm) =>
-                          !(val
-                            .map((elm) => JSON.stringify(elm))
-                            .includes(JSON.stringify(elm))
-                          ||
-                            (updated_active_members && updated_active_members
-                            .includes(elm.value))
-                          ||
-                            (questions.par_active_members && questions.par_active_members
-                            .includes(elm.value))
-                          ||
-                            (questions.inactive_members && questions.inactive_members
-                            .includes(elm.value)))
+                          !(
+                            val
+                              .map((elm) => JSON.stringify(elm))
+                              .includes(JSON.stringify(elm)) ||
+                            (updated_active_members &&
+                              updated_active_members.includes(elm.value)) ||
+                            (questions.par_active_members &&
+                              questions.par_active_members.includes(
+                                elm.value
+                              )) ||
+                            (questions.inactive_members &&
+                              questions.inactive_members.includes(elm.value))
+                          )
                       )
                     );
                   }}
                 />
               </td>
               <td>
-                {/* par_active_members */}
                 <Select
                   className="multi-select"
                   classNamePrefix="react-select"
-                  // options={options}
-                  options={group_member_activity}
                   isMulti
                   isSearchable={true}
                   placeholder="Select ..."
+                  options={group_member_activity}
                   value={
                     !questions.par_active_members
                       ? questions.par_active_members
@@ -264,7 +275,9 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
                         }))
                   }
                   onChange={(val) => {
-                    const updated_par_active_members = val.map(({value}) => value);
+                    const updated_par_active_members = val.map(
+                      ({ value }) => value
+                    );
                     setQuestions({
                       ...questions,
                       par_active_members: updated_par_active_members,
@@ -272,33 +285,30 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
                     setGroup_member_activity(
                       copy_group_member_activity.filter(
                         (elm) =>
-                          !(val
-                            .map((elm) => JSON.stringify(elm))
-                            .includes(JSON.stringify(elm)) 
-                          ||
-                            (questions.active_members && questions.active_members
-                            .includes(elm.value))
-                          ||
-                            (updated_par_active_members && updated_par_active_members
-                            .includes(elm.value))
-                          ||
-                            (questions.inactive_members && questions.inactive_members
-                            .includes(elm.value)))
+                          !(
+                            val
+                              .map((elm) => JSON.stringify(elm))
+                              .includes(JSON.stringify(elm)) ||
+                            (questions.active_members &&
+                              questions.active_members.includes(elm.value)) ||
+                            (updated_par_active_members &&
+                              updated_par_active_members.includes(elm.value)) ||
+                            (questions.inactive_members &&
+                              questions.inactive_members.includes(elm.value))
+                          )
                       )
                     );
                   }}
                 />
               </td>
               <td style={{ borderRight: 'none' }}>
-                {/* inactive_members */}
                 <Select
                   className="multi-select"
                   classNamePrefix="react-select"
-                  // options={options}
-                  options={group_member_activity}
                   isMulti
                   isSearchable={false}
                   placeholder="Select ..."
+                  options={group_member_activity}
                   value={
                     !questions.inactive_members
                       ? questions.inactive_members
@@ -308,7 +318,9 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
                         }))
                   }
                   onChange={(val) => {
-                    const updated_inactive_members = val.map(({value}) => value);
+                    const updated_inactive_members = val.map(
+                      ({ value }) => value
+                    );
                     setQuestions({
                       ...questions,
                       inactive_members: updated_inactive_members,
@@ -316,18 +328,19 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
                     setGroup_member_activity(
                       copy_group_member_activity.filter(
                         (elm) =>
-                          !(val
-                            .map((elm) => JSON.stringify(elm))
-                            .includes(JSON.stringify(elm)) 
-                            ||
-                              (questions.active_members && questions.active_members
-                              .includes(elm.value))
-                            ||
-                            (questions.par_active_members && questions.par_active_members
-                              .includes(elm.value))
-                            ||
-                              (updated_inactive_members && updated_inactive_members
-                              .includes(elm.value)))
+                          !(
+                            val
+                              .map((elm) => JSON.stringify(elm))
+                              .includes(JSON.stringify(elm)) ||
+                            (questions.active_members &&
+                              questions.active_members.includes(elm.value)) ||
+                            (questions.par_active_members &&
+                              questions.par_active_members.includes(
+                                elm.value
+                              )) ||
+                            (updated_inactive_members &&
+                              updated_inactive_members.includes(elm.value))
+                          )
                       )
                     );
                   }}
@@ -341,8 +354,8 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
                   minWidth: 'fit-content',
                   borderLeft: 'none',
                   borderRight: 'none',
-                  fontSize: '18px',
-                  fontWeight: 'bolder',
+                  fontSize: '17px',
+                  fontWeight: '600',
                 }}
               >
                 Team Coordination
@@ -352,7 +365,7 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
                 colSpan="2"
                 style={{ borderLeft: 'none', borderRight: 'none' }}
               >
-                <div style={{ marginLeft: '300px' }}>
+                <div style={{ marginLeft: '330px' }}>
                   <StarRating
                     value={questions.Coordination}
                     onChange={(newValue) => {
@@ -371,11 +384,11 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
                   minWidth: 'fit-content',
                   borderLeft: 'none',
                   borderRight: 'none',
-                  fontSize: '18px',
-                  fontWeight: 'bolder',
+                  fontSize: '17px',
+                  fontWeight: '600',
                 }}
               >
-                Availability of Team Leader in Scrum
+                Team Leader Availability
               </td>
               <td
                 colSpan="2"
@@ -385,12 +398,14 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
                   borderRight: 'none',
                 }}
               >
-                <BatchLeaderButtons
-                  value={questions.owner_active}
-                  onChange={(newValue) =>
-                    setQuestions({ ...questions, owner_active: newValue })
-                  }
-                />
+                <div style={{ marginLeft: '45px' }}>
+                  <BatchLeaderButtons
+                    value={questions.owner_active}
+                    onChange={(newValue) =>
+                      setQuestions({ ...questions, owner_active: newValue })
+                    }
+                  />
+                </div>
               </td>
             </tr>
 
@@ -400,11 +415,12 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
                   minWidth: 'fit-content',
                   borderLeft: 'none',
                   borderRight: 'none',
-                  fontSize: '18px',
-                  fontWeight: 'bolder',
+                  fontSize: '17px',
+                  fontWeight: '600',
+                  whiteSpace: 'nowrap',
                 }}
               >
-                Availability of team Vice Leader in Scrum
+                Team Vice Leader Availability
               </td>
               <td
                 colSpan="2"
@@ -414,12 +430,14 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
                   borderRight: 'none',
                 }}
               >
-                <BatchLeaderButtons
-                  value={questions.co_owner_active}
-                  onChange={(newValue) =>
-                    setQuestions({ ...questions, co_owner_active: newValue })
-                  }
-                />
+                <div style={{ marginLeft: '45px' }}>
+                  <BatchLeaderButtons
+                    value={questions.co_owner_active}
+                    onChange={(newValue) =>
+                      setQuestions({ ...questions, co_owner_active: newValue })
+                    }
+                  />
+                </div>
               </td>
             </tr>
 
@@ -429,43 +447,49 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
                   minWidth: 'fit-content',
                   borderLeft: 'none',
                   borderRight: 'none',
-                  fontSize: '18px',
-                  fontWeight: 'bolder',
+                  fontSize: '17px',
+                  fontWeight: '600',
                 }}
               >
-                Members who generally takes doubt sessions
+                Doubt Sessions Takers
               </td>
               <td
                 colSpan="2"
                 style={{
-                  minWidth: 'fit-content',
                   borderLeft: 'none',
                   borderRight: 'none',
                 }}
               >
-                {/* doubt_session_taker */}
-                <Select
-                  className="multi-select"
-                  classNamePrefix="react-select"
-                  options={options}
-                  isMulti
-                  isSearchable={false}
-                  placeholder="Select ..."
-                  value={
-                    !questions.doubt_session_taker
-                      ? questions.doubt_session_taker
-                      : questions.doubt_session_taker.map((name) => ({
-                          value: name,
-                          label: name,
-                        }))
-                  }
-                  onChange={(val) => {
-                    setQuestions({
-                      ...questions,
-                      doubt_session_taker: val.map(({ value }) => value),
-                    });
+                <div
+                  style={{
+                    width: '400px',
+                    padding: '1px 5px',
+                    marginLeft: '50px',
                   }}
-                />
+                >
+                  <Select
+                    className="multi-select"
+                    classNamePrefix="react-select"
+                    options={options}
+                    isMulti
+                    isSearchable={false}
+                    placeholder="Select ..."
+                    value={
+                      !questions.doubt_session_taker
+                        ? questions.doubt_session_taker
+                        : questions.doubt_session_taker.map((name) => ({
+                            value: name,
+                            label: name,
+                          }))
+                    }
+                    onChange={(val) => {
+                      setQuestions({
+                        ...questions,
+                        doubt_session_taker: val.map(({ value }) => value),
+                      });
+                    }}
+                  />
+                </div>
               </td>
             </tr>
 
@@ -475,8 +499,8 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
                   minWidth: 'fit-content',
                   borderLeft: 'none',
                   borderRight: 'none',
-                  fontSize: '18px',
-                  fontWeight: 'bolder',
+                  fontSize: '17px',
+                  fontWeight: '600',
                 }}
               >
                 Team Rating
@@ -489,7 +513,7 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
                   borderRight: 'none',
                 }}
               >
-                <div style={{ marginLeft: '300px' }}>
+                <div style={{ marginLeft: '330px' }}>
                   <StarRating
                     value={questions.rating}
                     onChange={(newValue) => {
