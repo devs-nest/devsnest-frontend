@@ -1,6 +1,8 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 
+import icons from '../../utils/getIcons';
+
 export const Welcome = ({ content, showDescription, setisApplying }) => {
   const history = useHistory();
   const handleNope = () => {
@@ -20,7 +22,7 @@ export const Welcome = ({ content, showDescription, setisApplying }) => {
                       <div
                         key={data.title}
                         className="title my-3"
-                        onClick={() => showDescription(index)}
+                        onMouseEnter={() => showDescription(index)}
                       >
                         {data.title}
                       </div>
@@ -38,7 +40,15 @@ export const Welcome = ({ content, showDescription, setisApplying }) => {
               </ul>
             </div>
             <div className="content justify-content-center justify-content-md-start w-100 w-md-50 ml-md-5">
-              <div className="box d-none d-md-flex" />
+              <div className="box d-none d-md-flex">
+                {content.map((data, index) =>
+                  data.isOpen ? (
+                    <img src={icons[data.svg]} alt={data.svg} />
+                  ) : (
+                    <></>
+                  )
+                )}
+              </div>
               <div className="button-container">
                 <button
                   className="button-style nope bg-white"

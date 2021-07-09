@@ -12,7 +12,11 @@ export const Info = ({ content, percentage, progressPercent }) => {
           {content.map((data, index) => {
             return (
               <li key={index} className="my-3">
-                <div key={data.title} className="title">
+                <div
+                  key={data.title}
+                  className="title"
+                  style={{ cursor: 'default' }}
+                >
                   {data.title}
                 </div>
                 <div className="description close" key={data.description}>

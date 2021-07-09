@@ -54,7 +54,7 @@
   height: 300px;
   width: 95%;
   border-radius: 20px;
-  background-color: rgb(255, 201, 185);
+  // background-color: rgb(255, 201, 185);
   margin-top: 7%;
 }
 
@@ -240,7 +240,7 @@ input[type='number'] {
   }
 }
 
-@media screen and (max-width: "600px") {
+@media screen and (max-width: '600px') {
   .onboarding-main {
     min-width: 200px;
   }

@@ -37,11 +37,11 @@ const formQuestions = [
     placeholder: 'Enter your college',
   },
   {
-    title: 'College Year (Stream)',
-    type: 'text',
+    title: 'College Year',
+    type: 'number',
     field: 'grad_year',
     format: 'input',
-    placeholder: 'Enter your year and stream',
+    placeholder: 'Enter your year',
   },
   {
     title: 'Your Work ex',
@@ -118,7 +118,10 @@ export const Main = ({
     }
     try {
       const response = await axios.put(`${API_ENDPOINTS.ONBOARDING}`, {
-        data: { attributes: formData, type: 'users' },
+        data: {
+          attributes: { ...formData, is_form_filled: true },
+          type: 'users',
+        },
       });
       if (response.data) {
         toast.success('Details Submitted');

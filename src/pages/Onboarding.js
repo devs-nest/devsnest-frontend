@@ -22,7 +22,7 @@ export default function Onboarding() {
   const [progressPercent, setprogressPercent] = useState(0);
 
   const [isDiscordConnect, setisDiscordConnect] = useState(user.discord_active);
-  const [isFormSubmit, setisFormSubmit] = useState(false);
+  const [isFormSubmit, setisFormSubmit] = useState(user.is_discord_form_filled);
 
   useEffect(() => {
     const load = async () => {
@@ -55,37 +55,43 @@ export default function Onboarding() {
       title: 'Live Classes',
       description:
         "It's COVID, we know you can't even meet your next door neighbours. But we do bring a fun class-like experience virtually.",
-      isOpen: false,
+      isOpen: true,
+      svg: 'Live_Classes',
     },
     {
       title: 'Personalized Guidance',
       description:
         'Everyone is different and so are your talents and problems. We nuture you through personalized attention into the best you.',
       isOpen: false,
+      svg: 'Personalised_Guidance',
     },
     {
       title: 'Project Driven Curriculum',
       description:
         'Reading the whole Cormen is a nightmare, only Sheldon can handle so much of theory. Our intensive hands on 10+ projects, makes it exciting.',
       isOpen: false,
+      svg: 'Project_Driven_Curriculum',
     },
     {
       title: 'Guest Talks',
       description:
         'Our "Cool Tech Talks" by industry experts on trending technologies keep you upgraded to the latest version.',
       isOpen: false,
+      svg: 'Guest_Talks',
     },
     {
       title: 'Peer Learning',
       description:
         'Discussions and debates are the best way to learn, We encourage group collaboration and pair programming.',
       isOpen: false,
+      svg: 'Peer_Learning',
     },
     {
       title: 'Mock Interviews By Industry Experts',
       description:
         'We end your stage fear of interviews, by having mock "live like" interviews by mentors from FAANG type companies.',
       isOpen: false,
+      svg: 'Mock_Interview',
     },
   ]);
 
@@ -96,7 +102,7 @@ export default function Onboarding() {
         data.isOpen = false;
       }
     });
-    duplicateContent[index].isOpen = !duplicateContent[index].isOpen;
+    duplicateContent[index].isOpen = true;
     setcontent(duplicateContent);
   };
 

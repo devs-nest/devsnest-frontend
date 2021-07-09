@@ -18,6 +18,13 @@ export default function AllGroups() {
   const [noTeam, setNoTeam] = useState(false);
 
   useEffect(() => {
+    if (user.group_name === null) {
+      history.push('/onboarding');
+      return;
+    }
+  }, [history, user]);
+
+  useEffect(() => {
     const getAllTeams = async () => {
       setIsLoading(true);
       try {

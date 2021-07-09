@@ -19,5 +19,5 @@ export const API_ENDPOINTS = {
   GROUPS: `api/v1/groups`,
   SCRUMS: `api/v1/scrums`,
   CONNECT_DISCORD: `/api/v1/users/connect_discord`,
-  ONBOARDING: `/api/v1/onboards`,
+  ONBOARDING: `/api/v1/users/onboard`,
 };
