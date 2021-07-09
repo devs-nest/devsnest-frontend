@@ -5,15 +5,21 @@ const BatchLeaderButtons = ({ value, onChange }) => {
     <div className="d-flex ">
       <button
         style={{
-          width: '135px',
+          // width: '135px',
           minWidth: 'fit-content',
           height: 'auto',
-          borderRadius: '5px',
+          borderRadius: '8px',
           opacity: '1',
-          backgroundColor: value === 2 ? '#58D68D' : '#ddd',
           margin: '1px 6px',
           cursor: 'pointer',
-          padding: '4px',
+          border: 'none',
+          color: 'white',
+          padding: '8px 38px',
+          textAlign: 'center',
+          textDecoration: 'none',
+          // display: "inline-block"
+          fontSize: '16px',
+          backgroundColor: value === 2 ? '#58D68D' : '#ddd',
         }}
         onClick={(e) => {
           onChange(2);
@@ -24,15 +30,21 @@ const BatchLeaderButtons = ({ value, onChange }) => {
 
       <button
         style={{
-          width: '135px',
-          height: 'auto',
+          // width: '135px',
           minWidth: 'fit-content',
-          borderRadius: '5px',
+          height: 'auto',
+          borderRadius: '8px',
           opacity: '1',
-          backgroundColor: value === 1 ? '#F6D57A' : '#ddd',
           margin: '1px 6px',
           cursor: 'pointer',
-          padding: '4px',
+          border: 'none',
+          color: 'white',
+          padding: '8px 18px',
+          textAlign: 'center',
+          textDecoration: 'none',
+          // display: "inline-block"
+          fontSize: '16px',
+          backgroundColor: value === 1 ? '#F6D57A' : '#ddd',
         }}
         onClick={(e) => {
           onChange(1);
@@ -45,15 +57,21 @@ const BatchLeaderButtons = ({ value, onChange }) => {
 
       <button
         style={{
-          width: '135px',
-          height: 'auto',
+          // width: '135px',
           minWidth: 'fit-content',
-          borderRadius: '5px',
+          height: 'auto',
+          borderRadius: '8px',
           opacity: '1',
-          backgroundColor: value === 0 ? '#F1948A' : '#ddd',
           margin: '1px 6px',
           cursor: 'pointer',
-          padding: '4px',
+          border: 'none',
+          color: 'white',
+          padding: '8px 38px',
+          textAlign: 'center',
+          textDecoration: 'none',
+          // display: "inline-block"
+          fontSize: '16px',
+          backgroundColor: value === 0 ? '#F1948A' : '#ddd',
         }}
         onClick={(e) => {
           onChange(0);
