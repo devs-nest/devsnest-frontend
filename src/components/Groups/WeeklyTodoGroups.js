@@ -4,7 +4,11 @@ import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
 import { useUser } from '../../redux/slices/loginSlice';
-import { getWeeklyTodo, saveWeeklyTodo } from '../../services/weekly_todo';
+import {
+  getStreak,
+  getWeeklyTodo,
+  saveWeeklyTodo,
+} from '../../services/weekly_todo';
 import icons from '../../utils/getIcons';
 import myLog from '../../utils/myLog';
 import MoralSelector from './MoralSelecter';
@@ -31,6 +35,7 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
   const canEdit = isTeamOwner || isTeamCoOwner;
 
   const [state, setState] = useState({});
+  const [streak, setStreak] = useState([]);
   const [todoInputVisible, setTodoInputVisible] = useState(false);
   const [todoInput, setTodoInput] = useState('');
   const [questions, setQuestions] = useState(DEFAULT_QUESTION_VALUE);
@@ -39,7 +44,9 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
     const fetchWeeklyTodo = async () => {
       try {
         const response = await getWeeklyTodo(groupId, getDate());
+        const streakResponse = await getStreak(groupId);
         setState(response);
+        setStreak(streakResponse);
         setQuestions({
           moral_status: response.moral_status ? response.moral_status : 0,
           most_active: response.most_active,
@@ -138,7 +145,7 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
       {/* Main section */}
       <section className="d-flex w-100 h-100 weekly-todo-container">
         <div className="flex-column pr-4 weekly-todo-left">
-          <Streak group_id={groupId} />
+          <Streak group_id={groupId} streak={streak} />
           <div className="border-bottom">
             <h3 className="h5 mt-3 mb-1 weekly-todo-heading">Learning :</h3>
             <p className="weekly-todo-question mb-1">
