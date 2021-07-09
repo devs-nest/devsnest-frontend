@@ -1,9 +1,8 @@
 import React, { useEffect, useState, useMemo } from 'react';
-import icons from '../../utils/getIcons';
 import { Table, Button } from 'react-bootstrap';
 import BatchLeaderButtons from './BatchLeaderButtons';
 import { StarRating } from './ScrumButtons';
-import Select from '@atlaskit/select';
+import { CheckboxSelect } from '@atlaskit/select';
 import { useUser } from '../../redux/slices/loginSlice';
 import { toast } from 'react-toastify';
 import { getScrums, saveScrum } from '../../services/Groups/batchLeaderScrums';
@@ -108,7 +107,7 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
         boxShadow: '0 0 20px #0003',
         height: '100%',
         borderRadius: '18px',
-        maxWidth: '900px',
+        maxWidth: '1000px',
         padding: '40px 40px',
         width: 'calc(100% - 80px - 15px)',
         position: 'relative',
@@ -118,23 +117,23 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
       <div className="d-flex justify-content-between ">
         <h3 className="h4 text-primary  ml-2">Batch Leader</h3>
         <div className="d-flex">
-          <div className="mx-1">
-            <img src={icons.scrums_calender} alt="calender" />
-          </div>
           <div className="mx-1 mb-2">
             <input
               type="date"
               name="scrum_date"
+              className="batch-leader-date"
               onChange={(e) => {
                 console.log(e.target.value);
                 setScrumDate(e.target.value);
                 Fetch_specific_scrum(e.target.value);
               }}
               value={scrumDate}
+              style={{
+                border: 'none',
+                outline: 'none',
+                width: '150px',
+              }}
             />
-          </div>
-          <div className="mx-1 mt-1" style={{ color: '#9B9B9B' }}>
-            {scrumDate}
           </div>
         </div>
       </div>
@@ -214,7 +213,7 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
             </tr>
             <tr>
               <td style={{ borderLeft: 'none' }}>
-                <Select
+                <CheckboxSelect
                   className="multi-select"
                   classNamePrefix="react-select"
                   options={group_member_activity}
@@ -259,7 +258,7 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
                 />
               </td>
               <td>
-                <Select
+                <CheckboxSelect
                   className="multi-select"
                   classNamePrefix="react-select"
                   isMulti
@@ -302,7 +301,7 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
                 />
               </td>
               <td style={{ borderRight: 'none' }}>
-                <Select
+                <CheckboxSelect
                   className="multi-select"
                   classNamePrefix="react-select"
                   isMulti
@@ -467,8 +466,8 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
                     marginLeft: '50px',
                   }}
                 >
-                  <Select
-                    className="multi-select"
+                  <CheckboxSelect
+                    className="multi-select batch-leader-select-doubt"
                     classNamePrefix="react-select"
                     options={options}
                     isMulti
