@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 
 import default_user from '../../assets/images/default_user.png';
 import team_leader from '../../assets/images/groups/team_leader.svg';
+import BatchLeaderScrums from '../../components/Groups/BatchLeaderScrums';
 import NoGroupData from '../../components/Groups/NoGroupData';
 import Scrums from '../../components/Groups/Scrums';
 import WeeklyTodoGroups from '../../components/Groups/WeeklyTodoGroups';
@@ -13,7 +14,6 @@ import axios from '../../config/axios.config';
 import { API_ENDPOINTS } from '../../constants/api';
 import icons from '../../utils/getIcons';
 import myLog from '../../utils/myLog';
-import BatchLeaderScrums from '../../components/Groups/BatchLeaderScrums';
 
 const group_activities = [
   { title: 'Group Info', key: 'group_info', img: icons.group_info },
