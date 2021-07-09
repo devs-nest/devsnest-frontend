@@ -10,7 +10,6 @@ import {
   saveWeeklyTodo,
 } from '../../services/weekly_todo';
 import icons from '../../utils/getIcons';
-import myLog from '../../utils/myLog';
 import MoralSelector from './MoralSelecter';
 import Streak from './Streak';
 import Todo from './Todo';
