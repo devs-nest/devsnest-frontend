@@ -1,24 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
+import React from 'react';
 import ReactTooltip from 'react-tooltip';
 
-import { getStreak } from '../../services/weekly_todo';
 import icons from '../../utils/getIcons';
 
 const Streak = ({ group_id, streak }) => {
-  // const [streak, setStreak] = useState([]);
-  // useEffect(() => {
-  //   const fetchStreak = async () => {
-  //     try {
-  //       const response = await getStreak(group_id);
-  //       setStreak(response);
-  //     } catch (e) {
-  //       toast.error('An error occurred fetching weekly streak');
-  //     }
-  //   };
-  //   fetchStreak();
-  // }, [group_id]);
-
   return (
     <div className="d-flex flex-column w-100" style={{ color: '#707070' }}>
       <div
