@@ -123,10 +123,10 @@ export const Main = ({
       if (response.data) {
         toast.success('Details Submitted');
       }
+      setisFormSubmit(true);
     } catch (err) {
       toast.error(err.message);
     }
-    setisFormSubmit(true);
   };
 
   const handleFormQuestion = (buttonType) => {
@@ -148,7 +148,7 @@ export const Main = ({
   };
 
   return (
-    <div className="shadow profile-card pb-4 pl-0 flex-fill m-5 d-flex flex-column justify-content-start left-content onboarding-main">
+    <div className="shadow profile-card pb-4 pl-0 flex-fill my-5 mx-2 mx-md-5 d-flex flex-column justify-content-start left-content onboarding-main">
       <div
         className="main-title p-3 pt-4"
         style={{ backgroundColor: '#9a7dc9', color: 'white' }}
@@ -161,15 +161,17 @@ export const Main = ({
           href="https://discord.gg/E8YcJpGJKB"
           target="_blank"
           rel="noopener noreferrer"
+          onClick={() => setisDiscordJoin(true)}
         >
           <button
-            className={`form-button ${isDiscordJoin ? 'bg-green' : 'bg-blue'}`}
+            className={`ml-2 form-button ${
+              isDiscordJoin ? 'bg-green' : 'bg-blue'
+            }`}
             style={{
               animation: `${
                 !isDiscordJoin && 'scaleAnimation 1s linear infinite'
               }`,
             }}
-            onClick={() => setisDiscordJoin(true)}
           >
             {isDiscordJoin ? 'Joined' : 'Join'}
           </button>
@@ -181,21 +183,21 @@ export const Main = ({
           href={API_ENDPOINTS.DISCORD_LOGIN_REDIRECT}
           target="_blank"
           rel="noopener noreferrer"
+          onClick={async () => {
+            setisDiscordConnect(user.discord_active);
+            // setisDiscordConnect(true);
+          }}
         >
           <button
-            className={`form-button ${isDiscordJoin ? 'bg-blue' : 'bg-grey'} ${
-              isDiscordConnect ? 'bg-green' : ''
-            }`}
+            className={`ml-2 form-button ${
+              isDiscordJoin ? 'bg-blue' : 'bg-grey'
+            } ${isDiscordConnect ? 'bg-green' : ''}`}
             style={{
               animation: `${
                 !isDiscordConnect &&
                 isDiscordJoin &&
                 'scaleAnimation 1s linear infinite'
               }`,
-            }}
-            onClick={async () => {
-              setisDiscordConnect(user.discord_active);
-              // setisDiscordConnect(true);
             }}
             disabled={!isDiscordJoin}
           >
@@ -344,7 +346,7 @@ export const Main = ({
                 Go back
               </button>
               <button
-                className="form-button bg-blue"
+                className="form-button bg-blue ml-2"
                 onClick={() => setisDiscordJoin(true)}
                 type="submit"
               >
@@ -352,7 +354,7 @@ export const Main = ({
               </button>
             </div>
           ) : (
-            <div>
+            <div className="d-flex">
               {formStep !== 0 ? (
                 <img
                   src={icons.up_button}
