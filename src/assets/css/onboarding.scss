@@ -1,0 +1,273 @@
+.onboarding {
+  // height: calc(100vh - 92px);
+  background: #f2eff7;
+
+  &__container {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 2em 0;
+    height: 100%;
+  }
+
+  &__table {
+    border-radius: 18px;
+    box-shadow: 0 0 20px #0003;
+    background-color: #fff;
+    height: 100%;
+    padding: 4%;
+
+    .row {
+      min-width: 500px;
+    }
+  }
+}
+
+.title {
+  padding: 7px;
+  font-size: larger;
+  cursor: pointer;
+}
+
+.description {
+  width: 80%;
+  margin: 2% 0% 2% 6%;
+  font-size: medium;
+  color: rgb(165, 165, 165);
+}
+
+.close {
+  display: none;
+}
+
+.open {
+  display: flex;
+}
+
+.main-title {
+  font-size: x-large;
+  font-weight: bold;
+  color: #404040;
+}
+
+.box {
+  height: 300px;
+  width: 95%;
+  border-radius: 20px;
+  // background-color: rgb(255, 201, 185);
+  margin-top: 7%;
+}
+
+.button-container {
+  display: flex;
+  margin: 8% 3% 0% 0%;
+  flex-direction: row-reverse;
+}
+
+.button-style {
+  font-size: x-large;
+  padding: 11px;
+  margin: 15px;
+  border-radius: 5px;
+  text-decoration: none;
+  border: none;
+}
+
+.apply {
+  background-color: rgb(130, 100, 180);
+  color: white;
+}
+
+.nope {
+  color: rgb(129, 129, 129);
+  border: 1px solid rgb(130, 100, 180);
+}
+
+.background {
+  background: #f2eff7;
+  min-height: calc(100vh - 92px);
+}
+
+.inner-card {
+  display: flex;
+  justify-content: space-around;
+  height: 100%;
+  margin: auto;
+}
+
+.onboarding-info {
+  min-width: 300px;
+}
+
+.onboarding-main {
+  min-width: 500px;
+  overflow: hidden;
+}
+
+.left-content {
+  padding-left: 1%;
+}
+
+.message {
+  border-top: 3px solid #dbd8de;
+  padding: 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 23px;
+  font-weight: 600;
+}
+
+.form-button {
+  font-size: medium;
+  padding: 7px;
+  margin: 2.5px;
+  width: 120px;
+  border-radius: 5px;
+  text-decoration: none;
+  border: none;
+  color: white;
+}
+
+.bg-blue {
+  background-color: rgb(130, 100, 180);
+}
+
+.bg-green {
+  background-color: rgb(63, 158, 57);
+}
+
+.bg-grey {
+  background-color: rgb(187, 187, 187);
+}
+
+.color-grey {
+  color: rgb(146, 146, 146);
+}
+
+.form-content {
+  display: flex;
+  flex-direction: column;
+  margin-top: 15px;
+}
+
+.input-field {
+  width: 350px;
+  margin: 15px 20px;
+  padding-left: 5px;
+  font-size: 20px;
+  outline: none;
+  border: none;
+  border-bottom-style: groove;
+  background-color: #f2eff7;
+  padding: 11px;
+  border-radius: 5px;
+  width: auto;
+}
+
+.form-navigate-button {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 30px;
+}
+
+.onboarding-progress-bar {
+  width: 250px;
+  background-color: #f2eff7;
+}
+
+.onboarding-progress-bar .progress-bar {
+  background-color: #8264b4;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+.radio-question {
+  display: flex;
+  flex-direction: row;
+}
+
+.blue-border-button {
+  color: #8264b4;
+  border: 1px solid #8264b4;
+}
+
+.confirm-message {
+  background-image: url('../images/onboarding_bg.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 40px;
+  text-align: center;
+  border-radius: 15px;
+  min-height: 300px;
+  min-height: calc(100vh - 250px);
+}
+
+.applying-button {
+  font-size: 25px;
+  padding: 8px;
+  width: 150px;
+  border-radius: 5px;
+  text-decoration: none;
+  background-color: white;
+  color: #8264b4;
+  border: 1px solid #8264b4;
+}
+
+@keyframes scaleAnimation {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@media screen and (max-width: '600px') {
+  .onboarding-main {
+    min-width: 200px;
+  }
+
+  .onboarding-progress-bar {
+    margin-right: 11px;
+  }
+
+  .main-title {
+    font-size: 1.3rem;
+  }
+
+  .message {
+    font-size: 1rem;
+  }
+
+  .input-field {
+    font-size: 1.1rem;
+  }
+
+  .form-navigate-button {
+    margin: 11px auto;
+    justify-content: center;
+  }
+
+  .form-navigate-button .form-button {
+    font-size: 0.9rem;
+    width: 100px;
+  }
+}

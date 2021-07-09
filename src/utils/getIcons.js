@@ -31,6 +31,16 @@ import group_leader from '../assets/images/groups/team_leader.svg';
 import group_left_arrow from '../assets/images/groups/teamCardArrow.svg';
 import hash from '../assets/images/hash.svg';
 import hash_bold from '../assets/images/hash_bold.svg';
+import down_button from '../assets/images/onboarding/down_button.svg';
+// Onboarding
+import grey_down_button from '../assets/images/onboarding/grey_down_button.svg';
+import Guest_Talks from '../assets/images/onboarding/Guest_Talks.svg';
+import Live_Classes from '../assets/images/onboarding/Live_Classes.svg';
+import Mock_Interview from '../assets/images/onboarding/Mock_Interview.svg';
+import Peer_Learning from '../assets/images/onboarding/Peer_Learning.svg';
+import Personalised_Guidance from '../assets/images/onboarding/Personalised_Guidance.svg';
+import Project_Driven_Curriculum from '../assets/images/onboarding/Project_Driven_Curriculum.svg';
+import up_button from '../assets/images/onboarding/up_button.svg';
 import question_class_assignment from '../assets/images/question/class_assignment.svg';
 import question_code from '../assets/images/question/code.svg';
 import question_doubt from '../assets/images/question/doubt.svg';
@@ -111,6 +121,15 @@ const icons = {
   scrums_next_button,
   scrums_thanks_icon,
   scrums_bg_img,
+  up_button,
+  down_button,
+  grey_down_button,
+  Guest_Talks,
+  Live_Classes,
+  Mock_Interview,
+  Peer_Learning,
+  Personalised_Guidance,
+  Project_Driven_Curriculum,
 };
 
 export default icons;
