@@ -238,3 +238,11 @@
   background-color: grey;
 }
 
+.batch-leader-date::-webkit-calendar-picker-indicator {
+   cursor: pointer;
+}
+
+.batch-leader-select-doubt .react-select__menu {
+  top: calc(-100% + 20px) !important;
+  transform: translateY(-100%);
+}
