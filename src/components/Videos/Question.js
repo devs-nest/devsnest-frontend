@@ -28,8 +28,7 @@ export const Question = ({
   );
   const QUESTION_DIFFICULTY_COLOR = getQuestionColor(question.difficulty);
   const QUESTION_STATUS_IMG =
-    question.status === 'done' ||
-    (question.submission_link && question.submission_link !== 'nil')
+    question.status === 'done' || question.submission_link
       ? icons.question_tick
       : question.status === 'doubt'
       ? icons.question_doubt
@@ -40,7 +39,7 @@ export const Question = ({
 
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState(
-    question.submission_link !== 'nil' ? question.submission_link : ''
+    question.submission_link ? question.submission_link : ''
   );
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
@@ -69,6 +68,7 @@ export const Question = ({
           return video;
         })
       );
+      setIsOpen(false);
       toast.success('Submission link submitted');
     } catch (error) {
       setError(error.message);
