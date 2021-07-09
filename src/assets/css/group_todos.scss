@@ -1,8 +1,8 @@
 .weekly-todo {
   background-color: #fff;
   box-shadow: 0 0 20px #0003;
-  height: 100%;
-  min-height: 640px;
+  height: auto;
+  // min-height: 650px;
   border-radius: 20px;
   max-width: 1000px;
   padding: 30px;
@@ -10,7 +10,7 @@
 }
 
 .weekly-todo-left {
-  width: 45%;
+  width: 50%;
   height: 93%;
   border-right: 1.5px solid #bbbbbb;
 }

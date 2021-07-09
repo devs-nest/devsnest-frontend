@@ -23,26 +23,27 @@ export const saveWeeklyTodo = async (state, isTlVtl) => {
   if (!isTlVtl) return;
   const {
     todo_id,
-    sheet_filled,
-    most_active,
-    most_helpful,
+    extra_activity,
+    batch_leader_rating,
+    group_activity_rating,
     moral_status,
     obstacles,
-    feedback,
+    comments,
     todo_list,
   } = state;
 
   const attributes = {
-    sheet_filled,
-    most_active,
-    most_helpful,
+    sheet_filled: true,
+    extra_activity,
+    batch_leader_rating,
+    group_activity_rating,
     moral_status,
     obstacles,
-    feedback,
+    comments,
     todo_list,
   };
 
-  console.log(state);
+  // console.log(state);
   const response = await axios.put(`${API_ENDPOINTS.WEEKLY_TODO}/${todo_id}`, {
     data: { id: todo_id, type: 'weekly_todos', attributes },
   });

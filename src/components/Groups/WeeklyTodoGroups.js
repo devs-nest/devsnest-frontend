@@ -21,11 +21,12 @@ const getDate = () => {
 };
 
 const DEFAULT_QUESTION_VALUE = {
-  most_active: '',
-  most_helpful: '',
+  batch_leader_rating: 0,
+  group_activity_rating: 0,
   moral_status: 0,
+  extra_activity: '',
+  comments: '',
   obstacles: '',
-  feedback: '',
 };
 
 const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
@@ -49,10 +50,11 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
         setStreak(streakResponse);
         setQuestions({
           moral_status: response.moral_status ? response.moral_status : 0,
-          most_active: response.most_active,
-          most_helpful: response.most_helpful,
+          batch_leader_rating: response.batch_leader_rating,
+          group_activity_rating: response.group_activity_rating,
+          extra_activity: response.extra_activity,
           obstacles: response.obstacles,
-          feedback: response.feedback,
+          comments: response.comments,
         });
       } catch (e) {
         toast.error('An error occurred fetching weekly todo');
@@ -146,92 +148,7 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
       <section className="d-flex w-100 h-100 weekly-todo-container">
         <div className="flex-column pr-4 weekly-todo-left">
           <Streak group_id={groupId} streak={streak} />
-          <div className="border-bottom">
-            <h3 className="h5 mt-3 mb-1 weekly-todo-heading">Learning :</h3>
-            <p className="weekly-todo-question mb-1">
-              who was the most active member in you team, this week?
-            </p>
-            <div>
-              <select
-                name="dropdown"
-                className="weekly-todo-dropdown border mb-4 mt-2"
-                value={questions.most_active}
-                onChange={(e) => {
-                  saveQuestion({ ...questions, most_active: e.target.value });
-                }}
-              >
-                <option value="" disabled hidden>
-                  Choose here
-                </option>
-                {groupMembers.map(({ user_details }, idx) => {
-                  return (
-                    user_details.username && (
-                      <option key={idx} value={user_details.username}>
-                        {user_details.username}
-                      </option>
-                    )
-                  );
-                })}
-              </select>
-            </div>
-            <p className="weekly-todo-question mb-0">
-              Which team member helped the most in your team?
-            </p>
-            <div>
-              <select
-                name="dropdown"
-                className="weekly-todo-dropdown border mb-4 mt-2"
-                value={questions.most_helpful}
-                onChange={(e) => {
-                  saveQuestion({ ...questions, most_helpful: e.target.value });
-                }}
-              >
-                <option value="" disabled hidden>
-                  Choose here
-                </option>
-                {groupMembers.map(({ user_details }, idx) => {
-                  return (
-                    user_details.username && (
-                      <option key={idx} value={user_details.username}>
-                        {user_details.username}
-                      </option>
-                    )
-                  );
-                })}
-              </select>
-            </div>
-          </div>
-          <h3 className="h5 mt-3 mb-1 weekly-todo-heading">Feedback :</h3>
-          <p className="weekly-todo-question">
-            What feedback would you want to give to Devsnest?
-          </p>
-          {/* Text BOX */}
-          <div className="d-flex align-items-center">
-            <textarea
-              style={{ backgroundColor: '#F2EFF7' }}
-              className="form-control"
-              rows="3"
-              value={questions.feedback}
-              onChange={(e) =>
-                setQuestions({ ...questions, feedback: e.target.value })
-              }
-            ></textarea>
-            {canEdit && (
-              <img
-                style={{ cursor: 'pointer' }}
-                className="ml-3"
-                src={icons.save}
-                alt="save"
-                height="19px"
-                width="19px"
-                onClick={() => saveQuestion(questions)}
-              />
-            )}
-          </div>
-          {/* {JSON.stringify(state)}; */}
-        </div>
-        <div className="h-100 ml-4" style={{ flexGrow: 1, color: '#707070' }}>
-          <h3 className="h5 mt-1 mb-2 weekly-todo-heading">Goals :</h3>
+          <h3 className="h5 mt-3 mb-2 weekly-todo-heading">Goals :</h3>
           <div className="mb-3">
             <p className="weekly-todo-question mb-1">
               How has your team&#39;s morale been this week?
@@ -241,9 +158,11 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
               saveQuestion={saveQuestion}
               questions={questions}
               canEdit={canEdit}
+              range={10}
+              type="moral_status"
             />
           </div>
-          <div className="d-flex justify-content-between align-items-center pr-4">
+          <div className="d-flex justify-content-between align-items-center">
             <h3 className="h5 weekly-todo-question">
               Add your this week&#39;s goals :
             </h3>
@@ -258,7 +177,7 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
             />
           </div>
 
-          <div className="pr-4 pt-1 todo-item-container">
+          <div className="pt-1 todo-item-container">
             {todoInputVisible && (
               <div className="todo-input-container border mb-3">
                 <input
@@ -289,7 +208,7 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
           </div>
           <div className="mt-4 weekly-todo-right">
             <p className="weekly-todo-question mb-2">
-              What obstacles did your team face this week?
+              What obstacles did your team faced last week?
             </p>
             <div className="d-flex align-items-center">
               <input
@@ -314,6 +233,89 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
               )}
             </div>
           </div>
+        </div>
+        <div className="h-100 ml-4" style={{ flexGrow: 1, color: '#707070' }}>
+          <h3 className="h5 mt-3 mb-2 weekly-todo-heading">Feedback :</h3>
+          <p className="weekly-todo-question mb-1">
+            Rate your Batch Leader (1-5)
+          </p>
+          <MoralSelector
+            setQuestions={setQuestions}
+            saveQuestion={saveQuestion}
+            questions={questions}
+            canEdit={canEdit}
+            range={5}
+            type="batch_leader_rating"
+          />
+          <p className="weekly-todo-question mb-1 mt-4">
+            Group Activity Rating (Last week)
+          </p>
+          <MoralSelector
+            setQuestions={setQuestions}
+            saveQuestion={saveQuestion}
+            questions={questions}
+            canEdit={canEdit}
+            range={5}
+            type="group_activity_rating"
+          />
+          <p className="weekly-todo-question mt-4">
+            Extra activities that your group did last week ?
+          </p>
+          <div className="d-flex align-items-center">
+            <input
+              type="text"
+              placeholder="specify here..."
+              className="weekly-todo-input"
+              value={questions.extra_activity}
+              onChange={(e) => {
+                setQuestions({ ...questions, extra_activity: e.target.value });
+              }}
+            />
+            {/* {canEdit && (
+              <img
+                style={{ cursor: 'pointer' }}
+                className="ml-3"
+                src={icons.save}
+                alt="save"
+                height="19px"
+                width="19px"
+                onClick={() => saveQuestion(questions)}
+              />
+            )} */}
+          </div>
+          <p className="weekly-todo-question mt-4">
+            Do you have any comments for us :
+          </p>
+          {/* Text BOX */}
+          <div className="d-flex align-items-center">
+            <textarea
+              style={{ backgroundColor: '#F2EFF7' }}
+              className="form-control"
+              rows="3"
+              value={questions.comments}
+              onChange={(e) =>
+                setQuestions({ ...questions, comments: e.target.value })
+              }
+            ></textarea>
+            {/* {canEdit && (
+              <img
+                style={{ cursor: 'pointer' }}
+                className="ml-3"
+                src={icons.save}
+                alt="save"
+                height="19px"
+                width="19px"
+                onClick={() => saveQuestion(questions)}
+              />
+            )} */}
+          </div>
+          <button
+            style={{ display: 'block', margin: '20px 0 0 auto' }}
+            className="px-3 py-1 btn btn-primary"
+            onClick={() => saveQuestion(questions)}
+          >
+            Save
+          </button>
         </div>
       </section>
     </div>
