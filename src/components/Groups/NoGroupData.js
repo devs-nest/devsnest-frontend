@@ -1,5 +1,4 @@
 import React from 'react';
-
 import icons from '../../utils/getIcons';
 
 export default function NoGroupData() {
