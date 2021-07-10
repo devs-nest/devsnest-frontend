@@ -11,7 +11,7 @@ export const getQuestionTypeIcon = (type) => {
     case 'article':
       return icons.question_reading;
     default:
-      return 'no-image';
+      return icons.question_code;
   }
 };
 

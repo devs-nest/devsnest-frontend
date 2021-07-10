@@ -9,12 +9,17 @@ export const getTopics = async (options = {}) => {
   } else return (await fakeTopic()).data;
 };
 
-const getParams = () => {
-  const params = {
+const getParams = (options) => {
+  const { parent_id } = options;
+  const parameter = {
     'filter[data_type]': 'subtopic',
   };
 
-  return params;
+  if (parent_id) {
+    parameter['filter[parent_id]'] = parent_id;
+  }
+
+  return parameter;
 };
 
 const fakeTopic = () => {

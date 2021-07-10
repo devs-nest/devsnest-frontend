@@ -10,7 +10,7 @@ const handleDifficultySort = (v1, v2) => {
   return difficultyToNumber(v1.difficulty) - difficultyToNumber(v2.difficulty);
 };
 
-export const Video = ({ video, setVideos }) => {
+export const Video = ({ video, setVideos, type }) => {
   const [selected, setSelected] = useState(0);
   return (
     <div
@@ -74,12 +74,13 @@ export const Video = ({ video, setVideos }) => {
                       key={index}
                       setVideos={setVideos}
                       video_id={video.id}
+                      submittable={type === 'fend'}
                     />
                   ))
               : 'No Questions'
             : video.references && video.references.length > 0
             ? video.references.map((q, index) => (
-                <Question question={q} key={index} />
+                <Question question={q} key={index} isReference={true} />
               ))
             : 'No References'}
         </div>
