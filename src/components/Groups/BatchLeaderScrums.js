@@ -15,24 +15,24 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
   const [questions, setQuestions] = useState({});
 
   // this options array of object will be used in multiselect
-  // const options = groupMembers.map(({ user_details: { username } }) => ({
-  //   value: username,
-  //   label: username,
-  // }));
+  const options = groupMembers.map(({ user_details: { username } }) => ({
+    value: username,
+    label: username,
+  }));
 
   const today_date = useMemo(() => {
     const now = new Date().toLocaleString('in-IN').split(' ')[0].split('/');
     return `${now[2]}-${now[1].padStart(2, '0')}-${now[0].padStart(2, '0')}`;
   }, []);
 
-  const options = [
-    { value: 'a', label: 'a' },
-    { value: 'b', label: 'b' },
-    { value: 'c', label: 'c' },
-    { value: 'd', label: 'd' },
-    { value: 'e', label: 'e' },
-    { value: 'f', label: 'f' },
-  ];
+  // const options = [
+  //   { value: 'a', label: 'a' },
+  //   { value: 'b', label: 'b' },
+  //   { value: 'c', label: 'c' },
+  //   { value: 'd', label: 'd' },
+  //   { value: 'e', label: 'e' },
+  //   { value: 'f', label: 'f' },
+  // ];
 
   const copy_group_member_activity = options;
   const [group_member_activity, setGroup_member_activity] = useState(options);
@@ -123,6 +123,7 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
               type="date"
               name="scrum_date"
               className="batch-leader-date"
+              max={today_date}
               onChange={(e) => {
                 console.log(e.target.value);
                 setScrumDate(e.target.value);
@@ -154,16 +155,16 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
                   borderLeft: 'none',
                   borderRight: 'none',
                   fontSize: '17px',
-                  fontWeight: '600',
+                  fontWeight: '700',
                 }}
               >
-                Scrum sheet filling status
+                <div className="py-2">Scrum Sheet Filling Status</div>
               </td>
               <td
                 colSpan="2"
                 style={{ borderLeft: 'none', borderRight: 'none' }}
               >
-                <div style={{ marginLeft: '45px' }}>
+                <div style={{ paddingLeft: '80px' }}>
                   <BatchLeaderButtons
                     value={questions.scrum_filled}
                     onChange={(newValue) =>
@@ -177,7 +178,7 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
               <td
                 style={{
                   color: '#006716',
-                  fontSize: '18px',
+                  fontSize: '19px',
                   fontWeight: 'bolder',
                   width: '33%',
                   textAlign: 'center',
@@ -190,7 +191,7 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
               <td
                 style={{
                   color: '#B57300',
-                  fontSize: '18px',
+                  fontSize: '19px',
                   fontWeight: 'bolder',
                   width: '34%',
                   textAlign: 'center',
@@ -204,7 +205,7 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
                   textAlign: 'center',
                   borderRight: 'none',
                   color: '#7A0000',
-                  fontSize: '18px',
+                  fontSize: '19px',
                   fontWeight: 'bolder',
                   width: '33%',
                 }}
@@ -212,6 +213,7 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
                 Inactive
               </td>
             </tr>
+
             <tr>
               <td style={{ borderLeft: 'none' }}>
                 <CheckboxSelect
@@ -258,6 +260,7 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
                   }}
                 />
               </td>
+
               <td>
                 <CheckboxSelect
                   className="multi-select"
@@ -301,6 +304,7 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
                   }}
                 />
               </td>
+
               <td style={{ borderRight: 'none' }}>
                 <CheckboxSelect
                   className="multi-select"
@@ -355,17 +359,17 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
                   borderLeft: 'none',
                   borderRight: 'none',
                   fontSize: '17px',
-                  fontWeight: '600',
+                  fontWeight: '700',
                 }}
               >
-                Team Coordination
+                <div className="py-2">Team Coordination</div>
               </td>
 
               <td
                 colSpan="2"
                 style={{ borderLeft: 'none', borderRight: 'none' }}
               >
-                <div style={{ marginLeft: '330px' }}>
+                <div style={{ paddingLeft: '390px' }}>
                   <StarRating
                     value={questions.Coordination}
                     onChange={(newValue) => {
@@ -385,10 +389,10 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
                   borderLeft: 'none',
                   borderRight: 'none',
                   fontSize: '17px',
-                  fontWeight: '600',
+                  fontWeight: '700',
                 }}
               >
-                Team Leader Availability
+                <div className="py-2">Team Leader Availability</div>
               </td>
               <td
                 colSpan="2"
@@ -398,7 +402,7 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
                   borderRight: 'none',
                 }}
               >
-                <div style={{ marginLeft: '45px' }}>
+                <div style={{ paddingLeft: '80px' }}>
                   <BatchLeaderButtons
                     value={questions.owner_active}
                     onChange={(newValue) =>
@@ -416,11 +420,11 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
                   borderLeft: 'none',
                   borderRight: 'none',
                   fontSize: '17px',
-                  fontWeight: '600',
+                  fontWeight: '700',
                   whiteSpace: 'nowrap',
                 }}
               >
-                Team Vice Leader Availability
+                <div className="py-2">Team Vice Leader Availability</div>
               </td>
               <td
                 colSpan="2"
@@ -430,7 +434,7 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
                   borderRight: 'none',
                 }}
               >
-                <div style={{ marginLeft: '45px' }}>
+                <div style={{ paddingLeft: '80px' }}>
                   <BatchLeaderButtons
                     value={questions.co_owner_active}
                     onChange={(newValue) =>
@@ -448,10 +452,10 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
                   borderLeft: 'none',
                   borderRight: 'none',
                   fontSize: '17px',
-                  fontWeight: '600',
+                  fontWeight: '700',
                 }}
               >
-                Doubt Sessions Takers
+                <div className="py-2">Doubt Sessions Takers</div>
               </td>
               <td
                 colSpan="2"
@@ -462,9 +466,9 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
               >
                 <div
                   style={{
-                    width: '400px',
+                    width: '455px',
                     padding: '1px 5px',
-                    marginLeft: '50px',
+                    marginLeft: '82px',
                   }}
                 >
                   <CheckboxSelect
@@ -500,11 +504,12 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
                   borderLeft: 'none',
                   borderRight: 'none',
                   fontSize: '17px',
-                  fontWeight: '600',
+                  fontWeight: '700',
                 }}
               >
-                Team Rating
+                <div className="py-2"> Team Rating </div>
               </td>
+
               <td
                 colSpan="2"
                 style={{
@@ -513,7 +518,7 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
                   borderRight: 'none',
                 }}
               >
-                <div style={{ marginLeft: '330px' }}>
+                <div style={{ paddingLeft: '390px' }}>
                   <StarRating
                     value={questions.rating}
                     onChange={(newValue) => {
@@ -527,6 +532,7 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
             </tr>
           </tbody>
         </Table>
+
         <div
           style={{ paddingTop: '30px', position: 'absolute', right: '30px' }}
         >

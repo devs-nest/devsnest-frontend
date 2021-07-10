@@ -5,7 +5,6 @@ const BatchLeaderButtons = ({ value, onChange }) => {
     <div className="d-flex ">
       <button
         style={{
-          // width: '135px',
           minWidth: 'fit-content',
           height: 'auto',
           borderRadius: '8px',
@@ -17,7 +16,6 @@ const BatchLeaderButtons = ({ value, onChange }) => {
           padding: '8px 38px',
           textAlign: 'center',
           textDecoration: 'none',
-          // display: "inline-block"
           fontSize: '16px',
           backgroundColor: value === 2 ? '#58D68D' : '#ddd',
         }}
@@ -30,7 +28,6 @@ const BatchLeaderButtons = ({ value, onChange }) => {
 
       <button
         style={{
-          // width: '135px',
           minWidth: 'fit-content',
           height: 'auto',
           borderRadius: '8px',
@@ -42,7 +39,7 @@ const BatchLeaderButtons = ({ value, onChange }) => {
           padding: '8px 18px',
           textAlign: 'center',
           textDecoration: 'none',
-          // display: "inline-block"
+
           fontSize: '16px',
           backgroundColor: value === 1 ? '#F6D57A' : '#ddd',
         }}
@@ -57,7 +54,6 @@ const BatchLeaderButtons = ({ value, onChange }) => {
 
       <button
         style={{
-          // width: '135px',
           minWidth: 'fit-content',
           height: 'auto',
           borderRadius: '8px',
@@ -69,7 +65,7 @@ const BatchLeaderButtons = ({ value, onChange }) => {
           padding: '8px 38px',
           textAlign: 'center',
           textDecoration: 'none',
-          // display: "inline-block"
+
           fontSize: '16px',
           backgroundColor: value === 0 ? '#F1948A' : '#ddd',
         }}
