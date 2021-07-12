@@ -2,12 +2,14 @@ import axios from '../config/axios.config';
 import { API_ENDPOINTS } from '../constants/api';
 
 export const transformData = (data) => {
+  if (!data) data = [];
+  console.log(data);
   const todo_id = data.id;
   return { todo_id, ...data.attributes };
 };
 
 export const getWeeklyTodo = async (group_id, date) => {
-  const params = { group_id: group_id, date: date };
+  const params = { group_id: group_id };
   const response = await axios.get(`${API_ENDPOINTS.WEEKLY_TODO}`, { params });
   return transformData(response.data.data[0]);
 };
@@ -20,8 +22,10 @@ export const getStreak = async (group_id) => {
 };
 
 export const saveWeeklyTodo = async (state, isTlVtl) => {
+  console.log(state);
   if (!isTlVtl) return;
   const {
+    group_id,
     todo_id,
     extra_activity,
     batch_leader_rating,
@@ -30,6 +34,7 @@ export const saveWeeklyTodo = async (state, isTlVtl) => {
     obstacles,
     comments,
     todo_list,
+    creation_week,
   } = state;
 
   const attributes = {
@@ -43,10 +48,30 @@ export const saveWeeklyTodo = async (state, isTlVtl) => {
     todo_list,
   };
 
-  // console.log(state);
-  const response = await axios.put(`${API_ENDPOINTS.WEEKLY_TODO}/${todo_id}`, {
-    data: { id: todo_id, type: 'weekly_todos', attributes },
-  });
-  // console.log({ data: { id: todo_id, type: 'weekly_todos', attributes } });
-  return response;
+  if (todo_id) {
+    const response = await axios.put(
+      `${API_ENDPOINTS.WEEKLY_TODO}/${todo_id}`,
+      {
+        data: {
+          id: todo_id,
+          type: 'weekly_todos',
+          attributes: { ...attributes, creation_week },
+        },
+      }
+    );
+    return transformData(response.data.data);
+    // console.log({
+    //   data: {
+    //     id: todo_id,
+    //     type: 'weekly_todos',
+    //     attributes: { ...attributes, creation_week },
+    //   },
+    // });
+  } else {
+    const response = await axios.post(`${API_ENDPOINTS.WEEKLY_TODO}`, {
+      data: { type: 'weekly_todos', attributes: { ...attributes, group_id } },
+    });
+    // console.log(response);
+    return transformData(response.data.data);
+  }
 };
