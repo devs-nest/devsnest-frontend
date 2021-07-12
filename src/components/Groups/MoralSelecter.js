@@ -5,8 +5,8 @@ import icons from '../../utils/getIcons';
 
 const MoralSelector = ({
   saveQuestion,
-  setQuestions,
-  questions,
+  setState,
+  state,
   canEdit,
   range,
   type,
@@ -15,9 +15,7 @@ const MoralSelector = ({
     <div className="weekly-moral-select mt-2 flex-wrap">
       {new Array(range).fill().map((_, idx) => {
         const iconNeed =
-          idx < questions[type]
-            ? icons.moral_selected
-            : icons.moral_not_selected;
+          idx < state[type] ? icons.moral_selected : icons.moral_not_selected;
         return (
           <div key={idx} className="moral-status-icon">
             <img
@@ -28,20 +26,19 @@ const MoralSelector = ({
                   toast.warn(`you can't edit`);
                   return;
                 }
-                console.log(type);
                 if (type === 'moral_status') {
-                  saveQuestion({ ...questions, moral_status: idx + 1 });
-                  setQuestions({ ...questions, moral_status: idx + 1 });
+                  saveQuestion({ ...state, moral_status: idx + 1 });
+                  setState({ ...state, moral_status: idx + 1 });
                 } else if (type === 'batch_leader_rating') {
-                  saveQuestion({ ...questions, batch_leader_rating: idx + 1 });
-                  setQuestions({ ...questions, batch_leader_rating: idx + 1 });
+                  saveQuestion({ ...state, batch_leader_rating: idx + 1 });
+                  setState({ ...state, batch_leader_rating: idx + 1 });
                 } else if (type === 'group_activity_rating') {
                   saveQuestion({
-                    ...questions,
+                    ...state,
                     group_activity_rating: idx + 1,
                   });
-                  setQuestions({
-                    ...questions,
+                  setState({
+                    ...state,
                     group_activity_rating: idx + 1,
                   });
                 }
