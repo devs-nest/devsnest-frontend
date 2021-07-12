@@ -14,18 +14,31 @@ import MoralSelector from './MoralSelecter';
 import Streak from './Streak';
 import Todo from './Todo';
 
-const getDate = () => {
-  const today = new Date();
-  return `${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`;
+const getDate = (inputDate) => {
+  return `${inputDate.getDate()}-${
+    inputDate.getMonth() + 1
+  }-${inputDate.getFullYear()}`;
 };
 
-const DEFAULT_QUESTION_VALUE = {
+const getFirstLastDayOfWeek = (day) => {
+  const first = new Date(
+    day.setDate(day.getDate() - day.getDay() + (day.getDay() === 0 ? -6 : 1))
+  );
+  const last = new Date(day.setDate(day.getDate() - day.getDay() + 7));
+
+  return { first, last };
+};
+
+const DEFAULT_STATE = {
   batch_leader_rating: 0,
   group_activity_rating: 0,
   moral_status: 0,
   extra_activity: '',
   comments: '',
   obstacles: '',
+  todo_list: [],
+  creation_week: getFirstLastDayOfWeek(new Date()).first,
+  end_week: getFirstLastDayOfWeek(new Date()).last,
 };
 
 const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
@@ -34,27 +47,36 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
   const isTeamCoOwner = group.co_owner_id === user.id;
   const canEdit = isTeamOwner || isTeamCoOwner;
 
-  const [state, setState] = useState({});
+  const [state, setState] = useState(DEFAULT_STATE);
   const [streak, setStreak] = useState([]);
   const [todoInputVisible, setTodoInputVisible] = useState(false);
   const [todoInput, setTodoInput] = useState('');
-  const [questions, setQuestions] = useState(DEFAULT_QUESTION_VALUE);
 
   useEffect(() => {
     const fetchWeeklyTodo = async () => {
       try {
-        const response = await getWeeklyTodo(groupId, getDate());
+        const response = await getWeeklyTodo(groupId);
         const streakResponse = await getStreak(groupId);
-        setState(response);
-        setStreak(streakResponse);
-        setQuestions({
-          moral_status: response.moral_status ? response.moral_status : 0,
-          batch_leader_rating: response.batch_leader_rating,
-          group_activity_rating: response.group_activity_rating,
-          extra_activity: response.extra_activity,
-          obstacles: response.obstacles,
-          comments: response.comments,
-        });
+        if (response.todo_id) {
+          setState({
+            ...response,
+            batch_leader_rating: response.batch_leader_rating
+              ? response.batch_leader_rating
+              : 0,
+            group_activity_rating: response.group_activity_rating
+              ? response.group_activity_rating
+              : 0,
+            moral_status: response.moral_status ? response.moral_status : 0,
+            extra_activity: response.extra_activity
+              ? response.extra_activity
+              : '',
+            comments: response.comments ? response.comments : '',
+            obstacles: response.obstacles ? response.obstacles : '',
+          });
+          setStreak(streakResponse);
+        } else {
+          setState((s) => ({ ...s, ...response, group_id: groupId }));
+        }
       } catch (e) {
         toast.error('An error occurred fetching weekly todo');
       }
@@ -62,15 +84,14 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
     fetchWeeklyTodo();
   }, [groupId]);
 
-  const saveQuestion = async (questionsState) => {
+  const saveQuestion = async (newState) => {
     if (!canEdit) {
       toast.warn(`you can't edit`);
       return;
     }
     try {
-      await saveWeeklyTodo({ ...state, ...questionsState }, canEdit);
-      setState({ ...state, ...questionsState });
-      setQuestions(questionsState);
+      const response = await saveWeeklyTodo(newState, canEdit);
+      setState(response);
       toast.info('Data saved');
     } catch (e) {
       toast.error(e.message);
@@ -97,8 +118,8 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
         : [{ title, status: false }],
     };
     try {
-      await saveWeeklyTodo(newState, canEdit);
-      setState(newState);
+      const response = await saveWeeklyTodo(newState, canEdit);
+      setState(response);
       setTodoInput('');
     } catch (e) {
       toast.error(e.message);
@@ -124,8 +145,8 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
       todo_list: newTodoState,
     };
     try {
-      await saveWeeklyTodo(newState, canEdit);
-      setState(newState);
+      const response = await saveWeeklyTodo(newState, canEdit);
+      setState(response);
     } catch (e) {
       toast.error(e.message);
     }
@@ -139,7 +160,10 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
         <div className="d-flex" style={{ height: '20px' }}>
           <img className="mx-1" src={icons.scrums_calender} alt="calender" />
           <div className="mx-1" style={{ color: '#9b9b9b', width: '210px' }}>
-            {state && `${state.creation_week}  To  ${state.end_week}`}
+            {state &&
+              `${getDate(new Date(state.creation_week))}  To  ${getDate(
+                new Date(state.end_week)
+              )}`}
           </div>
         </div>
       </div>
@@ -153,9 +177,9 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
               How has your team&#39;s morale been this week?
             </p>
             <MoralSelector
-              setQuestions={setQuestions}
+              setState={setState}
+              state={state}
               saveQuestion={saveQuestion}
-              questions={questions}
               canEdit={canEdit}
               range={10}
               type="moral_status"
@@ -214,22 +238,11 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
                 type="text"
                 placeholder="specify here..."
                 className="weekly-todo-input"
-                value={questions.obstacles}
+                value={state.obstacles ? state.obstacles : ''}
                 onChange={(e) => {
-                  setQuestions({ ...questions, obstacles: e.target.value });
+                  setState({ ...state, obstacles: e.target.value });
                 }}
               />
-              {canEdit && (
-                <img
-                  style={{ cursor: 'pointer' }}
-                  className="ml-3"
-                  src={icons.save}
-                  alt="save"
-                  height="19px"
-                  width="19px"
-                  onClick={() => saveQuestion(questions)}
-                />
-              )}
             </div>
           </div>
         </div>
@@ -239,9 +252,9 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
             Rate your Batch Leader (1-5)
           </p>
           <MoralSelector
-            setQuestions={setQuestions}
+            setState={setState}
             saveQuestion={saveQuestion}
-            questions={questions}
+            state={state}
             canEdit={canEdit}
             range={5}
             type="batch_leader_rating"
@@ -250,9 +263,9 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
             Group Activity Rating (Last week)
           </p>
           <MoralSelector
-            setQuestions={setQuestions}
+            setState={setState}
             saveQuestion={saveQuestion}
-            questions={questions}
+            state={state}
             canEdit={canEdit}
             range={5}
             type="group_activity_rating"
@@ -265,22 +278,11 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
               type="text"
               placeholder="specify here..."
               className="weekly-todo-input"
-              value={questions.extra_activity}
+              value={state.extra_activity ? state.extra_activity : ''}
               onChange={(e) => {
-                setQuestions({ ...questions, extra_activity: e.target.value });
+                setState({ ...state, extra_activity: e.target.value });
               }}
             />
-            {/* {canEdit && (
-              <img
-                style={{ cursor: 'pointer' }}
-                className="ml-3"
-                src={icons.save}
-                alt="save"
-                height="19px"
-                width="19px"
-                onClick={() => saveQuestion(questions)}
-              />
-            )} */}
           </div>
           <p className="weekly-todo-question mt-4">
             Do you have any comments for us :
@@ -291,27 +293,14 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
               style={{ backgroundColor: '#F2EFF7' }}
               className="form-control"
               rows="3"
-              value={questions.comments}
-              onChange={(e) =>
-                setQuestions({ ...questions, comments: e.target.value })
-              }
+              value={state.comments}
+              onChange={(e) => setState({ ...state, comments: e.target.value })}
             ></textarea>
-            {/* {canEdit && (
-              <img
-                style={{ cursor: 'pointer' }}
-                className="ml-3"
-                src={icons.save}
-                alt="save"
-                height="19px"
-                width="19px"
-                onClick={() => saveQuestion(questions)}
-              />
-            )} */}
           </div>
           <button
             style={{ display: 'block', margin: '20px 0 0 auto' }}
             className="px-3 py-1 btn btn-primary"
-            onClick={() => saveQuestion(questions)}
+            onClick={() => saveQuestion(state)}
           >
             Save
           </button>
