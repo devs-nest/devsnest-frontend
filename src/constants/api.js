@@ -18,7 +18,6 @@ export const API_ENDPOINTS = {
   LEADERBOARD: `api/v1/users/leaderboard`,
   GROUPS: `api/v1/groups`,
   SCRUMS: `api/v1/scrums`,
-  BATCH_LEADER_SHEET: `api/v1/batch-leader-sheet`,
   CONNECT_DISCORD: `/api/v1/users/connect_discord`,
   WEEKLY_TODO: `/api/v1/weekly-todo`,
 };
