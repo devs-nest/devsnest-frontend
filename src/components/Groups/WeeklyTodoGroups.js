@@ -199,8 +199,12 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
               alt="group_todo_add"
               height="45px"
               width="45px"
-              data-tip="Add todo"
-              onClick={() => setTodoInputVisible((prevState) => !prevState)}
+              data-tip={canEdit ? 'Add todo' : 'You cannot add todo'}
+              onClick={() => {
+                if (canEdit) {
+                  setTodoInputVisible((prevState) => !prevState);
+                }
+              }}
             />
           </div>
 
@@ -243,6 +247,7 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
                 placeholder="specify here..."
                 className="weekly-todo-input"
                 value={state.obstacles ? state.obstacles : ''}
+                disabled={!canEdit}
                 onChange={(e) => {
                   setState({ ...state, obstacles: e.target.value });
                 }}
@@ -257,8 +262,12 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
           </p>
           <StarRating
             onChange={(rating) => {
-              saveQuestion({ ...state, batch_leader_rating: rating });
-              setState({ ...state, batch_leader_rating: rating });
+              if (canEdit) {
+                saveQuestion({ ...state, batch_leader_rating: rating });
+                setState({ ...state, batch_leader_rating: rating });
+              } else {
+                toast.warn("You can't edit");
+              }
             }}
             value={state.batch_leader_rating}
             size={30}
@@ -269,14 +278,18 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
           </p>
           <StarRating
             onChange={(rating) => {
-              saveQuestion({
-                ...state,
-                group_activity_rating: rating,
-              });
-              setState({
-                ...state,
-                group_activity_rating: rating,
-              });
+              if (canEdit) {
+                saveQuestion({
+                  ...state,
+                  group_activity_rating: rating,
+                });
+                setState({
+                  ...state,
+                  group_activity_rating: rating,
+                });
+              } else {
+                toast.warn("You can't edit");
+              }
             }}
             value={state.group_activity_rating}
             size={30}
@@ -289,6 +302,7 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
             type="text"
             placeholder="specify here..."
             className="weekly-todo-input"
+            disabled={!canEdit}
             value={state.extra_activity ? state.extra_activity : ''}
             onChange={(e) => {
               setState({ ...state, extra_activity: e.target.value });
@@ -302,6 +316,7 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
             style={{ backgroundColor: '#F2EFF7' }}
             className="form-control"
             rows="3"
+            disabled={!canEdit}
             value={state.comments}
             onChange={(e) => setState({ ...state, comments: e.target.value })}
           ></textarea>
