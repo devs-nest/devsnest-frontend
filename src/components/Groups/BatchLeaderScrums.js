@@ -5,14 +5,17 @@ import { toast } from 'react-toastify';
 
 import { useUser } from '../../redux/slices/loginSlice';
 import { getScrums, saveScrum } from '../../services/Groups/batchLeaderScrums';
+import { isEqualStartWeekDate } from '../../utils/dateUtils';
 import BatchLeaderButtons from './BatchLeaderButtons';
 import { StarRating } from './ScrumButtons';
 
 export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
   const user = useUser();
-  const isBatchLeader = group.batch_leader_id === user.id;
+  const canEdit =
+    group.batch_leader_id === user.id || user.user_type === 'admin';
   const [isLoading, setIsLoading] = useState(false);
   const [questions, setQuestions] = useState({});
+  const [isCurrentWeek, setIsCurrentWeek] = useState(true);
 
   // this options array of object will be used in multiselect
   const options = groupMembers.map(({ user_details: { username } }) => ({
@@ -116,7 +119,9 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
               className="batch-leader-date"
               max={today_date}
               onChange={(e) => {
-                console.log(e.target.value);
+                setIsCurrentWeek(
+                  isEqualStartWeekDate(new Date(e.target.value), new Date())
+                );
                 setScrumDate(e.target.value);
                 Fetch_specific_scrum(e.target.value);
               }}
@@ -158,9 +163,13 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
                 <div style={{ paddingLeft: '80px' }}>
                   <BatchLeaderButtons
                     value={questions.scrum_filled}
-                    onChange={(newValue) =>
-                      setQuestions({ ...questions, scrum_filled: newValue })
-                    }
+                    onChange={(newValue) => {
+                      if (isCurrentWeek) {
+                        setQuestions({ ...questions, scrum_filled: newValue });
+                      } else {
+                        toast.warn("You can only edit current week's sheet");
+                      }
+                    }}
                   />
                 </div>
               </td>
@@ -214,6 +223,7 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
                   isMulti
                   isSearchable={true}
                   placeholder="Select ..."
+                  isDisabled={!isCurrentWeek}
                   value={
                     !questions.active_members
                       ? questions.active_members
@@ -259,6 +269,7 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
                   isMulti
                   isSearchable={true}
                   placeholder="Select ..."
+                  isDisabled={!isCurrentWeek}
                   options={group_member_activity}
                   value={
                     !questions.par_active_members
@@ -303,6 +314,7 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
                   isMulti
                   isSearchable={false}
                   placeholder="Select ..."
+                  isDisabled={!isCurrentWeek}
                   options={group_member_activity}
                   value={
                     !questions.inactive_members
@@ -364,7 +376,11 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
                   <StarRating
                     value={questions.Coordination}
                     onChange={(newValue) => {
-                      setQuestions({ ...questions, Coordination: newValue });
+                      if (isCurrentWeek) {
+                        setQuestions({ ...questions, Coordination: newValue });
+                      } else {
+                        toast.warn("You can only edit current week's sheet");
+                      }
                     }}
                     size={30}
                     disabled={false}
@@ -396,9 +412,13 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
                 <div style={{ paddingLeft: '80px' }}>
                   <BatchLeaderButtons
                     value={questions.owner_active}
-                    onChange={(newValue) =>
-                      setQuestions({ ...questions, owner_active: newValue })
-                    }
+                    onChange={(newValue) => {
+                      if (isCurrentWeek) {
+                        setQuestions({ ...questions, owner_active: newValue });
+                      } else {
+                        toast.warn("You can only edit current week's sheet");
+                      }
+                    }}
                   />
                 </div>
               </td>
@@ -428,9 +448,16 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
                 <div style={{ paddingLeft: '80px' }}>
                   <BatchLeaderButtons
                     value={questions.co_owner_active}
-                    onChange={(newValue) =>
-                      setQuestions({ ...questions, co_owner_active: newValue })
-                    }
+                    onChange={(newValue) => {
+                      if (isCurrentWeek) {
+                        setQuestions({
+                          ...questions,
+                          co_owner_active: newValue,
+                        });
+                      } else {
+                        toast.warn("You can only edit current week's sheet");
+                      }
+                    }}
                   />
                 </div>
               </td>
@@ -469,6 +496,7 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
                     isMulti
                     isSearchable={false}
                     placeholder="Select ..."
+                    isDisabled={!isCurrentWeek}
                     value={
                       !questions.doubt_session_taker
                         ? questions.doubt_session_taker
@@ -513,7 +541,11 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
                   <StarRating
                     value={questions.rating}
                     onChange={(newValue) => {
-                      setQuestions({ ...questions, rating: newValue });
+                      if (isCurrentWeek) {
+                        setQuestions({ ...questions, rating: newValue });
+                      } else {
+                        toast.warn("You can only edit current week's sheet");
+                      }
                     }}
                     size={30}
                     disabled={false}
@@ -528,7 +560,7 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
           style={{ paddingTop: '30px', position: 'absolute', right: '30px' }}
         >
           <Button
-            disabled={!isBatchLeader}
+            disabled={!canEdit || !isCurrentWeek}
             onClick={(e) => {
               postScrumData(questions);
             }}
