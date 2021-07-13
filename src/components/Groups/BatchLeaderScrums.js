@@ -1,23 +1,50 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import icons from '../../utils/getIcons';
 import { Table, Button } from 'react-bootstrap';
-import BatchLeaderButtons from './BatchLeaderButtons';
+import BatchLeaderButttons from './BatchLeaderButtons';
 import { StarRating } from './ScrumButtons';
 import Select from '@atlaskit/select';
 import { useUser } from '../../redux/slices/loginSlice';
 import { toast } from 'react-toastify';
-import { getScrums, saveScrum } from '../../services/Groups/batchLeaderScrums';
+import getScrums from '../../services/Group/BatchLeader';
+
+const DEFAULT_BATCH_LEADER_SCRUM = {
+  // user_id: 1,
+  // group_id: 1,
+  Coordination: null,
+  scrum_filled: null,
+  mentor_meet: null,
+  owner_active: null,
+  co_owner_active: null,
+  remarks: null,
+  rating: null,
+  active_members: [],
+  par_active_members: [],
+  inactive_members: [],
+  extra_activity: [],
+  doubt_session_taker: [],
+};
 
 export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
   const user = useUser();
   const isBatchLeader = group.batch_leader_id === user.id;
-  const [isLoading, setIsLoading] = useState(false);
-  const [questions, setQuestions] = useState({});
-  //this options array of object will be used in multiselect
-  const options = groupMembers.map(({ user_details: { username } }) => ({
-    value: username,
-    label: username,
-  }));
+  const [questions, setQuestions] = useState([]);
+  //this array will be used in multiselect as options
+  const group_members_array = [];
+
+  for (const group_member of groupMembers) {
+    const {
+      user_id,
+      user_details: { username: name },
+    } = group_member;
+
+    let anObj = {
+      label: name,
+      value: name,
+    };
+
+    group_members_array.push(anObj);
+  }
 
   const today_date = useMemo(() => {
     const now = new Date();
@@ -28,49 +55,32 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
   useEffect(() => {
     const fetchScrum = async () => {
       try {
-        setIsLoading(true);
+        const response = await getScrums(groupId);
 
-        const response = await getScrums(groupId, today_date);
         const scrumsData = [];
+        for (const group_member of groupMembers) {
+          const { user_id } = group_member;
+          const respData = response.find(
+            (member) => member.user_id === user_id
+          );
+          if (respData) {
+            scrumsData.push({ ...respData, user_id });
+          } else {
+            scrumsData.push({
+              user_id,
+              group_id: groupId,
+              ...DEFAULT_BATCH_LEADER_SCRUM,
+            });
+          }
+        }
 
-        scrumsData.push({
-          user_id: user.id,
-          group_id: groupId,
-          ...response,
-        });
-
-        setQuestions(scrumsData[0]);
+        setQuestions(scrumsData);
       } catch (e) {
-        toast.error('An error occurred fetching Batch Leader Sheet');
+        toast.error('An error occurred fetching scrums');
       }
-      setIsLoading(false);
     };
     fetchScrum();
-  }, [groupId, user, today_date]);
-
-  console.log('questions obj');
-  console.log(questions);
-
-  const postScrumData = async (scrum_data) => {
-    console.log(scrum_data);
-    try {
-      const repsonse = await saveScrum(scrum_data);
-      const scrum_id = repsonse.data.id;
-      console.log(scrum_id);
-      setQuestions({ ...questions, id: scrum_id });
-      toast.success(`batch leader Sheet for ${group.name}!!`);
-    } catch (e) {
-      toast.error(e.message);
-    }
-  };
-
-  if (isLoading) {
-    return (
-      <div className="dashboard d-flex">
-        <div className="spinner-border text-primary m-auto" role="status" />
-      </div>
-    );
-  }
+  }, [group, groupId, groupMembers]);
 
   return (
     <div
@@ -82,7 +92,6 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
         maxWidth: '900px',
         padding: '40px 40px',
         width: 'calc(100% - 80px - 15px)',
-        position: 'relative',
       }}
     >
       <div className="d-flex justify-content-between ">
@@ -96,8 +105,8 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
           </div>
         </div>
       </div>
-
-      <div className="container my-5">
+      {questions}
+      <div className="container mt-5">
         <Table
           responsive
           bordered
@@ -112,16 +121,16 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
                   borderLeft: 'none',
                   borderRight: 'none',
                   fontSize: '18px',
-                  fontWeight: 'bold',
+                  fontWeight: 'bolder',
                 }}
               >
                 Scrum sheet filling status
               </td>
               <td
-                colSpan="2"
+                colspan="2"
                 style={{ borderLeft: 'none', borderRight: 'none' }}
               >
-                <BatchLeaderButtons
+                <BatchLeaderButttons
                   value={questions.scrum_filled}
                   onChange={(newValue) =>
                     setQuestions({ ...questions, scrum_filled: newValue })
@@ -166,24 +175,10 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
                 <Select
                   className="multi-select"
                   classNamePrefix="react-select"
-                  options={options}
+                  options={group_members_array}
                   isMulti
-                  isSearchable={true}
-                  placeholder="Select ..."
-                  value={
-                    !questions.active_members
-                      ? questions.active_members
-                      : questions.active_members.map((name) => ({
-                          value: name,
-                          label: name,
-                        }))
-                  }
-                  onChange={(val) => {
-                    setQuestions({
-                      ...questions,
-                      active_members: val.map(({ value }) => value),
-                    });
-                  }}
+                  isSearchable={false}
+                  placeholder="Choose a member"
                 />
               </td>
               <td>
@@ -191,24 +186,10 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
                 <Select
                   className="multi-select"
                   classNamePrefix="react-select"
-                  options={options}
+                  options={group_members_array}
                   isMulti
-                  isSearchable={true}
-                  placeholder="Select ..."
-                  value={
-                    !questions.par_active_members
-                      ? questions.par_active_members
-                      : questions.par_active_members.map((name) => ({
-                          value: name,
-                          label: name,
-                        }))
-                  }
-                  onChange={(val) => {
-                    setQuestions({
-                      ...questions,
-                      par_active_members: val.map(({ value }) => value),
-                    });
-                  }}
+                  isSearchable={false}
+                  placeholder="Choose a member"
                 />
               </td>
               <td style={{ borderRight: 'none' }}>
@@ -216,24 +197,10 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
                 <Select
                   className="multi-select"
                   classNamePrefix="react-select"
-                  options={options}
+                  options={group_members_array}
                   isMulti
                   isSearchable={false}
-                  placeholder="Select ..."
-                  value={
-                    !questions.inactive_members
-                      ? questions.inactive_members
-                      : questions.inactive_members.map((name) => ({
-                          value: name,
-                          label: name,
-                        }))
-                  }
-                  onChange={(val) => {
-                    setQuestions({
-                      ...questions,
-                      inactive_members: val.map(({ value }) => value),
-                    });
-                  }}
+                  placeholder="Choose a member"
                 />
               </td>
             </tr>
@@ -252,7 +219,7 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
               </td>
 
               <td
-                colSpan="2"
+                colspan="2"
                 style={{ borderLeft: 'none', borderRight: 'none' }}
               >
                 <div style={{ marginLeft: '300px' }}>
@@ -281,14 +248,14 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
                 Availability of Team Leader in Scrum
               </td>
               <td
-                colSpan="2"
+                colspan="2"
                 style={{
                   minWidth: 'fit-content',
                   borderLeft: 'none',
                   borderRight: 'none',
                 }}
               >
-                <BatchLeaderButtons
+                <BatchLeaderButttons
                   value={questions.owner_active}
                   onChange={(newValue) =>
                     setQuestions({ ...questions, owner_active: newValue })
@@ -310,14 +277,14 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
                 Availability of team Vice Leader in Scrum
               </td>
               <td
-                colSpan="2"
+                colspan="2"
                 style={{
                   minWidth: 'fit-content',
                   borderLeft: 'none',
                   borderRight: 'none',
                 }}
               >
-                <BatchLeaderButtons
+                <BatchLeaderButttons
                   value={questions.co_owner_active}
                   onChange={(newValue) =>
                     setQuestions({ ...questions, co_owner_active: newValue })
@@ -339,7 +306,7 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
                 Members who generally takes doubt sessions
               </td>
               <td
-                colSpan="2"
+                colspan="2"
                 style={{
                   minWidth: 'fit-content',
                   borderLeft: 'none',
@@ -350,24 +317,10 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
                 <Select
                   className="multi-select"
                   classNamePrefix="react-select"
-                  options={options}
+                  options={group_members_array}
                   isMulti
                   isSearchable={false}
-                  placeholder="Select ..."
-                  value={
-                    !questions.doubt_session_taker
-                      ? questions.doubt_session_taker
-                      : questions.doubt_session_taker.map((name) => ({
-                          value: name,
-                          label: name,
-                        }))
-                  }
-                  onChange={(val) => {
-                    setQuestions({
-                      ...questions,
-                      doubt_session_taker: val.map(({ value }) => value),
-                    });
-                  }}
+                  placeholder="Choose a member"
                 />
               </td>
             </tr>
@@ -385,7 +338,7 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
                 Team Rating
               </td>
               <td
-                colSpan="2"
+                colspan="2"
                 style={{
                   minWidth: 'fit-content',
                   borderLeft: 'none',
@@ -406,18 +359,9 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
             </tr>
           </tbody>
         </Table>
-        <div
-          style={{ paddingTop: '30px', position: 'absolute', right: '30px' }}
-        >
-          <Button
-            disabled={!isBatchLeader}
-            onClick={(e) => {
-              postScrumData(questions);
-            }}
-          >
-            Submit
-          </Button>
-        </div>
+      </div>
+      <div style={{ marginTop: '60px', marginLeft: '700px' }}>
+        <Button>Submit</Button>
       </div>
     </div>
   );
