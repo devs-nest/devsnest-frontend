@@ -83,9 +83,10 @@ function getTextStatus(statusInNum) {
   else return 'doubt';
 }
 
-function Challenges(props) {
+function Challenges() {
   const [questions, setQuestions] = useState([]);
   const [topics, setTopics] = useState([]);
+  const [selectedTopics, setSelectedTopics] = useState([]);
   const [difficulty, setDifficulty] = useState('');
   const [questionType, setQuestionType] = useState('');
   const [reportData, setReportData] = useState({});
@@ -105,7 +106,7 @@ function Challenges(props) {
   }
 
   function getSelectedTopics() {
-    return topics.filter((topic) => topic.selected);
+    return topics.filter((topic) => topic.selected).map((t) => t.name);
   }
 
   const getProgressData = async () => {
@@ -132,36 +133,32 @@ function Challenges(props) {
     setDisableQuestionSubmission(false);
   }
 
+  // Fetch All Topics And Questions.
   useEffect(() => {
-    getProgressData();
+    const fetchTopicsAndQuestions = async () => {
+      try {
+        getProgressData();
+        const topicRes = await getTopics({ parent_id: 'algo' });
+        const transformedTopicsData = transformTopicsData(topicRes.data);
+        setTopics(transformedTopicsData);
 
-    getTopics()
-      .then((res) => {
-        setTopics(transformTopicsData(res.data));
-      })
-      .catch((err) => {
+        const questionsRes = await getQuestions({
+          topics: transformedTopicsData,
+        });
+        setQuestions(transformQuestionsData(questionsRes));
+        isLoading && setIsLoading(false);
+      } catch (err) {
         toast.error(err.message);
-      });
+      }
+    };
+    fetchTopicsAndQuestions();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    // let topics load first
-    if (topics.length === 0) return;
-
-    getQuestions({
-      topics: getSelectedTopics(),
-      difficulty: difficulty,
-      question_type: questionType,
-    })
-      .then((res) => {
-        setQuestions(transformQuestionsData(res));
-        isLoading && setIsLoading(false);
-      })
-      .catch((err) => {
-        toast.error(err.message);
-      });
+    setSelectedTopics(getSelectedTopics);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [topics, difficulty, questionType]);
+  }, [topics]);
 
   if (isLoading) {
     return (
@@ -183,15 +180,26 @@ function Challenges(props) {
 
         <div className="section-wrapper row mt-4">
           <section className="questions col-lg-9 col-md-12 order-lg-1 order-md-2 order-sm-2 order-2">
-            {questions.map((question, index) => (
-              <Question
-                key={question.id}
-                index={index + 1}
-                {...question}
-                onSubmitStatus={onSubmitQuestion}
-                disableQuestionSubmission={disableQuestionSubmission}
-              />
-            ))}
+            {questions.map((question, index) => {
+              // FILTERS
+              if (
+                (!questionType || question.question_type === questionType) &&
+                (!difficulty || question.difficulty === difficulty) &&
+                (selectedTopics.length === 0 ||
+                  selectedTopics.includes(question.tags[0]))
+              ) {
+                return (
+                  <Question
+                    key={question.id}
+                    index={index + 1}
+                    {...question}
+                    onSubmitStatus={onSubmitQuestion}
+                    disableQuestionSubmission={disableQuestionSubmission}
+                  />
+                );
+              }
+              return '';
+            })}
           </section>
 
           <section className="col-lg-3 col-md-12 order-lg-2 order-md-1 order-sm-1 order-1">

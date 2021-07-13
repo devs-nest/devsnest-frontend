@@ -60,7 +60,7 @@ function App() {
           <PrivateRoute exact path="/leaderboard" component={Leaderboard} />
           <PrivateRoute exact path="/groups/:slug" component={Group} />
           <PrivateRoute exact path="/groups" component={Groups} />
-          <PrivateRoute exact path="/videos" component={Videos} />
+          <PrivateRoute exact path="/videos/:videoType" component={Videos} />
           <Route exact path="/privacyPolicy" component={PrivacyPolicy} />
           <Route component={NotFound} />
         </Switch>

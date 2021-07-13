@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import styles from '../assets/css/videos.module.scss';
@@ -11,6 +12,7 @@ import icons from '../utils/getIcons';
 import myLog from '../utils/myLog';
 
 function VideoScreen() {
+  const params = useParams();
   const [filter, setFilter] = useState({
     values: [],
     selected: -1,
@@ -62,13 +64,20 @@ function VideoScreen() {
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        const topicRes = await getTopics();
+        const topicRes = await getTopics({ parent_id: params.videoType });
+        const topics = topicRes?.data.map((e) => {
+          return {
+            name: e?.attributes?.unique_id,
+          };
+        });
         setFilter((current) => ({
           ...current,
           values: transformTopicsData(topicRes.data),
         }));
+
         const questionsRes = await getQuestions({
           data_type: 'video',
+          topics,
         });
         setVideos(transformQuestionsData(questionsRes));
         // setVideos(dummyData);
@@ -80,7 +89,7 @@ function VideoScreen() {
       }
     };
     fetchData();
-  }, []);
+  }, [params]);
 
   if (isLoading) {
     return (
@@ -118,7 +127,14 @@ function VideoScreen() {
               filter.selected === -1 ||
               filter.values[filter.selected] === video.tag
             ) {
-              return <Video video={video} key={index} setVideos={setVideos} />;
+              return (
+                <Video
+                  video={video}
+                  key={index}
+                  setVideos={setVideos}
+                  type={params.videoType}
+                />
+              );
             }
             return '';
           })}

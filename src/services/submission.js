@@ -12,6 +12,17 @@ function submitQuestion({ question_unique_id, status }) {
   return res;
 }
 
+function submitQuestionFend({ question_unique_id, submission_link }) {
+  const res = axios.post(API_ENDPOINTS.FRONTEND_SUBMISSIONS, {
+    data: {
+      attributes: { question_unique_id, submission_link },
+      type: 'frontend_submissions',
+    },
+  });
+
+  return res;
+}
+
 function statusToNumber(string) {
   switch (string) {
     case 'done':
@@ -64,4 +75,5 @@ export {
   statusToNumber,
   statusToString,
   submitQuestion,
+  submitQuestionFend,
 };
