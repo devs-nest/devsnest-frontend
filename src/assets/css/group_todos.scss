@@ -2,11 +2,11 @@
   background-color: #fff;
   box-shadow: 0 0 20px #0003;
   height: auto;
-  // min-height: 650px;
   border-radius: 20px;
-  max-width: 1000px;
+  max-width: 1200px;
   padding: 30px;
   width: 100%;
+  box-sizing: border-box;
 }
 
 .weekly-todo-left {
@@ -24,10 +24,16 @@
   height: 35px;
   color: #404040;
 
+  p {
+    white-space: nowrap;
+    overflow: hidden;
+    margin-right: 11px;
+    margin-left: 15px;
+  }
+
   .todo-status {
-    width: 40px;
+    min-width: 40px;
     height: 100%;
-    margin-right: 15px;
     border-top-left-radius: inherit;
     border-bottom-left-radius: inherit;
   }
@@ -94,7 +100,7 @@
   background-color: #f2eff7;
 }
 
-@media screen and (max-width: 720px) {
+@media screen and (max-width: 800px) {
   .weekly-todo-container {
     flex-direction: column;
   }
