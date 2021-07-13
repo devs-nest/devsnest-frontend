@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactTooltip from 'react-tooltip';
 
 import icons from '../../utils/getIcons';
 
@@ -9,7 +10,9 @@ const Todo = ({ title, status, onTodoUpdate, index }) => {
   return (
     <div className="d-flex align-items-center mb-3 todo-item">
       <div style={{ backgroundColor: todoColor }} className="todo-status"></div>
-      <p className="mb-0">{title}</p>
+      <p className="mb-0" data-tip={title}>
+        {title}
+      </p>
       <img
         src={todoStatusImg}
         alt="status-icon"
@@ -17,6 +20,7 @@ const Todo = ({ title, status, onTodoUpdate, index }) => {
         width="30px"
         onClick={() => onTodoUpdate(index)}
       />
+      <ReactTooltip effect="solid" />
     </div>
   );
 };
