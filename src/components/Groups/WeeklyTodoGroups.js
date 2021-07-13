@@ -199,6 +199,7 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
               alt="group_todo_add"
               height="45px"
               width="45px"
+              data-tip="Add todo"
               onClick={() => setTodoInputVisible((prevState) => !prevState)}
             />
           </div>

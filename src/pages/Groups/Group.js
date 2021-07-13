@@ -54,7 +54,7 @@ export default function Groups() {
   const { slug } = useParams();
   const [isLoading, setIsLoading] = useState(true);
   const [groupData, setGroupData] = useState(null);
-  const [currentTab, setCurrentTab] = useState('scrums');
+  const [currentTab, setCurrentTab] = useState('group_info');
 
   useEffect(() => {
     const loadData = async () => {
