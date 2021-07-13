@@ -57,6 +57,7 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
       try {
         const response = await getWeeklyTodo(groupId);
         const streakResponse = await getStreak(groupId);
+        setStreak(streakResponse);
         if (response.todo_id) {
           setState({
             ...response,
@@ -73,7 +74,6 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
             comments: response.comments ? response.comments : '',
             obstacles: response.obstacles ? response.obstacles : '',
           });
-          setStreak(streakResponse);
         } else {
           setState((s) => ({ ...s, ...response, group_id: groupId }));
         }
@@ -82,7 +82,7 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
       }
     };
     fetchWeeklyTodo();
-  }, [groupId]);
+  }, [groupId, group, groupMembers, state.todo_id]);
 
   const saveQuestion = async (newState) => {
     if (!canEdit) {
@@ -297,13 +297,15 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
               onChange={(e) => setState({ ...state, comments: e.target.value })}
             ></textarea>
           </div>
-          <button
-            style={{ display: 'block', margin: '20px 0 0 auto' }}
-            className="px-3 py-1 btn btn-primary"
-            onClick={() => saveQuestion(state)}
-          >
-            Save
-          </button>
+          {canEdit && (
+            <button
+              style={{ display: 'block', margin: '20px 0 0 auto' }}
+              className="px-3 py-1 btn btn-primary"
+              onClick={() => saveQuestion(state)}
+            >
+              Save
+            </button>
+          )}
         </div>
       </section>
     </div>

@@ -3,7 +3,6 @@ import { API_ENDPOINTS } from '../constants/api';
 
 export const transformData = (data) => {
   if (!data) data = [];
-  console.log(data);
   const todo_id = data.id;
   return { todo_id, ...data.attributes };
 };
@@ -22,7 +21,6 @@ export const getStreak = async (group_id) => {
 };
 
 export const saveWeeklyTodo = async (state, isTlVtl) => {
-  console.log(state);
   if (!isTlVtl) return;
   const {
     group_id,
@@ -60,18 +58,10 @@ export const saveWeeklyTodo = async (state, isTlVtl) => {
       }
     );
     return transformData(response.data.data);
-    // console.log({
-    //   data: {
-    //     id: todo_id,
-    //     type: 'weekly_todos',
-    //     attributes: { ...attributes, creation_week },
-    //   },
-    // });
   } else {
     const response = await axios.post(`${API_ENDPOINTS.WEEKLY_TODO}`, {
       data: { type: 'weekly_todos', attributes: { ...attributes, group_id } },
     });
-    // console.log(response);
     return transformData(response.data.data);
   }
 };
