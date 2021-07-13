@@ -23,6 +23,7 @@ export const BasicDetailsModal = ({ modalProps, user, id }) => {
 
   const handleSubmit = async () => {
     try {
+      console.log(user);
       const response = await axios.put(`${API_ENDPOINTS.USER}/${user.id}`, {
         data: {
           id: user.id.toString(),

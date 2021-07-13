@@ -14,7 +14,6 @@ import axios from '../../config/axios.config';
 import { API_ENDPOINTS } from '../../constants/api';
 import icons from '../../utils/getIcons';
 import myLog from '../../utils/myLog';
-import { useUser } from '../../redux/slices/loginSlice';
 
 const group_activities = [
   { title: 'Group Info', key: 'group_info', img: icons.group_info },
@@ -58,7 +57,6 @@ const group_activities = [
 ];
 
 export default function Groups() {
-  const user = useUser();
   const { slug } = useParams();
   const [isLoading, setIsLoading] = useState(true);
   const [groupData, setGroupData] = useState(null);
@@ -110,15 +108,6 @@ export default function Groups() {
         <div className="col group-activities">
           <ul className="group-activities-list">
             {group_activities.map((item, index) => {
-              if (
-                item.key === 'batch_leader' &&
-                !(
-                  user.user_type === 'admin' ||
-                  groupData.group.batch_leader_id === user.id
-                )
-              ) {
-                return '';
-              }
               const isSelected = item.key === currentTab;
               const onClick = () => {
                 if (isSelected) setCurrentTab('');
