@@ -1,12 +1,11 @@
-import { CheckboxSelect } from '@atlaskit/select';
-import React, { useEffect, useMemo, useState } from 'react';
-import { Button, Table } from 'react-bootstrap';
-import { toast } from 'react-toastify';
-
-import { useUser } from '../../redux/slices/loginSlice';
-import { getScrums, saveScrum } from '../../services/Groups/batchLeaderScrums';
+import React, { useEffect, useState, useMemo } from 'react';
+import { Table, Button } from 'react-bootstrap';
 import BatchLeaderButtons from './BatchLeaderButtons';
 import { StarRating } from './ScrumButtons';
+import { CheckboxSelect } from '@atlaskit/select';
+import { useUser } from '../../redux/slices/loginSlice';
+import { toast } from 'react-toastify';
+import { getScrums, saveScrum } from '../../services/Groups/batchLeaderScrums';
 
 export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
   const user = useUser();

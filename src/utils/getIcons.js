@@ -10,7 +10,6 @@ import edit_outline from '../assets/images/edit_outline.svg';
 import filter from '../assets/images/filter.svg';
 // Group
 import group_assignment from '../assets/images/groups/assignment_checking.svg';
-import group_batch_leader_scrum from '../assets/images/groups/batchleader_scrum.svg';
 import group_discussion_doubt from '../assets/images/groups/discussions_doubts.svg';
 import group_class_doubt from '../assets/images/groups/doubt_class.svg';
 import group_info from '../assets/images/groups/group_info.svg';
@@ -25,6 +24,7 @@ import moral_selected from '../assets/images/groups/moral_selected.svg';
 import group_no_data from '../assets/images/groups/no_data.svg';
 import group_peer_interview from '../assets/images/groups/peer_interviews.svg';
 import group_scrums from '../assets/images/groups/scrums.svg';
+import group_batch_leader_scrum from '../assets/images/groups/batchleader_scrum.svg';
 import scrums_attendence_false from '../assets/images/groups/scrums/attendance_absent_button.svg';
 import scrums_attendence_true from '../assets/images/groups/scrums/attendance_present_button.svg';
 import scrums_back_button from '../assets/images/groups/scrums/backward_button.svg';
