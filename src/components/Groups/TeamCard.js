@@ -1,8 +1,9 @@
+import '../../assets/css/groups.scss';
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 
 import icons from '../../utils/getIcons';
-import '../../assets/css/groups.scss';
 
 export default function TeamCard({ name, owner_name, co_owner_name, slug }) {
   return (

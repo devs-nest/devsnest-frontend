@@ -25,6 +25,15 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
     return `${now[2]}-${now[1].padStart(2, '0')}-${now[0].padStart(2, '0')}`;
   }, []);
 
+  // const options = [
+  //   { value: 'a', label: 'a' },
+  //   { value: 'b', label: 'b' },
+  //   { value: 'c', label: 'c' },
+  //   { value: 'd', label: 'd' },
+  //   { value: 'e', label: 'e' },
+  //   { value: 'f', label: 'f' },
+  // ];
+
   const copy_group_member_activity = options;
   const [group_member_activity, setGroup_member_activity] = useState(options);
   const [scrumDate, setScrumDate] = useState(today_date);
