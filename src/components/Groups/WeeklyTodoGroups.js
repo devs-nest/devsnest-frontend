@@ -11,6 +11,7 @@ import {
 } from '../../services/weekly_todo';
 import icons from '../../utils/getIcons';
 import MoralSelector from './MoralSelecter';
+import { StarRating } from './ScrumButtons';
 import Streak from './Streak';
 import Todo from './Todo';
 
@@ -177,10 +178,12 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
               How has your team&#39;s morale been this week?
             </p>
             <MoralSelector
-              setState={setState}
-              state={state}
-              saveQuestion={saveQuestion}
+              value={state.moral_status}
               canEdit={canEdit}
+              onChange={(rating) => {
+                saveQuestion({ ...state, moral_status: rating });
+                setState({ ...state, moral_status: rating });
+              }}
               range={10}
               type="moral_status"
             />
@@ -251,52 +254,56 @@ const WeeklyTodoGroups = ({ group, groupMembers, groupId }) => {
           <p className="weekly-todo-question mb-1">
             Rate your Batch Leader (1-5)
           </p>
-          <MoralSelector
-            setState={setState}
-            saveQuestion={saveQuestion}
-            state={state}
-            canEdit={canEdit}
-            range={5}
-            type="batch_leader_rating"
+          <StarRating
+            onChange={(rating) => {
+              saveQuestion({ ...state, batch_leader_rating: rating });
+              setState({ ...state, batch_leader_rating: rating });
+            }}
+            value={state.batch_leader_rating}
+            size={30}
+            disabled={!canEdit}
           />
           <p className="weekly-todo-question mb-1 mt-4">
             Group Activity Rating (Last week)
           </p>
-          <MoralSelector
-            setState={setState}
-            saveQuestion={saveQuestion}
-            state={state}
-            canEdit={canEdit}
-            range={5}
-            type="group_activity_rating"
+          <StarRating
+            onChange={(rating) => {
+              saveQuestion({
+                ...state,
+                group_activity_rating: rating,
+              });
+              setState({
+                ...state,
+                group_activity_rating: rating,
+              });
+            }}
+            value={state.group_activity_rating}
+            size={30}
+            disabled={!canEdit}
           />
           <p className="weekly-todo-question mt-4">
             Extra activities that your group did last week ?
           </p>
-          <div className="d-flex align-items-center">
-            <input
-              type="text"
-              placeholder="specify here..."
-              className="weekly-todo-input"
-              value={state.extra_activity ? state.extra_activity : ''}
-              onChange={(e) => {
-                setState({ ...state, extra_activity: e.target.value });
-              }}
-            />
-          </div>
+          <input
+            type="text"
+            placeholder="specify here..."
+            className="weekly-todo-input"
+            value={state.extra_activity ? state.extra_activity : ''}
+            onChange={(e) => {
+              setState({ ...state, extra_activity: e.target.value });
+            }}
+          />
           <p className="weekly-todo-question mt-4">
             Do you have any comments for us :
           </p>
           {/* Text BOX */}
-          <div className="d-flex align-items-center">
-            <textarea
-              style={{ backgroundColor: '#F2EFF7' }}
-              className="form-control"
-              rows="3"
-              value={state.comments}
-              onChange={(e) => setState({ ...state, comments: e.target.value })}
-            ></textarea>
-          </div>
+          <textarea
+            style={{ backgroundColor: '#F2EFF7' }}
+            className="form-control"
+            rows="3"
+            value={state.comments}
+            onChange={(e) => setState({ ...state, comments: e.target.value })}
+          ></textarea>
           {canEdit && (
             <button
               style={{ display: 'block', margin: '20px 0 0 auto' }}
