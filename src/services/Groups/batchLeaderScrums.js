@@ -36,7 +36,6 @@ export const getScrums = async (group_id, scrum_date) => {
 };
 
 export const saveScrum = async (scrum_data) => {
-  console.log(scrum_data);
   const {
     id,
     user_id,
@@ -53,8 +52,6 @@ export const saveScrum = async (scrum_data) => {
   } = scrum_data;
 
   let attributes = {
-    user_id,
-    group_id,
     Coordination,
     scrum_filled,
     owner_active,
@@ -73,13 +70,14 @@ export const saveScrum = async (scrum_data) => {
         data: { id: id, attributes, type: 'batch_leader_sheets' },
       }
     );
-    console.log(response.data);
     return response.data;
   } else {
     const response = await axios.post(`${API_ENDPOINTS.BATCH_LEADER_SHEET}`, {
-      data: { attributes: attributes, type: 'batch_leader_sheets' },
+      data: {
+        attributes: { ...attributes, user_id, group_id },
+        type: 'batch_leader_sheets',
+      },
     });
-    console.log(response.data);
     return response.data;
   }
 };
