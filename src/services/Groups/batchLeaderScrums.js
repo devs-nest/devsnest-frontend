@@ -13,6 +13,7 @@ const DEFAULT_BATCH_LEADER_SCRUM = {
   doubt_session_taker: [],
 };
 
+
 export function transformData(data) {
   return data.length === 0
     ? DEFAULT_BATCH_LEADER_SCRUM
@@ -25,8 +26,9 @@ export function transformData(data) {
       })[0];
 }
 
-export const getScrums = async (group_id, scrum_date) => {
-  const params = { group_id: group_id, date: `"${scrum_date}"` };
+
+export const getScrums = async (group_id, today_date) => {
+  const params = { group_id: group_id, date: `"${today_date}"` };
   const url_params = new URLSearchParams(params);
   const response = await axios.get(
     `${API_ENDPOINTS.BATCH_LEADER_SHEET}?${url_params.toString()}`

@@ -13,48 +13,17 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
   const isBatchLeader = group.batch_leader_id === user.id;
   const [isLoading, setIsLoading] = useState(false);
   const [questions, setQuestions] = useState({});
-  // this options array of object will be used in multiselect
-  // const options = groupMembers.map(({ user_details: { username } }) => ({
-  //   value: username,
-  //   label: username,
-  // }));
-
-  const options = [
-    { value: 'a', label: 'a' },
-    { value: 'b', label: 'b' },
-    { value: 'c', label: 'c' },
-    { value: 'd', label: 'd' },
-    { value: 'e', label: 'e' },
-    { value: 'f', label: 'f' },
-  ];
-  const [group_member_activity, setGroup_member_activity] = useState(options);
+  //this options array of object will be used in multiselect
+  const options = groupMembers.map(({ user_details: { username } }) => ({
+    value: username,
+    label: username,
+  }));
 
   const today_date = useMemo(() => {
     const now = new Date();
     let formatDate = now.toLocaleDateString().split('/');
     return `${formatDate[2]}-${formatDate[0]}-${formatDate[1]}`;
   }, []);
-  const [scrumDate, setScrumDate] = useState(today_date);
-
-  const Fetch_specific_scrum = async (scrum_date) => {
-    try {
-      setIsLoading(true);
-
-      const response = await getScrums(groupId, scrum_date);
-      const scrumsData = [];
-
-      scrumsData.push({
-        user_id: user.id,
-        group_id: groupId,
-        ...response,
-      });
-
-      setQuestions(scrumsData[0]);
-    } catch (e) {
-      toast.error('An error occurred fetching Batch Leader Sheet');
-    }
-    setIsLoading(false);
-  };
 
   useEffect(() => {
     const fetchScrum = async () => {
@@ -79,11 +48,15 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
     fetchScrum();
   }, [groupId, user, today_date]);
 
+  console.log('questions obj');
+  console.log(questions);
+
   const postScrumData = async (scrum_data) => {
+    console.log(scrum_data);
     try {
       const repsonse = await saveScrum(scrum_data);
       const scrum_id = repsonse.data.id;
-
+      console.log(scrum_id);
       setQuestions({ ...questions, id: scrum_id });
       toast.success(`batch leader Sheet for ${group.name}!!`);
     } catch (e) {
@@ -118,20 +91,8 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
           <div className="mx-1">
             <img src={icons.scrums_calender} alt="calender" />
           </div>
-          <div className="mx-1 mb-2">
-            <input
-              type="date"
-              name="scrum_date"
-              onChange={(e) => {
-                console.log(e.target.value);
-                setScrumDate(e.target.value);
-                Fetch_specific_scrum(e.target.value);
-              }}
-              value={scrumDate}
-            />
-          </div>
-          <div className="mx-1 mt-1" style={{ color: '#9B9B9B' }}>
-            {scrumDate}
+          <div className="mx-1" style={{ color: '#9B9B9B' }}>
+            {today_date}
           </div>
         </div>
       </div>
@@ -205,8 +166,7 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
                 <Select
                   className="multi-select"
                   classNamePrefix="react-select"
-                  // options= {options}
-                  options={group_member_activity}
+                  options={options}
                   isMulti
                   isSearchable={true}
                   placeholder="Select ..."
@@ -219,15 +179,6 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
                         }))
                   }
                   onChange={(val) => {
-                    setGroup_member_activity(
-                      group_member_activity.filter(
-                        (elm) =>
-                          !val
-                            .map((elm) => JSON.stringify(elm))
-                            .includes(JSON.stringify(elm))
-                      )
-                    );
-
                     setQuestions({
                       ...questions,
                       active_members: val.map(({ value }) => value),
@@ -240,8 +191,7 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
                 <Select
                   className="multi-select"
                   classNamePrefix="react-select"
-                  // options={options}
-                  options={group_member_activity}
+                  options={options}
                   isMulti
                   isSearchable={true}
                   placeholder="Select ..."
@@ -254,14 +204,6 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
                         }))
                   }
                   onChange={(val) => {
-                    setGroup_member_activity(
-                      group_member_activity.filter(
-                        (elm) =>
-                          !val
-                            .map((elm) => JSON.stringify(elm))
-                            .includes(JSON.stringify(elm))
-                      )
-                    );
                     setQuestions({
                       ...questions,
                       par_active_members: val.map(({ value }) => value),
@@ -274,8 +216,7 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
                 <Select
                   className="multi-select"
                   classNamePrefix="react-select"
-                  // options={options}
-                  options={group_member_activity}
+                  options={options}
                   isMulti
                   isSearchable={false}
                   placeholder="Select ..."
@@ -288,14 +229,6 @@ export default function BatchLeaderScrums({ group, groupMembers, groupId }) {
                         }))
                   }
                   onChange={(val) => {
-                    setGroup_member_activity(
-                      group_member_activity.filter(
-                        (elm) =>
-                          !val
-                            .map((elm) => JSON.stringify(elm))
-                            .includes(JSON.stringify(elm))
-                      )
-                    );
                     setQuestions({
                       ...questions,
                       inactive_members: val.map(({ value }) => value),
